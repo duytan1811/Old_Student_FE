@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>
+    <span *ngIf="isCreate" translate="Label.Create"></span>
+    <span *ngIf="!isCreate" translate="Label.Update"></span> {{ 'Menus.WorkShift' | translate }}
+  </h2>
+  <div class="separator my-5"></div>
+  <form [formGroup]="formGroup" [appConnectForm]="workShift$ | async">
+    <div class="pl-0" mat-dialog-content>
+      <div class="mb-5">
+        <label for="name" class="form-label required" translate="Attribute.Name"></label>
+        <input id="name" formControlName="name" type="text" class="form-control form-control-solid" />
+      </div>
+  
+      <div class="mb-5">
+        <label for="phone" class="form-label" translate="Attribute.StartDate"></label>
+        <input id="phone" formControlName="startDate" type="time" class="form-control form-control-solid" />
+      </div>
+  
+      <div class="mb-5">
+        <label for="hotline" class="form-label" translate="Attribute.EndDate"></label>
+        <input id="hotline" formControlName="endDate" type="time" class="form-control form-control-solid" />
+      </div>
+  
+    </div>
+  
+    <div class="float-end" mat-dialog-actions>
+      <button class="btn btn-sm btn-primary me-2" [disabled]="formGroup.invalid || (isLoading$ | async)" [mat-dialog-close]
+        (click)="onSave()" translate="Label.Confirm"></button>
+      <button class="btn btn-sm btn-danger" [mat-dialog-close]="false" translate="Label.Cancel"></button>
+    </div>
+  </form>

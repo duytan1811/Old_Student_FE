@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>
+  <span *ngIf="isCreate">Thêm mới</span>
+  <span *ngIf="!isCreate">Cập nhật</span> nhóm người dùng
+</h2>
+<div class="separator my-5"></div>
+<form [formGroup]="formGroup" [appConnectForm]="role$ | async">
+  <div class="pl-0" mat-dialog-content>
+    <div class="mb-5">
+      <label for="name" class="form-label required">Nhóm người dùng</label>
+      <input id="name" formControlName="name" type="text" class="form-control form-control-solid" />
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle table-row-dashed fs-6 gy-5 mt-5 mb-10">
+        <thead>
+          <tr>
+            <th>Chức năng</th>
+            <th class="text-center w-75px">Hiển thị</th>
+            <th class="text-center w-75px">Thêm</th>
+            <th class="text-center w-75px">Sửa</th>
+            <th class="text-center w-75px">Xóa</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600 fw-bold">
+          <ng-container formArrayName="permissionMenus">
+            <ng-container *ngFor="let permissionMenu of permissionMenus.controls; let i=index" [formGroupName]="i">
+              <tr>
+                <td class="text-gray-800" (click)="onChangeMenuExpand(permissionMenu)" class="cursor-pointer">
+                  <span *ngIf="getSubPermissionMenus(i).length > 0 && !permissionMenu.get('expand')?.value"
+                    class="svg-icon svg-icon-2" [inlineSVG]="'assets/media/icons/duotune/arrows/arr071.svg'"></span>
+                  <span *ngIf="getSubPermissionMenus(i).length > 0 && permissionMenu.get('expand')?.value"
+                    class="svg-icon svg-icon-2" [inlineSVG]="'assets/media/icons/duotune/arrows/arr072.svg'"></span>
+                  {{ permissionMenu.get('display')?.value }}
+                </td>
+                <ng-container formGroupName="permission">
+                  <td class="text-center w-75px">
+                    <mat-checkbox [color]="'primary'" formControlName="isView"></mat-checkbox>
+                  </td>
+                  <td class="text-center w-75px">
+                    <mat-checkbox [color]="'primary'" formControlName="isCreate"></mat-checkbox>
+                  </td>
+                  <td class="text-center w-75px">
+                    <mat-checkbox [color]="'primary'" formControlName="isEdit"></mat-checkbox>
+                  </td>
+                  <td class="text-center w-75px">
+                    <mat-checkbox [color]="'primary'" formControlName="isDelete"></mat-checkbox>
+                  </td>
+                </ng-container>
+              </tr>
+              <ng-container formArrayName="menuItems">
+                <ng-container *ngFor="let subPermissionMenu of getSubPermissionMenus(i).controls; let j=index"
+                  [formGroupName]="j">
+                  <ng-container *ngIf="permissionMenu.get('expand')?.value">
+                    <tr>
+                      <td>
+                        <label style="padding-left: 2em;">{{ subPermissionMenu.get('display')?.value }}</label>
+                      </td>
+                      <ng-container formGroupName="permission">
+                        <td class="text-center w-75px">
+                          <mat-checkbox [color]="'primary'" formControlName="isView"></mat-checkbox>
+                        </td>
+                        <td class="text-center w-75px">
+                          <mat-checkbox [color]="'primary'" formControlName="isCreate"></mat-checkbox>
+                        </td>
+                        <td class="text-center w-75px">
+                          <mat-checkbox [color]="'primary'" formControlName="isEdit"></mat-checkbox>
+                        </td>
+                        <td class="text-center w-75px">
+                          <mat-checkbox [color]="'primary'" formControlName="isDelete"></mat-checkbox>
+                        </td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="float-end" mat-dialog-actions>
+    <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid || (isLoading$ | async)" [mat-dialog-close]
+      (click)="onSave()">Xác nhận</button>
+  </div>
+</form>

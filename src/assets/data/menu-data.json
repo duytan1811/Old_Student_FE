@@ -1,0 +1,59 @@
+[
+  {
+    "display": "Diễn đàn",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm001.svg",
+    "href": "/forum",
+    "items": null
+  },
+  {
+    "display": "Tin tức & sự kiện",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm006.svg",
+    "href": "/news",
+    "items": [
+      {
+        "display": "Tin tức",
+        "href": "/news"
+      }
+    ]
+  },
+  {
+    "display": "Cơ hội nghề nghiệp",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm005.svg",
+    "href": "/",
+    "items": [
+      {
+        "display": "Bảng tin việc làm",
+        "href": "/jobs"
+      },
+      {
+        "display": "Đăng ký ứng tuyển",
+        "href": "/products"
+      }
+    ]
+  },
+  {
+    "display": "Thống kê & báo cáo",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm008.svg",
+    "href": "/statistics",
+    "items": [
+      {
+        "display": "Sổ quỹ",
+        "href": "/statistics/members"
+      },
+      {
+        "display": "Sự kiện",
+        "href": "/statistics/events"
+      },
+      {
+        "display": "Tương tác",
+        "href": "/statistics/traffic"
+      }
+    ]
+  },
+  {
+    "display": "Cài đặt",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm003.svg",
+    "href": "/settings",
+    "items": null
+  }
+]

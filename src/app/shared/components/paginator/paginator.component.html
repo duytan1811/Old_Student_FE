@@ -1,0 +1,17 @@
+<!-- start: Paginator -->
+<div class="d-flex flex-wrap py-2 mr-3">
+  <ng-pagination *ngIf="paginator !== undefined && paginator.total !== 0" [collectionSize]="paginator.total"
+    [(page)]="paginator.page" [maxSize]="4" [rotate]="true" [boundaryLinks]="true" [pageSize]="paginator.pageSize"
+    (pageChange)="pageChange($event)"></ng-pagination>
+</div>
+<div class="d-flex align-items-center py-3">
+  <!-- begin: pageSize -->
+  <select class="form-select form-select-sm form-select-solid" *ngIf="paginator !== undefined" style="width: 75px"
+    [(ngModel)]="paginator.pageSize" (change)="pageSizeChange()">
+    <option *ngFor="let ps of pageSizes">
+      {{ ps }}
+    </option>
+  </select>
+  <span *ngIf="paginator !== undefined" class="react-bootstrap-table-pagin ation-total">&nbsp;Tổng cộng {{
+    paginator.total }} dòng</span>
+</div>

@@ -1,0 +1,83 @@
+<ng-container *ngIf="pages.length > 1">
+  <ng-template #first>
+    <i class="ki ki-bold-double-arrow-back icon-xs" aria-hidden="true"></i>
+  </ng-template>
+  <ng-template #previous>
+    <i class="ki ki-bold-arrow-back icon-xs" aria-hidden="true"></i>
+  </ng-template>
+  <ng-template #next>
+    <i class="ki ki-bold-arrow-next icon-xs" aria-hidden="true"></i>
+  </ng-template>
+  <ng-template #last>
+    <i aria-hidden="true" class="ki ki-bold-double-arrow-next icon-xs"></i>
+  </ng-template>
+  <ng-template #ellipsis>...</ng-template>
+  <ng-template #defaultNumber let-page let-currentPage="currentPage">
+    {{ page }}
+  </ng-template>
+  <ul class="pagination">
+    <li class="page-item" *ngIf="boundaryLinks && page !== 1">
+      <a [class.disabled]="previousDisabled()" aria-label="First" class="page-link" href
+        (click)="selectPage(1); $event.preventDefault()" [attr.tabindex]="previousDisabled() ? '-1' : null"
+        [attr.aria-disabled]="previousDisabled() ? 'true' : null">
+        <ng-template [ngTemplateOutlet]="tplFirst?.templateRef || first" [ngTemplateOutletContext]="{
+          disabled: previousDisabled(),
+          currentPage: page
+        }"></ng-template>
+        <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr079.svg'"></span>
+      </a>
+    </li>
+    <li class="page-item" *ngIf="directionLinks && page !== 1">
+      <a [class.disabled]="previousDisabled()" aria-label="Previous" class="page-link" href
+        (click)="selectPage(page - 1); $event.preventDefault()" [attr.tabindex]="previousDisabled() ? '-1' : null"
+        [attr.aria-disabled]="previousDisabled() ? 'true' : null">
+        <ng-template [ngTemplateOutlet]="tplPrevious?.templateRef || previous"
+          [ngTemplateOutletContext]="{ disabled: previousDisabled() }"></ng-template>
+        <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr074.svg'"></span>
+      </a>
+    </li>
+    <ng-container *ngFor="let pageNumber of pages">
+      <li class="page-item" [class.active]="pageNumber === page" [class.disabled]="isEllipsis(pageNumber) || disabled">
+        <a *ngIf="isEllipsis(pageNumber)" class="page-link cursor-pointer" tabindex="-1" aria-disabled="true"
+          [attr.aria-current]="pageNumber === page ? 'page' : null">
+          <ng-template [ngTemplateOutlet]="tplEllipsis?.templateRef || ellipsis"
+            [ngTemplateOutletContext]="{ disabled: true, currentPage: page }"></ng-template>
+        </a>
+      </li>
+      <li class="page-item" [attr.aria-disabled]="disabled ? 'true' : null" [class.active]="pageNumber === page">
+        <a *ngIf="!isEllipsis(pageNumber)" class="page-link cursor-pointer" (click)="selectPage(pageNumber); $event.preventDefault()"
+          [attr.tabindex]="disabled ? '-1' : null" [class.disabled]="isEllipsis(pageNumber) || disabled"
+          [attr.aria-current]="pageNumber === page ? 'page' : null">
+          <ng-template [ngTemplateOutlet]="tplNumber?.templateRef || defaultNumber" [ngTemplateOutletContext]="{
+            disabled: disabled,
+            $implicit: pageNumber,
+            currentPage: page
+          }"></ng-template>
+        </a>
+      </li>
+    </ng-container>
+
+    <li class="page-item" *ngIf="directionLinks && page !== pageCount">
+      <a aria-label="Next" class="page-link" (click)="selectPage(page + 1); $event.preventDefault()"
+        [attr.tabindex]="nextDisabled() ? '-1' : null" [attr.aria-disabled]="nextDisabled() ? 'true' : null"
+        [class.disabled]="nextDisabled()">
+        <ng-template [ngTemplateOutlet]="tplNext?.templateRef || next" [ngTemplateOutletContext]="{
+          disabled: nextDisabled(),
+          currentPage: page
+        }"></ng-template>
+        <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr071.svg'"></span>
+      </a>
+    </li>
+    <li class="page-item" *ngIf="boundaryLinks && page !== pageCount">
+      <a aria-label="Last" class="page-link" (click)="selectPage(pageCount); $event.preventDefault()"
+        [attr.tabindex]="nextDisabled() ? '-1' : null" [attr.aria-disabled]="nextDisabled() ? 'true' : null"
+        [class.disabled]="nextDisabled()">
+        <ng-template [ngTemplateOutlet]="tplLast?.templateRef || last" [ngTemplateOutletContext]="{
+          disabled: nextDisabled(),
+          currentPage: page
+        }"></ng-template>
+        <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr080.svg'"></span>
+      </a>
+    </li>
+  </ul>
+</ng-container>

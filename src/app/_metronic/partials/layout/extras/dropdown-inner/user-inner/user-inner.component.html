@@ -1,0 +1,30 @@
+<ng-container *ngIf="user$ | async as user">
+  <div class="menu-item px-3">
+    <div class="menu-content d-flex align-items-center px-3">
+      <div class="symbol symbol-50px me-5">
+        <img alt="Logo" [src]="user.avatar || './assets/media/avatars/300-1.jpg'" />
+      </div>
+
+      <div class="d-flex flex-column">
+        <div class="fw-bolder d-flex align-items-center fs-5">
+          {{ user.userName }}
+        </div>
+        <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
+          {{ user.email }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="separator my-2"></div>
+
+  <div class="menu-item px-5">
+    <a routerLink="/crafted/pages/profile" class="menu-link px-5">
+      Tài khoản
+    </a>
+  </div>
+
+  <div class="menu-item px-5">
+    <a (click)="logout()" class="menu-link px-5 cursor-pointer"> Đăng xuất </a>
+  </div>
+</ng-container>

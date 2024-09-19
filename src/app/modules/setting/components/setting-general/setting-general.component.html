@@ -1,0 +1,128 @@
+<form [formGroup]="formGroup">
+  <div class="row">
+    <div class="col-md-4 text-end">
+      <p class="h4 fw-bolder">Thông tin cửa hàng</p>
+      <p class="">Tên cửa hàng xuất hiện trên cửa hàng của bạn.
+      </p>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="webName" class="form-label">Tên cửa hàng</label>
+            <input id="webName" class="form-control form-control-solid" type="text" formControlName="webName">
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <label for="email" class="form-label">Tài khoản email</label>
+              <input id="email" class="form-control form-control-solid" type="text" formControlName="email">
+            </div>
+            <div class="col-md-6">
+              <label for="emailSupportCustomer" class="form-label">Email hỗ trợ khách hàng</label>
+              <input id="emailSupportCustomer" class="form-control form-control-solid" type="text"
+                formControlName="emailSupportCustomer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 text-end">
+      <p class="h4 fw-bolder">Địa chỉ cửa hàng</p>
+      <p class="">Địa chỉ này sẽ xuất hiện trên hoá đơn của bạn và sẽ được sử dụng để tính toán mức giá vận chuyển của
+        bạn.
+      </p>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <input id="phone" class="form-control form-control-solid" type="text" formControlName="phone">
+          </div>
+          <div class="form-group mt-5">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input id="address" class="form-control form-control-solid" type="text" formControlName="address">
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <label for="province" class="form-label">Tỉnh/Thành phố</label>
+              <mat-select class="form-control form-control-solid" (selectionChange)="onChangeProvince($event)" formControlName="province">
+                <mat-option *ngFor="let province of provinces$ | async" [value]="province.code">{{ province.nameWithType }}</mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-6">
+              <label for="district" class="form-label">Quận/Huyện</label>
+              <mat-select class="form-control form-control-solid" (selectionChange)="onChangeDistrict($event)" formControlName="district">
+                <mat-option *ngFor="let district of districts$ | async" [value]="district.code">{{ district.nameWithType }}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <label for="village" class="form-label">Phường/Xã</label>
+              <mat-select class="form-control form-control-solid"  formControlName="village">
+                <mat-option *ngFor="let village of villages$ | async" [value]="village.code">{{ village.nameWithType }}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="col-md-4 text-end">
+      <p class="h4 fw-bolder">Tiêu chuẩn & Định dạng</p>
+      <p class="">Các tiêu chuẩn và các định dạng được sử dụng để tính toán những thứ như giá cả sản phẩm, trọng lượng
+        vận
+        chuyển và thời gian đơn hàng được đặt..
+      </p>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="timezone" class="form-label">Múi giờ</label>
+            <input id="timezone" class="form-control form-control-solid" type="text" formControlName="timezone">
+          </div>
+          <div class="form-group mt-5">
+            <label for="currency" class="form-label">Tiền tệ</label>
+            <input id="currency" class="form-control form-control-solid" type="text" formControlName="currency">
+          </div>
+          <div class="row mt-5">
+            <p class="fw-bolder">
+              Chỉnh sửa định dạng mã đơn hàng (tùy chọn)</p>
+            <p>Mã đơn hàng mặc định bắt đầu từ 1000000000. Bạn có thể thay đổi chuỗi bắt đầu hoặc kết thúc để tạo mã đơn
+              hàng theo ý bạn, ví dụ "DH10000001" hoặc "100000001-A"
+            </p>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <label for="orderCodeStartWith" class="form-label">Bắt đầu từ</label>
+              <input id="orderCodeStartWith" #orderCodeStartWith class="form-control form-control-solid" type="text"
+                formControlName="orderCodeStartWith">
+            </div>
+            <div class="col-md-6">
+              <label for="orderCodeEndWith" class="form-label">Kết thúc bằng</label>
+              <input id="orderCodeEndWith" #orderCodeEndWith class="form-control form-control-solid" type="text"
+                formControlName="orderCodeEndWith">
+            </div>
+            <div class="col-md-12 mt-3">
+              <span>Mã đơn hàng của bạn sẽ hiển thị theo mẫu {{
+                getTempCodeOrder(orderCodeStartWith.value,orderCodeEndWith.value) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5 text-end">
+    <div class="col-md-12">
+      <button (click)="onSave()" [disabled]="isLoading$ | async" class="btn btn-primary" type="submit">Lưu</button>
+    </div>
+  </div>
+</form>

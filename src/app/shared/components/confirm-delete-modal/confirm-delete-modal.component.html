@@ -1,0 +1,11 @@
+
+<h2 mat-dialog-title>{{modalTitle}}</h2>
+<p class="pl-0" mat-dialog-content *ngIf="!multiline">{{modalContent}}</p>
+<ng-container *ngIf="multiline">
+  <p *ngFor="let content of listContent">{{content}}</p>
+</ng-container>
+
+<div class="float-end" mat-dialog-actions>
+  <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+  <button class="btn btn-sm btn-primary" [mat-dialog-close]="true">Xác nhận</button>
+</div>

@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>
+  <span *ngIf="isCreate">Thêm mới</span>
+  <span *ngIf="!isCreate">Cập nhật</span> tài khoản
+</h2>
+<div class="separator my-5"></div>
+<form [formGroup]="formGroup" [appConnectForm]="user$ | async">
+  <div class="pl-0" mat-dialog-content>
+    <div class="mb-5">
+      <label for="userName" class="form-label required">Tên tài khoản</label>
+      <input id="userName" formControlName="userName" type="text" class="form-control form-control-solid" />
+    </div>
+
+    <div *ngIf="isCreate" class="mb-5">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="password" class="form-label required me-5">Mật khẩu</label>
+        </div>
+        <div class="col-md-6 text-end">
+          <mat-checkbox (change)="onChangeDefaultPassword($event)" formControlName="isDefaultPassword"
+          [color]="'primary'"> Mặc định</mat-checkbox>
+        </div>
+      </div>
+      <input *ngIf="!isDefaultPassword()" id="password" formControlName="password" type="text"
+        class="form-control form-control-solid" />
+    </div>
+
+    <div class="mb-5">
+      <label for="name" class="form-label required">Tên người dùng</label>
+      <input id="name" formControlName="name" type="text" class="form-control form-control-solid" />
+    </div>
+
+    <div class="mb-5">
+      <label for="email" class="form-label required">Email</label>
+      <input id="email" formControlName="email" type="text" class="form-control form-control-solid" />
+    </div>
+  </div>
+
+  <div class="float-end" mat-dialog-actions>
+    <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid || (isLoading$ | async)"
+      (click)="onSave()">Xác nhận</button>
+  </div>
+</form>

@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>
+  <span>Thêm mới tài khoản được áp dụng</span>
+</h2>
+<div class="separator my-5"></div>
+<div class="pl-0" mat-dialog-content>
+  <div class="row mb-5">
+    <div class="col-md-2 text-end align-middle">
+      <label class="mt-1">Tài khoản</label>
+    </div>
+    <div class="col-md-7">
+      <mat-select #userSelect multiple="multiple" class="form-control form-control-sm form-control-solid">
+        <mat-option *ngFor="let user of dropdownUsers$ | async " [value]="user.value">{{ user.text }}</mat-option>
+      </mat-select>
+    </div>
+    <div class="col-md-3">
+      <button (click)="onApply()" class="btn btn-sm btn-primary me-2">Áp dụng</button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle table-row-dashed fs-6 gy-5 mt-5 mb-10">
+      <thead>
+        <tr>
+          <th>Tài khoản</th>
+          <th class="text-center w-75px">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 fw-bold">
+        <tr *ngFor="let user of dataSelectUsers">
+          <td>{{ user.userName}}</td>
+          <td class="text-center w-75px">
+            <button (click)="onDeleteSelectUser(user.id)" class="btn btn-sm btn-icon btn-danger">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="float-end" mat-dialog-actions>
+  <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+  <button class="btn btn-sm btn-primary" [disabled]="(isLoading$ | async)" (click)="onSave()">Xác
+    nhận</button>
+</div>

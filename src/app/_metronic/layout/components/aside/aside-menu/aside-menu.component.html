@@ -1,0 +1,37 @@
+<div class="menu-item">
+  <a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
+      <span [inlineSVG]="'./assets/media/icons/duotune/general/gen001.svg'" class="svg-icon svg-icon-2"></span>
+    </span>
+    <span class="menu-title">Trang chủ</span></a>
+</div>
+
+<ng-container *ngFor="let asideBarMenu of asideBarMenus$ | async">
+  <div *ngIf="asideBarMenu?.items === null" class="menu-item">
+    <a class="menu-link without-sub" routerLink="{{ asideBarMenu.href }}" routerLinkActive="active">
+      <span class="menu-icon">
+        <span [inlineSVG]="asideBarMenu.icon" class="svg-icon svg-icon-2"></span>
+      </span>
+      <span class="menu-title">{{ asideBarMenu.display }}</span></a>
+  </div>
+
+  <div *ngIf="asideBarMenu?.items !== null" class="menu-item menu-accordion" data-kt-menu-trigger="click"
+    routerLinkActive="here show">
+    <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2" [inlineSVG]="asideBarMenu.icon">
+        </span>
+      </span>
+      <span class="menu-title" [attr.data-link]="asideBarMenu.href">
+        {{ asideBarMenu.display}}</span>
+      <span class="menu-arrow"></span>
+    </span>
+    <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+      <div *ngFor="let subMenu of asideBarMenu.items" class="menu-item">
+        <a class="menu-link without-sub" routerLinkActive="active" routerLink="{{ subMenu.href }}"><span
+            class="menu-bullet"><span class="bullet bullet-dot"></span>
+          </span>
+          <span class="menu-title">{{ subMenu.display }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
