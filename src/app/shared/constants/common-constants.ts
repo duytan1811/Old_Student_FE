@@ -1,15 +1,21 @@
-import { StatusEnum } from "../enum/status.enum";
+import { StatusEnum } from '../enum/status.enum';
 
 export class CommonConstants {
+  public static readonly RESPONSE_TYPES = {
+    SUCCESS: 'success',
+    ERROR: 'error',
+  };
 
-  public static readonly RESPONSE_TYPES =
-    { SUCCESS: 'success', ERROR: 'error' };
+  public static readonly FormStatuses = [
+    { value: '', text: 'Chọn trạng thái' },
+    { value: StatusEnum.Active, text: 'Hoạt động' },
+    { value: StatusEnum.Inactive, text: 'Không hoạt động' },
+  ];
 
-  public static readonly STATUSES = [
-    { key: StatusEnum.Active, value: 'Active' },
-    { key: StatusEnum.Inactive, value: 'InActive' },
-    { key: StatusEnum.Inprogress, value: 'Inprogress' },
-    { key: StatusEnum.Cancel, value: 'Cancel' }
+  public static readonly SearchStatus = [
+    { value: '', text: 'Tất cả' },
+    { value: StatusEnum.Active, text: 'Hoạt động' },
+    { value: StatusEnum.Inactive, text: 'Không hoạt động' },
   ];
 
   public static readonly MENU_KEYS = {
@@ -23,8 +29,8 @@ export class CommonConstants {
     DraftOrder: 'DraftOrder',
     ProductMenuType: 'ProductMenuType',
     Product: 'Product',
-    TimeKeeping:'TimeKeeping',
-    WorkShift:'WorkShift',
+    TimeKeeping: 'TimeKeeping',
+    WorkShift: 'WorkShift',
     Supplier: 'Supplier',
     Inventory: 'Inventory',
     Customer: 'Customer',
@@ -39,13 +45,13 @@ export class CommonConstants {
     Checkout: 'Checkout',
     SettingGeneral: 'SettingGeneral',
     DefaultImage: 'DefaultImage',
-    Table:'Table'
-  }
+    Table: 'Table',
+  };
 
   public static readonly PERMISSION = {
     VIEW: 1,
     CREATE: 2,
     EDIT: 3,
     DELETE: 4,
-  }
+  };
 }

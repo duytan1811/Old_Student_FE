@@ -5,20 +5,14 @@ import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-status-badge',
   templateUrl: './status-badge.component.html',
-  styleUrls: ['./status-badge.component.scss']
+  styleUrls: [],
 })
 export class StatusBadgeComponent implements OnInit {
   public statusEnum = StatusEnum;
-  @Input() status:number;
+  @Input() status?: number;
+  @Input() statusName?: string;
 
-  constructor(private commonState:state.CommonState) { }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log(status);
-  }
-
-  public getStatusString(statusKey?: number) {
-    return this.commonState.getStatusString(statusKey);
-  }
-
+  ngOnInit(): void {}
 }

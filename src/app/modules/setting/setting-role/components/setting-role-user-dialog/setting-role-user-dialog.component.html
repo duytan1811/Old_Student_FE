@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>
+    <span>Cập nhật thành viên cho {{ role.name}}</span>
+</h2>
+<div class="separator my-5"></div>
+<div class="pl-0" mat-dialog-content>
+    <div class="mb-5">
+        <label for="name" class="form-label required">Tên</label>
+        <input #input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           class="form-control"
+           (input)="filter()"
+           (focus)="filter()"
+           [matAutocomplete]="auto">
+           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+    </div>
+
+</div>
+
+<div class="float-end" mat-dialog-actions>
+    <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+    <button class="btn btn-sm btn-primary" [mat-dialog-close]="false">Xác nhận</button>
+</div>

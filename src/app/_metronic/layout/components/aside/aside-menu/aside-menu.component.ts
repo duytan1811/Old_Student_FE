@@ -17,6 +17,5 @@ export class AsideMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.asideBarMenus$ = this.menuState.asideBarMenus$;
-    console.log(this.asideBarMenus$)
   }
 }

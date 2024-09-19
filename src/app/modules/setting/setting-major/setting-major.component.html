@@ -35,9 +35,7 @@
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="status"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option value="">Tất cả</mat-option>
-                  <mat-option *ngFor="let status of statuses" [value]="status.key">{{ 'Status.' + status.value |
-                    translate
+                  <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text
                     }}</mat-option>
                 </mat-select>
               </td>
@@ -50,21 +48,21 @@
               </td>
             </tr>
 
-            <ng-container *ngIf="tables$ | async as tables;else emptyTable">
+            <ng-container *ngIf="majors$ | async as majors;else emptyTable">
               <ng-container *ngIf="(totalMajor$ | async);else emptyTable">
-                <tr *ngFor="let table of tables">
-                  <td>{{ table.index }}</td>
-                  <td>{{ table.name }}</td>
+                <tr *ngFor="let major of majors;let i=index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ major.name }}</td>
                   <td class="text-center">
-                    <app-status-badge (status)="table.status"></app-status-badge>
+                    <app-status-badge [status]="major.status" [statusName]="major.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button (click)="goEdit(table.id,false)" title="Cập nhật"
+                    <button (click)="goEdit(major.id,false)" title="Cập nhật"
                       class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>
-                    <button (click)="goDelete(table)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
+                    <button (click)="goDelete(major)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
                     </button>
