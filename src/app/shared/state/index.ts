@@ -35,4 +35,7 @@ export { VillageState } from './village/village.state';
 export { UserState } from './user/user.state';
 
 // User
-export { MajorState } from '../state/major/major.state';
+export { MajorState } from './major/major.state';
+
+// Student
+export { StudentState } from './students/student.state';

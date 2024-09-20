@@ -15,7 +15,7 @@ import { CommonConstants } from 'src/app/shared/constants/common-constants';
 @Component({
   selector: 'app-role-detail',
   templateUrl: './role-detail.component.html',
-  styleUrls: ['./role-detail.component.scss']
+  styleUrls: []
 })
 export class RoleDetailComponent implements OnInit, OnDestroy {
 
@@ -125,7 +125,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
       if (selectedUserIds.length > 0) {
         const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
         if (result.type === CommonConstants.RESPONSE_TYPES.ERROR) {
-          this.flashMessageState.message(result.type, CommonConstants.MENU_KEYS.Role, result.message);
+          this.flashMessageState.message(result.type, result.message);
           this.isCheckAllUser = false;
           this.onSearchRoleUsers();
         }
@@ -139,7 +139,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     if (selectedUserIds.length > 0) {
       const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
       if (result.type === CommonConstants.RESPONSE_TYPES.ERROR) {
-        this.flashMessageState.message(result.type, CommonConstants.MENU_KEYS.Role, result.message);
+        this.flashMessageState.message(result.type, result.message);
         this.onSearchRoleUsers();
       }
     }

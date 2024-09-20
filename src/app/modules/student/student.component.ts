@@ -3,43 +3,52 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
+import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
-import { UserModel } from 'src/app/shared/models/users/user.model';
+import { StudentModel } from 'src/app/shared/models/students/student.model';
 import * as state from 'src/app/shared/state';
-import { UserEditModalComponent } from '../user-edit-modal/user-edit-modal.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
-import { StatusEnum } from 'src/app/shared/enum/status.enum';
+import { StudentEditDialogComponent } from './components/student-edit-dialog/student-edit-dialog.component';
+import { Title } from '@angular/platform-browser';
+import { PageInfoService } from 'src/app/_metronic/layout';
+import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
 
 @Component({
-  selector: 'app-user-summary',
-  templateUrl: './user-summary.component.html',
+  selector: 'app-student',
+  templateUrl: './student.component.html',
   styleUrls: [],
 })
-export class UserSummaryComponent implements OnInit {
-  public users$: Observable<Array<UserModel>>;
+export class StudentComponent implements OnInit {
+  public students$: Observable<Array<StudentModel>>;
+  public dropwdownMajors$: Observable<Array<SelectListItem>>;
   public isLoading$: Observable<boolean>;
-  public totalUser$: Observable<number>;
+  public totalStudent$: Observable<number>;
   public userView$: Observable<BaseViewModel>;
   public formGroupSearch: FormGroup;
-  public permissionConstants = CommonConstants.PERMISSION;
   public searchStatuses = CommonConstants.SearchStatus;
 
   constructor(
     private fb: FormBuilder,
     private viewState: state.ViewState,
-    private userState: state.UserState,
+    private studentState: state.StudentState,
     private dialog: MatDialog,
     private flashMessageState: state.FlashMessageState,
-    private authState: state.AuthState
+    private title: Title,
+    private pageInfo: PageInfoService,
+    private authState: state.AuthState,
+    private dropdownState: state.DropdownState
   ) {}
 
   ngOnInit(): void {
-    this.isLoading$ = this.userState.isLoading$;
-    this.users$ = this.userState.users$;
-    this.totalUser$ = this.userState.totalUser$;
+    this.pageInfo.updateTitle('Danh sách sinh viên');
+    this.title.setTitle('Danh sách sinh viên');
+    this.isLoading$ = this.studentState.isLoading$;
+    this.students$ = this.studentState.students$;
+    this.totalStudent$ = this.studentState.totalStudent$;
     this.userView$ = this.viewState.view$;
 
+    this.dropwdownMajors$ = this.dropdownState.dropdownMajors$;
+    this.dropdownState.getDropdownMajors();
     this.initFormGroupSearch();
   }
 
@@ -49,14 +58,14 @@ export class UserSummaryComponent implements OnInit {
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
-    this.userState.search(viewState);
+    this.studentState.search(viewState);
   }
 
   public paginate(paginator: Paginator) {
     const viewState = this.viewState.getViewState();
     viewState.paginator = paginator;
     this.viewState.setViewState(viewState);
-    this.userState.search(viewState);
+    this.studentState.search(viewState);
   }
 
   public goEdit(id: string | null, isCreate: boolean = true) {
@@ -68,21 +77,22 @@ export class UserSummaryComponent implements OnInit {
       id,
       isCreate,
     };
-    const dialogRef = this.dialog.open(UserEditModalComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      StudentEditDialogComponent,
+      dialogConfig
+    );
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
       }
     });
   }
 
-  public goDelete(data: UserModel): void {
+  public goDelete(data: StudentModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       id: data.id,
-      title: 'Xóa tài khoản',
-      content: `Bạn có xác nhận xóa tài khoản này?`,
     };
     const dialogRef = this.dialog.open(
       ConfirmDeleteModalComponent,
@@ -90,29 +100,19 @@ export class UserSummaryComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        const res = await this.userState.delete(data.id);
-        this.flashMessageState.message(
-          res.type,
-          res.message
-        );
+        const res = await this.studentState.delete(data.id);
+        this.flashMessageState.message(res.type, res.message);
         const viewState = this.viewState.getViewState();
-        this.userState.search(viewState);
+        this.studentState.search(viewState);
       }
     });
   }
 
-  public checkPermission(rule: number) {
-    return this.authState.checkPermissionMenu(
-      CommonConstants.MENU_KEYS.User,
-      rule
-    );
-  }
-
   private initFormGroupSearch() {
     this.formGroupSearch = this.fb.group({
-      userName: [''],
-      name: [''],
+      fullName: [''],
       email: [''],
+      majorId: [''],
       status: [''],
     });
   }

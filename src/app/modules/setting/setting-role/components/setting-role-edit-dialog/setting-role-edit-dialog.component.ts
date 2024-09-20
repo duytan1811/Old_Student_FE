@@ -43,7 +43,7 @@ export class SettingRoleEditDialogComponent implements OnInit {
     } else {
       res = await this.roleState.save(data);
     }
-    this.flashMessageState.message(res.type, res.message, res.key);
+    this.flashMessageState.message(res.type, res.message);
     if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();
     }

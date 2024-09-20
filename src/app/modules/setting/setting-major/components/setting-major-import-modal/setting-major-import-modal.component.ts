@@ -36,7 +36,7 @@ export class SettingMajorImportModalComponent implements OnInit, OnDestroy {
     formData.append('file', this.file);
 
     const res = await this.majorState.import(formData);
-    this.flashMessageState.message(res.type,CommonConstants.MENU_KEYS.Table, res.key);
+    this.flashMessageState.message(res.type,res.message);
     if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();
     }

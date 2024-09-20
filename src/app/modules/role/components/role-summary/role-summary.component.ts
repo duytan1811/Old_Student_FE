@@ -10,7 +10,7 @@ import { CommonConstants } from 'src/app/shared/constants/common-constants';
 @Component({
   selector: 'app-role-summary',
   templateUrl: './role-summary.component.html',
-  styleUrls: ['./role-summary.component.scss']
+  styleUrls: []
 })
 export class RoleSummaryComponent implements OnInit {
 
@@ -50,14 +50,12 @@ export class RoleSummaryComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       id: data.id,
-      title: 'Xóa phân quyền',
-      content: `Bạn có xác nhận xóa phân quyền này?`
     };
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         const res = await this.roleState.delete(data.id);
-        this.flashMessageState.message(res.type,CommonConstants.MENU_KEYS.Role, res.key);
+        this.flashMessageState.message(res.type, res.message);
       }
     });
   }

@@ -10,7 +10,7 @@ import { CommonConstants } from 'src/app/shared/constants/common-constants';
 @Component({
   selector: 'app-role-edit-modal',
   templateUrl: './role-edit-modal.component.html',
-  styleUrls: ['./role-edit-modal.component.scss']
+  styleUrls: []
 })
 export class RoleEditModalComponent implements OnInit, OnDestroy {
 
@@ -59,7 +59,7 @@ export class RoleEditModalComponent implements OnInit, OnDestroy {
     } else {
       res = await this.roleState.save(data);
     }
-    this.flashMessageState.message(res.type, CommonConstants.MENU_KEYS.Role, res.key);
+    this.flashMessageState.message(res.type, res.message);
     if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();
     }

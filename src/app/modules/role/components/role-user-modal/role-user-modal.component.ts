@@ -10,10 +10,9 @@ import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-role-user-modal',
   templateUrl: './role-user-modal.component.html',
-  styleUrls: ['./role-user-modal.component.scss']
+  styleUrls: [],
 })
 export class RoleUserModalComponent implements OnInit {
-
   @ViewChild('userSelect') userSelect: MatSelect;
   public roleId: string;
   public isLoading$: Observable<boolean>;
@@ -25,8 +24,8 @@ export class RoleUserModalComponent implements OnInit {
     public dialogRef: MatDialogRef<RoleUserModalComponent>,
     private dropdownState: state.DropdownState,
     private roleState: state.RoleState,
-    private flashMessageState: state.FlashMessageState,
-  ) { }
+    private flashMessageState: state.FlashMessageState
+  ) {}
 
   ngOnInit(): void {
     this.roleId = this.data.roleId;
@@ -35,26 +34,32 @@ export class RoleUserModalComponent implements OnInit {
   }
 
   public onApply() {
-    this.userSelect.options.forEach(option => {
+    this.userSelect.options.forEach((option) => {
       if (option.selected) {
         this.dataSelectUsers.push({
           id: option.value,
-          userName: option.getLabel()
-        })
+          userName: option.getLabel(),
+        });
       }
     });
     this.userSelect.value = null;
   }
 
   public onDeleteSelectUser(id: string) {
-    this.dataSelectUsers.splice(this.dataSelectUsers.find((i: any) => i.id === id), 1);
+    this.dataSelectUsers.splice(
+      this.dataSelectUsers.find((i: any) => i.id === id),
+      1
+    );
   }
 
   public async onSave() {
     var selectedUserIds = this.dataSelectUsers.map((item: any) => item.id);
-    const result = await this.roleState.saveUserByRole(this.roleId, selectedUserIds);
+    const result = await this.roleState.saveUserByRole(
+      this.roleId,
+      selectedUserIds
+    );
 
-    this.flashMessageState.message(result.type, CommonConstants.MENU_KEYS.Role, result.message);
+    this.flashMessageState.message(result.type, result.message);
     if (result.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();
     }

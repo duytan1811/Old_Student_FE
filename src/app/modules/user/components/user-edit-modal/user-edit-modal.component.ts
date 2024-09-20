@@ -10,7 +10,7 @@ import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-user-edit-modal',
   templateUrl: './user-edit-modal.component.html',
-  styleUrls: ['./user-edit-modal.component.scss']
+  styleUrls: []
 })
 export class UserEditModalComponent implements OnInit {
 
@@ -64,7 +64,7 @@ export class UserEditModalComponent implements OnInit {
     } else {
       res = await this.userState.save(data);
     }
-    this.flashMessageState.message(res.type, CommonConstants.MENU_KEYS.User, res.key);
+    this.flashMessageState.message(res.type,  res.message);
     if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();
     }

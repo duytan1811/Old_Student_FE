@@ -16,7 +16,7 @@ import { SharedComponentModule } from 'src/app/shared/components/shared-componen
     UserComponent,
     UserSummaryComponent,
     UserDetailComponent,
-    UserEditModalComponent
+    UserEditModalComponent,
   ],
   imports: [
     UserRoutingModule,

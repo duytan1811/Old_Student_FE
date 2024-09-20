@@ -2,7 +2,8 @@
   <div class="card-header">
     <h3 class="card-title">Danh sách tài khoản</h3>
     <div class="card-toolbar">
-      <button *ngIf="checkPermission(permissionConstants.CREATE)" (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary">
+      <button *ngIf="checkPermission(permissionConstants.CREATE)" (click)="goEdit(null)" type="button"
+        class="btn btn-sm btn-primary">
         <span class="svg-icon svg-icon-2 align-middle"
           [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
         Thêm mới
@@ -15,6 +16,7 @@
         <table class="table table-row-bordered ">
           <thead>
             <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+              <th style="width: 15px;">#</th>
               <th>Tài khoản</th>
               <th>Tên</th>
               <th>Email</th>
@@ -24,7 +26,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td colspan=" 2">
                 <input formControlName="userName" type="text" placeholder="Nhập tên tài khoản..."
                   class="form-control form-control-sm form-control-solid">
               </td>
@@ -33,12 +35,14 @@
                   class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <input type="text" formControlName="email" placeholder="Nhập địa chỉ email..." class="form-control form-control-sm form-control-solid">
+                <input type="text" formControlName="email" placeholder="Nhập địa chỉ email..."
+                  class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <mat-select (selectionChange)="onSearch()"
-                  class="min-w-100px form-control form-control-sm form-control-solid" formControlName="status">
-                  <mat-option value=""> Tất cả</mat-option>
+                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                  class="form-control form-control-sm form-control-solid">
+                  <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
+                    }}</mat-option>
                 </mat-select>
               </td>
               <td>
@@ -52,22 +56,23 @@
 
             <ng-container *ngIf="users$ | async as users;else emptyTable">
               <ng-container *ngIf="(totalUser$ | async);else emptyTable">
-                <tr *ngFor="let user of users">
+                <tr *ngFor="let user of users;let i= index">
+                  <td>{{ i + 1 }}</td>
                   <td>{{ user.userName }}</td>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
-                  
+
                   <td class="text-center">
-                    <span class="badge" [class.badge-danger]="user.status === statusEnum.Inactive"
-                      [class.badge-primary]="user.status ===statusEnum.Inactive">{{user.status }}</span>
+                    <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button *ngIf="checkPermission(permissionConstants.EDIT)" title="Cập nhật" (click)="goEdit(user.id,false)"
-                      class="btn btn-sm btn-light-primary btn-icon me-2">
+                    <button *ngIf="checkPermission(permissionConstants.EDIT)" title="Cập nhật"
+                      (click)="goEdit(user.id,false)" class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>
-                    <button *ngIf="checkPermission(permissionConstants.DELETE)"  (click)="goDelete(user)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
+                    <button *ngIf="checkPermission(permissionConstants.DELETE)" (click)="goDelete(user)" title="Xóa"
+                      class="btn btn-sm btn-light-danger btn-icon">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
                     </button>

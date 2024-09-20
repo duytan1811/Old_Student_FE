@@ -102,7 +102,7 @@ export class SettingMajorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         const res = await this.majorState.delete(data.id);
-        this.flashMessageState.message(res.type, CommonConstants.MENU_KEYS.Table, res.key);
+        this.flashMessageState.message(res.type, res.message);
       }
     });
   }

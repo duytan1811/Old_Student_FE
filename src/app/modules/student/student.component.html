@@ -1,27 +1,24 @@
 <div class="card shadow-sm">
   <div class="card-header">
-    <h3 class="card-title">Danh sách nghề nghiệp</h3>
+    <h3 class="card-title">Danh sách sinh viên</h3>
     <div class="card-toolbar">
-      <button (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary me-2">
+      <button (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary">
         <span class="svg-icon svg-icon-2 align-middle"
           [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
         Thêm mới
       </button>
-      <!-- <button (click)="goImport()" type="button" class="btn btn-sm btn-primary">
-        <span class="svg-icon svg-icon-2 align-middle"
-          [inlineSVG]="'./assets/media/icons/duotune/files/fil022.svg'"></span>
-        Nhập
-      </button> -->
     </div>
   </div>
   <div class="card-body">
     <div class="table-responsive overflow-hidden">
-      <form [formGroup]="formSearch">
+      <form [formGroup]="formGroupSearch">
         <table class="table table-row-bordered ">
           <thead>
             <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-              <th class="w-25px">#</th>
-              <th>Nghề nghiệp</th>
+              <th class="w-50px">Ảnh</th>
+              <th>Tên</th>
+              <th>Số điện thoại</th>
+              <th>Ngành nghề</th>
               <th>Trạng thái</th>
               <th class="w-150px"></th>
             </tr>
@@ -29,13 +26,26 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <input formControlName="name" type="text" placeholder="Nhập tên..."
+                <input formControlName="fullName" type="text" placeholder="Nhập tên sinh viên..."
                   class="form-control form-control-sm form-control-solid">
+              </td>
+
+              <td>
+                <input type="text" formControlName="email" placeholder="Nhập địa chỉ email..."
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <mat-select (selectionChange)="onSearch()" formControlName="majorId"
+                  class="form-control form-control-sm form-control-solid">
+                  <mat-option value="">Tất cả</mat-option>
+                  <mat-option *ngFor="let major of dropwdownMajors$ | async" [value]="major.value">{{ major.text
+                    }}</mat-option>
+                </mat-select>
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="status"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text
+                  <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
                     }}</mat-option>
                 </mat-select>
               </td>
@@ -48,21 +58,27 @@
               </td>
             </tr>
 
-            <ng-container *ngIf="majors$ | async as majors;else emptyTable">
-              <ng-container *ngIf="(totalMajor$ | async);else emptyTable">
-                <tr *ngFor="let major of majors;let i=index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ major.name }}</td>
+            <ng-container *ngIf="students$ | async as students;else emptyTable">
+              <ng-container *ngIf="(totalStudent$ | async);else emptyTable">
+                <tr *ngFor="let user of students" style="vertical-align: middle;">
+                  <td>
+                    <div class="symbol symbol-50px symbol-circle">
+                      <img src="../../../assets/media/avatars/300-1.jpg" alt="" />
+                    </div>
+                  </td>
+                  <td>{{ user.fullName }}</td>
+                  <td>{{ user.phone }}</td>
+                  <td>{{ user.majorId }}</td>
                   <td class="text-center">
-                    <app-status-badge [status]="major.status" [statusName]="major.statusName"></app-status-badge>
+                    <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button (click)="goEdit(major.id,false)" title="Cập nhật"
+                    <button title="Cập nhật" (click)="goEdit(user.id,false)"
                       class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>
-                    <button (click)="goDelete(major)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
+                    <button (click)="goDelete(user)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
                     </button>
@@ -80,7 +96,7 @@
           </tbody>
         </table>
         <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
-          [paginator]="(tableView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+          [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
       </form>
     </div>
   </div>

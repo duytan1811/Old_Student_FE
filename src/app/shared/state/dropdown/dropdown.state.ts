@@ -10,8 +10,15 @@ import { SelectListItem } from 'src/app/shared/models/base/select-list-item.mode
 export class DropdownState implements OnDestroy {
   private unsubscribe: Subscription[] = [];
 
-  private _dropdownUsersSubject: BehaviorSubject<Array<SelectListItem>> = new BehaviorSubject(Array());
-  public dropdownUsers$: Observable<Array<SelectListItem>> = this._dropdownUsersSubject.asObservable();
+  private _dropdownUsersSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownUsers$: Observable<Array<SelectListItem>> =
+    this._dropdownUsersSubject.asObservable();
+
+  private _dropdownMajorsSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownMajors$: Observable<Array<SelectListItem>> =
+    this._dropdownMajorsSubject.asObservable();
 
   getUsers(): Array<SelectListItem> {
     return this._dropdownUsersSubject.getValue();
@@ -21,10 +28,15 @@ export class DropdownState implements OnDestroy {
     this._dropdownUsersSubject.next(data);
   }
 
-  constructor(
-    private dropdownService: DropdownService,
-  ) {
+  getMajors(): Array<SelectListItem> {
+    return this._dropdownMajorsSubject.getValue();
   }
+
+  setMajors(data: Array<SelectListItem>) {
+    this._dropdownMajorsSubject.next(data);
+  }
+
+  constructor(private dropdownService: DropdownService) {}
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -36,9 +48,22 @@ export class DropdownState implements OnDestroy {
         this.setUsers(res.data);
       },
       error: (err) => {
-        console.log(`Error get dropdown users`, err)
-      }
-    })
+        console.log(`Error get dropdown users`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownMajors() {
+    const sub = this.dropdownService.getMajors().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setMajors(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown major`, err);
+      },
+    });
 
     this.unsubscribe.push(sub);
   }

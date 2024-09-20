@@ -8,4 +8,5 @@ export class EndPointConstants {
     public static readonly Setting = 'settings';
     public static readonly Major = 'majors';
     public static readonly User = 'users';
+    public static readonly Student = 'students';
 }

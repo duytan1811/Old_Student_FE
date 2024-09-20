@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
 import { RoleModel } from 'src/app/shared/models/roles/role.model';
 import * as state from 'src/app/shared/state';
 
@@ -21,17 +22,22 @@ export class SettingRoleUserDialogComponent implements OnInit {
 
   public role: RoleModel;
   public roles$: Observable<Array<RoleModel>>;
+  public userDropdownList$: Observable<Array<SelectListItem>>;
   public filteredOptions: RoleModel[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<SettingRoleUserDialogComponent>,
-    private roleState: state.RoleState
+    private roleState: state.RoleState,
+    private dropdownState: state.DropdownState
   ) {}
 
   ngOnInit(): void {
     this.role = this.data.role;
     this.roles$ = this.roleState.roles$;
+
+    this.userDropdownList$ = this.dropdownState.dropdownUsers$;
+    this.dropdownState.getDropdownUsers();
   }
 
   public filter(): void {

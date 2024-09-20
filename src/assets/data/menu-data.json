@@ -32,6 +32,21 @@
     ]
   },
   {
+    "display": "Quản lý thành viên",
+    "icon": "./assets/media/icons/duotune/ecommerce/ecm008.svg",
+    "href": "/users",
+    "items": [
+      {
+        "display": "Danh sách cựu sinh viên",
+        "href": "/students"
+      },
+      {
+        "display": "Danh sách thành viên",
+        "href": "/users"
+      }
+    ]
+  },
+  {
     "display": "Thống kê & báo cáo",
     "icon": "./assets/media/icons/duotune/ecommerce/ecm008.svg",
     "href": "/statistics",

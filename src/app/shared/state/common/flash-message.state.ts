@@ -11,8 +11,7 @@ export class FlashMessageState implements OnDestroy {
   constructor(
     private toastrService: ToastrService,
     private translateService: TranslateService
-  ) {
-  }
+  ) {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -26,7 +25,7 @@ export class FlashMessageState implements OnDestroy {
     this.toastrService.error(message);
   }
 
-  public message(type: string, menu: string, message: string) {
+  public message(type: string, message: string) {
     if (type) {
       if (type.toLowerCase() === CommonConstants.RESPONSE_TYPES.SUCCESS) {
         this.success(message);

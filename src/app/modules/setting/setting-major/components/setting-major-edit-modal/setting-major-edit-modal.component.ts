@@ -47,8 +47,7 @@ export class SettingMajorEditModalComponent implements OnInit {
     }
     this.flashMessageState.message(
       res.type,
-      res.message,
-      res.key
+      res.message
     );
     if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
       this.dialogRef.close();

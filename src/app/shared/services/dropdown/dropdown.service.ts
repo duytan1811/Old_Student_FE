@@ -13,22 +13,12 @@ export class DropdownService {
   constructor(private apiService: APIService) {
   }
 
-  getProductMenuTypes() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/product-menu-types`);
-  }
-
-  getSuppliers() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/suppliers`);
+  getMajors() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/majors`);
   }
 
   getUsers() {
     return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/users`);
   }
 
-  getAreas() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/areas`);
-  }
-  getProductGroups() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown}/product-groups`);
-  }
 }

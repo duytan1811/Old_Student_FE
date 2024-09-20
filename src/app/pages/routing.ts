@@ -23,6 +23,11 @@ const Routing: Routes = [
       import('../modules/user/user.module').then((m) => m.UserModule),
   },
   {
+    path: EndPointConstants.Student,
+    loadChildren: () =>
+      import('../modules/student/student.module').then((m) => m.StudentModule),
+  },
+  {
     path: EndPointConstants.Setting,
     loadChildren: () =>
       import('../modules/setting/setting.module').then((m) => m.SettingModule),

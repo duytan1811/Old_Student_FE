@@ -52,7 +52,7 @@ export class SettingRoleComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== "" ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.roleState.search(viewState);
@@ -69,26 +69,31 @@ export class SettingRoleComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
     dialogConfig.data = {
-      id, isCreate
+      id,
+      isCreate,
     };
-    const dialogRef = this.dialog.open(SettingRoleEditDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    const dialogRef = this.dialog.open(
+      SettingRoleEditDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  public onOpenRoleUser(role:RoleModel | null): void {
+  public onOpenRoleUser(role: RoleModel | null): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '60%';
     dialogConfig.data = {
-      role
+      role,
     };
-    const dialogRef = this.dialog.open(SettingRoleUserDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    const dialogRef = this.dialog.open(
+      SettingRoleUserDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   public goDelete(data: RoleModel): void {
@@ -98,11 +103,14 @@ export class SettingRoleComponent implements OnInit {
     dialogConfig.data = {
       id: data.id,
     };
-    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(async result => {
+    const dialogRef = this.dialog.open(
+      ConfirmDeleteModalComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
         const res = await this.roleState.delete(data.id);
-        this.flashMessageState.message(res.type, CommonConstants.MENU_KEYS.Table, res.key);
+        this.flashMessageState.message(res.type, res.message);
       }
     });
   }
