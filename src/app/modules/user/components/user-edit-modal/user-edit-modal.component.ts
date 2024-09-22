@@ -73,7 +73,7 @@ export class UserEditModalComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       userName: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$/)]],
       isDefaultPassword: [false],

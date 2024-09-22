@@ -8,6 +8,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthComponent } from './auth.component';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
     ForgotPasswordComponent,
     LogoutComponent,
     AuthComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,

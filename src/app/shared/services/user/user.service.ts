@@ -13,22 +13,22 @@ export class UserService {
   constructor(private apiService :APIService) { }
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<UserModel>>(`${EndPointConstants.User}/search`, data);
+    return this.apiService.postData<BaseTableResponse<UserModel>>(`${EndPointConstants.User.Index}/search`, data);
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<UserModel>>(`${EndPointConstants.User}/${id}`);
+    return this.apiService.getData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}/${id}`);
   }
 
   save(obj: UserModel) {
-    return this.apiService.postData<BaseResponse<UserModel>>(`${EndPointConstants.User}`, obj);
+    return this.apiService.postData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}`, obj);
   }
 
   update(id: string, obj: UserModel) {
-    return this.apiService.putData<BaseResponse<UserModel>>(`${EndPointConstants.User}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}/${id}`, obj);
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.User}/${id}`);
+    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.User.Index}/${id}`);
   }
 }

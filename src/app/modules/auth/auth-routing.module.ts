@@ -4,6 +4,7 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
         path: 'login',
         component: LoginComponent,
         data: { returnUrl: window.location.pathname },
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
       },
       {
         path: 'forgot-password',

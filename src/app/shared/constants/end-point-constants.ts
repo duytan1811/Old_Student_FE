@@ -1,13 +1,30 @@
-export class EndPointConstants {
-    public static readonly Dashboard = 'dashboard';
-    public static readonly Dropdown = 'dropdowns';
-    public static readonly General = 'general';
-    public static readonly Image = 'images';
-    public static readonly ProductType = 'types';
-    public static readonly Role = 'roles';
-    public static readonly Setting = 'settings';
-    public static readonly Major = 'majors';
-    public static readonly User = 'users';
-    public static readonly Student = 'students';
-    public static readonly StudentAchievement = 'student-achievements';
-}
+export const EndPointConstants = {
+  Dashboard: {
+    Index: `dashboard`,
+  },
+  Dropdown: {
+    Index: `dropdowns`,
+  },
+  Role: {
+    Index: `roles`,
+  },
+  Setting: {
+    Index: `settings`,
+  },
+  Major: {
+    Index: `majors`,
+  },
+  User: {
+    Index: `users`,
+  },
+  Student: {
+    Index: `students`,
+  },
+  StudentAchievement: {
+    Index: `student-achievements`,
+  },
+  Auth: {
+    Login: `login`,
+    Register: `register`,
+  },
+};

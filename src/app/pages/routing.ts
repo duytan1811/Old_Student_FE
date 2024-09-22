@@ -8,27 +8,27 @@ const Routing: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
-    path: EndPointConstants.Dashboard,
+    path: EndPointConstants.Dashboard.Index,
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
-    path: EndPointConstants.Role,
+    path: EndPointConstants.Role.Index,
     loadChildren: () =>
       import('../modules/role/role.module').then((m) => m.RoleModule),
   },
   {
-    path: EndPointConstants.User,
+    path: EndPointConstants.User.Index,
     loadChildren: () =>
       import('../modules/user/user.module').then((m) => m.UserModule),
   },
   {
-    path: EndPointConstants.Student,
+    path: EndPointConstants.Student.Index,
     loadChildren: () =>
       import('../modules/student/student.module').then((m) => m.StudentModule),
   },
   {
-    path: EndPointConstants.Setting,
+    path: EndPointConstants.Setting.Index,
     loadChildren: () =>
       import('../modules/setting/setting.module').then((m) => m.SettingModule),
   },

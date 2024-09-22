@@ -14,12 +14,12 @@ const routes: Routes = [
     canActivate: [PermissionGuard],
   },
   {
-    path: EndPointConstants.Major,
+    path: EndPointConstants.Major.Index,
     component: SettingMajorComponent,
     canActivate: [PermissionGuard],
   },
   {
-    path: EndPointConstants.Role,
+    path: EndPointConstants.Role.Index,
     component: SettingRoleComponent,
     canActivate: [PermissionGuard],
   }

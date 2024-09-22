@@ -74,6 +74,22 @@ export class AuthState implements OnDestroy {
     );
   }
 
+  public register(obj: UserModel): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.authService.register(obj).subscribe({
+        next: (result) => {
+          this.setIsLoading(false);
+          resolve(result);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    })
+  }
+
   public logout() {
     localStorage.removeItem(this.authLocalStorageToken);
     this.router.navigate(['auth/login'], {
