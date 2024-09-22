@@ -9,10 +9,11 @@ import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-student-achievement-edit-dialog',
   templateUrl: './student-achievement-edit-dialog.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class StudentAchievementEditDialogComponent implements OnInit {
   public id: string | null;
+  public studentId: string | null;
   public studentAchievement: StudentAchievementModel;
   public formGroup: FormGroup;
 
@@ -22,16 +23,19 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     private flashMessageState: state.FlashMessageState,
     public dialogRef: MatDialogRef<StudentAchievementEditDialogComponent>,
     private studentAchievementState: state.StudentAchievementState
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.id = this.data.id;
+    this.studentId = this.data.studentId;
     this.initFormGroup();
   }
 
   public async onSave() {
     const data = this.formGroup.getRawValue();
     data.status = data.status != '' ? data.status : null;
+    data.studentId = this.studentId;
+
     let res;
     if (this.id != null) {
       res = await this.studentAchievementState.update(this.id, data);
@@ -48,9 +52,9 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      fromDate: [''],
-      toDate: [''],
-      status: ['']
-    })
+      fromDate: [null],
+      toDate: [null],
+      status: [''],
+    });
   }
 }

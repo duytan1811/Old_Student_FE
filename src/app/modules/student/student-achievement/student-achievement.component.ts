@@ -9,7 +9,7 @@ import { StudentAchievementEditDialogComponent } from './components/student-achi
 @Component({
   selector: 'app-student-achievement',
   templateUrl: './student-achievement.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class StudentAchievementComponent implements OnInit {
   @Input() student: StudentModel;
@@ -17,32 +17,34 @@ export class StudentAchievementComponent implements OnInit {
   public id: string;
 
   constructor(
-    private studentAState: state.StudentAchievementState,
-    private dialog: MatDialog,
-  ) { }
+    private studentState: state.StudentAchievementState,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.studentAState.search({ studentId: this.id });
-
-    this.studentAchievements$ = this.studentAState.studentAchievements$;
+    this.studentState.search({ studentId: this.id });
+    this.studentAchievements$ = this.studentState.studentAchievements$;
   }
 
-  public onEdit(id:string| null){
+  public onEdit(id: string | null) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '40%';
     dialogConfig.data = {
-      id,
+      studentId: this.student.id,
+      id: id,
     };
-    const dialogRef = this.dialog.open(StudentAchievementEditDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      StudentAchievementEditDialogComponent,
+      dialogConfig
+    );
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
       }
     });
   }
-  public onCreate(){
+  public onCreate() {
     this.onEdit(null);
   }
-
 }
