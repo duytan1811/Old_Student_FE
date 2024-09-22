@@ -39,28 +39,12 @@ export class StudentState implements OnDestroy {
     this._studentsSubject.next(data);
   }
 
-  getStudentStudents(): Array<StudentModel> {
-    return this._studentStudentsSubject.getValue();
-  }
-
-  setStudentStudents(data: Array<StudentModel>) {
-    this._studentStudentsSubject.next(data);
-  }
-
   getTotalStudent(): number {
     return this._totalStudentSubject.getValue();
   }
 
   setTotalStudent(data: number) {
     this._totalStudentSubject.next(data);
-  }
-
-  getTotalStudentStudent(): number {
-    return this._totalStudentStudentSubject.getValue();
-  }
-
-  setTotalStudentStudent(data: number) {
-    this._totalStudentStudentSubject.next(data);
   }
 
   getStudent(): StudentModel {

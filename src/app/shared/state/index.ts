@@ -39,3 +39,7 @@ export { MajorState } from './major/major.state';
 
 // Student
 export { StudentState } from './students/student.state';
+
+
+export { StudentAchievementState } from './students-achievements/student-achievement.state';
+

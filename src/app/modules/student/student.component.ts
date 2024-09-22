@@ -8,10 +8,10 @@ import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { StudentModel } from 'src/app/shared/models/students/student.model';
 import * as state from 'src/app/shared/state';
-import { StudentEditDialogComponent } from './components/student-edit-dialog/student-edit-dialog.component';
 import { Title } from '@angular/platform-browser';
 import { PageInfoService } from 'src/app/_metronic/layout';
 import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student',
@@ -20,7 +20,7 @@ import { SelectListItem } from 'src/app/shared/models/base/select-list-item.mode
 })
 export class StudentComponent implements OnInit {
   public students$: Observable<Array<StudentModel>>;
-  public dropwdownMajors$: Observable<Array<SelectListItem>>;
+  public dropdownMajors$: Observable<Array<SelectListItem>>;
   public isLoading$: Observable<boolean>;
   public totalStudent$: Observable<number>;
   public userView$: Observable<BaseViewModel>;
@@ -35,7 +35,7 @@ export class StudentComponent implements OnInit {
     private flashMessageState: state.FlashMessageState,
     private title: Title,
     private pageInfo: PageInfoService,
-    private authState: state.AuthState,
+    private router:Router,
     private dropdownState: state.DropdownState
   ) {}
 
@@ -47,9 +47,11 @@ export class StudentComponent implements OnInit {
     this.totalStudent$ = this.studentState.totalStudent$;
     this.userView$ = this.viewState.view$;
 
-    this.dropwdownMajors$ = this.dropdownState.dropdownMajors$;
+    this.dropdownMajors$ = this.dropdownState.dropdownMajors$;
     this.dropdownState.getDropdownMajors();
     this.initFormGroupSearch();
+
+    this.onSearch();
   }
 
   public onSearch() {
@@ -68,23 +70,8 @@ export class StudentComponent implements OnInit {
     this.studentState.search(viewState);
   }
 
-  public goEdit(id: string | null, isCreate: boolean = true) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '30%';
-    dialogConfig.data = {
-      id,
-      isCreate,
-    };
-    const dialogRef = this.dialog.open(
-      StudentEditDialogComponent,
-      dialogConfig
-    );
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result) {
-      }
-    });
+  public goEdit(id: string | null) {
+    this.router.navigate([`/students/${id}`]);
   }
 
   public goDelete(data: StudentModel): void {

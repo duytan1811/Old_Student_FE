@@ -9,4 +9,5 @@ export class EndPointConstants {
     public static readonly Major = 'majors';
     public static readonly User = 'users';
     public static readonly Student = 'students';
+    public static readonly StudentAchievement = 'student-achievements';
 }

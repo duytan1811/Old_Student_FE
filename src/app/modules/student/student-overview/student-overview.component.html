@@ -1,0 +1,38 @@
+<div class="card-header cursor-pointer" *ngIf="student">
+    <div class="card-title m-0">
+        <h3 class="fw-bold m-0">Thông tin sinh viên</h3>
+    </div>
+    <a [routerLink]="'/students/'+student.id" [queryParams]="{tab:'setting'}" class="btn btn-sm btn-primary align-self-center">Edit
+        Profile</a>
+</div>
+<div class="card-body p-9" *ngIf="student">
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-semibold text-muted">Họ tên</label>
+        <div class="col-lg-8">
+            <span class="fw-bold fs-6 text-gray-800">{{ student.fullName }}</span>
+        </div>
+    </div>
+
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-semibold text-muted">Số điện thoại
+        </label>
+        <div class="col-lg-8 d-flex align-items-center">
+            <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.phone || '--' }}</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-semibold text-muted">Email
+        </label>
+        <div class="col-lg-8 d-flex align-items-center">
+            <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.email || '--' }}</span>
+        </div>
+    </div>
+
+    <div class="row mb-7">
+        <label class="col-lg-4 fw-semibold text-muted">Công ty hiện tại
+        </label>
+        <div class="col-lg-8 d-flex align-items-center">
+            <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.currentCompany || '--' }}</span>
+        </div>
+    </div>
+</div>

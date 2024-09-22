@@ -1,0 +1,19 @@
+<div class="card-header cursor-pointer" *ngIf="student">
+    <div class="card-title m-0">
+        <h3 class="fw-bold m-0">Danh sách thành tích</h3>
+    </div>
+    <button (click)="onCreate()" class="btn btn-sm btn-primary align-self-center">Thêm thành tích</button>
+</div>
+<div class="card-body p-9" *ngIf="student">
+    <div class="timeline-label" *ngIf="studentAchievements$ | async as studentAchievements">
+        <div class="timeline-item" *ngFor="let item of studentAchievements">
+            <div class="timeline-label fw-bold text-gray-800 fs-6">
+                {{ item.fromDate | date:'MM/yyyy'}} - {{ item.toDate | date:'MM/yyyy'}}
+            </div>
+            <div class="timeline-badge">
+                <i class="fa fa-genderless text-warning fs-1"></i>
+            </div>
+            <div class="fw-mormal timeline-content text-muted ps-3">{{ item.name }}</div>
+        </div>
+    </div>
+</div>

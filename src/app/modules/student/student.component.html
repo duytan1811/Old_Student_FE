@@ -1,13 +1,6 @@
 <div class="card shadow-sm">
   <div class="card-header">
     <h3 class="card-title">Danh sách sinh viên</h3>
-    <div class="card-toolbar">
-      <button (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary">
-        <span class="svg-icon svg-icon-2 align-middle"
-          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
-        Thêm mới
-      </button>
-    </div>
   </div>
   <div class="card-body">
     <div class="table-responsive overflow-hidden">
@@ -38,7 +31,7 @@
                 <mat-select (selectionChange)="onSearch()" formControlName="majorId"
                   class="form-control form-control-sm form-control-solid">
                   <mat-option value="">Tất cả</mat-option>
-                  <mat-option *ngFor="let major of dropwdownMajors$ | async" [value]="major.value">{{ major.text
+                  <mat-option *ngFor="let major of dropdownMajors$ | async" [value]="major.value">{{ major.text
                     }}</mat-option>
                 </mat-select>
               </td>
@@ -73,7 +66,7 @@
                     <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button title="Cập nhật" (click)="goEdit(user.id,false)"
+                    <button title="Cập nhật" (click)="goEdit(user.id)"
                       class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
