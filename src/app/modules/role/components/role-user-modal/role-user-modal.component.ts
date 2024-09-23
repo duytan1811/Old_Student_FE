@@ -60,7 +60,7 @@ export class RoleUserModalComponent implements OnInit {
     );
 
     this.flashMessageState.message(result.type, result.message);
-    if (result.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
+    if (result.type === CommonConstants.ResponseType.Success) {
       this.dialogRef.close();
     }
   }

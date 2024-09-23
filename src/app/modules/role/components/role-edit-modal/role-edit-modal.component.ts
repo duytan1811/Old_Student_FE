@@ -60,7 +60,7 @@ export class RoleEditModalComponent implements OnInit, OnDestroy {
       res = await this.roleState.save(data);
     }
     this.flashMessageState.message(res.type, res.message);
-    if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
+    if (res.type === CommonConstants.ResponseType.Success) {
       this.dialogRef.close();
     }
   }

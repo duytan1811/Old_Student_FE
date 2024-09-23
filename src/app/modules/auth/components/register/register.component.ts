@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private authState: state.AuthState,
     private flashMessageState: state.FlashMessageState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initFormGroup();
@@ -26,8 +26,15 @@ export class RegisterComponent implements OnInit {
     }
 
     const data = this.formGroup.getRawValue();
+    if(data.password !== data.confirmPassword){
+      this.flashMessageState.message(CommonConstants.ResponseType.Error, 'Xác nhận mật khẩu chưa trùng khớp');
+      return;
+    }
     const result = await this.authState.register(data);
     this.flashMessageState.message(result.type, result.message);
+    if (result.type === CommonConstants.ResponseType.Success) {
+      this.formGroup.reset();
+    }
   }
 
   private initFormGroup() {

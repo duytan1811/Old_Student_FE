@@ -1,9 +1,9 @@
 import { StatusEnum } from '../enum/status.enum';
 
 export class CommonConstants {
-  public static readonly RESPONSE_TYPES = {
-    SUCCESS: 'success',
-    ERROR: 'error',
+  public static readonly ResponseType = {
+    Success: 'success',
+    Error: 'error',
   };
 
   public static readonly FormStatuses = [

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public returnUrl: string;
   public isLoading$: Observable<boolean>;
 
-  private unsubscribe: Subscription[] = []; 
+  private unsubscribe: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
-  
+
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .login(this.f.userName.value, this.f.password.value)
       .pipe(first())
       .subscribe((res: BaseResponse<UserModel>) => {
-        if (res && res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
+        if (res && res.type === CommonConstants.ResponseType.Success) {
           this.router.navigate([this.returnUrl]);
         } else {
           this.toastrService.error(res.message);

@@ -27,9 +27,9 @@ export class FlashMessageState implements OnDestroy {
 
   public message(type: string, message: string) {
     if (type) {
-      if (type.toLowerCase() === CommonConstants.RESPONSE_TYPES.SUCCESS) {
+      if (type.toLowerCase() === CommonConstants.ResponseType.Success) {
         this.success(message);
-      } else if (type.toLowerCase() === CommonConstants.RESPONSE_TYPES.ERROR) {
+      } else if (type.toLowerCase() === CommonConstants.ResponseType.Error) {
         this.error(message);
       }
     }

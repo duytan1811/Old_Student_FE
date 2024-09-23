@@ -49,7 +49,7 @@ export class SettingMajorEditModalComponent implements OnInit {
       res.type,
       res.message
     );
-    if (res.type === CommonConstants.RESPONSE_TYPES.SUCCESS) {
+    if (res.type === CommonConstants.ResponseType.Success) {
       this.dialogRef.close();
     }
   }

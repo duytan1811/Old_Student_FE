@@ -124,7 +124,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
 
       if (selectedUserIds.length > 0) {
         const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
-        if (result.type === CommonConstants.RESPONSE_TYPES.ERROR) {
+        if (result.type === CommonConstants.ResponseType.Error) {
           this.flashMessageState.message(result.type, result.message);
           this.isCheckAllUser = false;
           this.onSearchRoleUsers();
@@ -138,7 +138,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     selectedUserIds.push(id);
     if (selectedUserIds.length > 0) {
       const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
-      if (result.type === CommonConstants.RESPONSE_TYPES.ERROR) {
+      if (result.type === CommonConstants.ResponseType.Error) {
         this.flashMessageState.message(result.type, result.message);
         this.onSearchRoleUsers();
       }
