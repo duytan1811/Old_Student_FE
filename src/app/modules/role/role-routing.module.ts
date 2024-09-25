@@ -14,13 +14,11 @@ const routes: Routes = [{
       path: '',
       component: RoleSummaryComponent,
       canActivate: [PermissionGuard],
-      data: { permission: CommonConstants.MENU_KEYS.Role, action: CommonConstants.PERMISSION.VIEW }
     },
     {
       path: ':id',
       component: RoleDetailComponent,
       canActivate: [PermissionGuard],
-      data: { permission: CommonConstants.MENU_KEYS.Role, action: CommonConstants.PERMISSION.EDIT }
     }
   ]
 }];

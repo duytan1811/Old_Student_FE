@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { RoleModel } from 'src/app/shared/models/roles/role.model';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import { RoleUserModalComponent } from '../role-user-modal/role-user-modal.component';
 
 @Component({
   selector: 'app-role-summary',
@@ -40,6 +41,19 @@ export class RoleSummaryComponent implements OnInit {
       id, isCreate
     };
     const dialogRef = this.dialog.open(RoleEditModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  public onOpenEditRoleUser(roleId: string | null): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "40%";
+    dialogConfig.data = {
+      roleId,
+    };
+    const dialogRef = this.dialog.open(RoleUserModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
     });
   }

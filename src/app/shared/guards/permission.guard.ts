@@ -18,25 +18,25 @@ export class PermissionGuard implements CanActivate {
     if(currentUser.isAdmin){
       return true;
     }
-    const permissionMenus = this.authState.getPermissionMenus();
+    // const permissionMenus = this.authState.getPermissionMenus();
     const permissionData = route.data.permission;
     const actionData = route.data.action;
     let result = true;
 
-    const permissionMenu = permissionMenus.find(item => item.menuKey === permissionData);
-    if (permissionMenu) {
-      switch (actionData) {
-        case CommonConstants.PERMISSION.VIEW: result = permissionMenu.permission.isView; break;
-        case CommonConstants.PERMISSION.CREATE: result = permissionMenu.permission.isCreate; break;
-        case CommonConstants.PERMISSION.EDIT: result = permissionMenu.permission.isEdit; break;
-        case CommonConstants.PERMISSION.DELETE: result = permissionMenu.permission.isDelete; break;
-      }
-    } else {
-      result = false;
-    }
-    if (!result) {
-      this.router.navigate(['error/403']);
-    }
+    // const permissionMenu = permissionMenus.find(item => item.menuKey === permissionData);
+    // if (permissionMenu) {
+    //   switch (actionData) {
+    //     case CommonConstants.PERMISSION.VIEW: result = permissionMenu.permission.isView; break;
+    //     case CommonConstants.PERMISSION.CREATE: result = permissionMenu.permission.isCreate; break;
+    //     case CommonConstants.PERMISSION.EDIT: result = permissionMenu.permission.isEdit; break;
+    //     case CommonConstants.PERMISSION.DELETE: result = permissionMenu.permission.isDelete; break;
+    //   }
+    // } else {
+    //   result = false;
+    // }
+    // if (!result) {
+    //   this.router.navigate(['error/403']);
+    // }
 
     return result;
   }

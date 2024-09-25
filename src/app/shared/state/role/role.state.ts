@@ -152,6 +152,7 @@ export class RoleState implements OnDestroy {
       const sub = this.roleService.findById(id).subscribe({
         next: (res: BaseResponse<RoleModel>) => {
           this.setRole(res.data);
+          this.menuState.initialFeatureMenus(res.data.menuPermissions);
         },
         error: (err) => {
           this.setIsLoading(false);
@@ -162,9 +163,8 @@ export class RoleState implements OnDestroy {
       this.unsubscribe.push(sub);
     } else {
       const role = new RoleModel();
-      this.menuState.initialFeatureMenus();
+      this.menuState.initialFeatureMenus(role.menuPermissions);
       const sub = this.menuState.featureMenus$.subscribe(menus => {
-        role.permissionMenus = menus;
         this.setRole(role);
       });
 

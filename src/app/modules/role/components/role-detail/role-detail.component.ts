@@ -10,15 +10,18 @@ import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
 import { RoleEditModalComponent } from '../role-edit-modal/role-edit-modal.component';
 import { RoleUserModalComponent } from '../role-user-modal/role-user-modal.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import {
+  CommonConstants,
+  MenuList,
+} from 'src/app/shared/constants/common-constants';
+import { PermissionModel } from 'src/app/shared/models/base/permission.model';
 
 @Component({
   selector: 'app-role-detail',
   templateUrl: './role-detail.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class RoleDetailComponent implements OnInit, OnDestroy {
-
   id: string | undefined;
   role$: Observable<RoleModel>;
   isLoading$: Observable<boolean>;
@@ -35,10 +38,11 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     private viewState: state.ViewState,
     private dialog: MatDialog,
     private flashMessageState: state.FlashMessageState,
-  ) { }
+    private menuState: state.MenuState
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.id = params.get('id')?.toString();
     });
 
@@ -54,19 +58,20 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach(sub => sub.unsubscribe());
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
 
   goEdit(id: string | null, isCreate: boolean = true): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '50%';
     dialogConfig.data = {
-      id, isCreate
+      id,
+      isCreate,
     };
     const dialogRef = this.dialog.open(RoleEditModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.roleState.findById(this.id);
     });
   }
@@ -75,12 +80,12 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
     dialogConfig.data = {
-      roleId
+      roleId,
     };
     const dialogRef = this.dialog.open(RoleUserModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.onSearchRoleUsers();
     });
   }
@@ -100,9 +105,9 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   }
 
   onCheckAllUser(event: MatCheckboxChange) {
-    const rs = this.roleUsers$.subscribe(roleUsers => {
+    const rs = this.roleUsers$.subscribe((roleUsers) => {
       if (roleUsers) {
-        roleUsers.forEach(ru => ru.selected = event.checked);
+        roleUsers.forEach((ru) => (ru.selected = event.checked));
       }
     });
 
@@ -112,9 +117,9 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
   async onDeleteSelectedUsers() {
     if (this.id !== undefined) {
       let selectedUserIds: Array<string> = [];
-      const rs = this.roleUsers$.subscribe(async roleUsers => {
+      const rs = this.roleUsers$.subscribe(async (roleUsers) => {
         if (roleUsers) {
-          selectedUserIds = roleUsers.map(ru => {
+          selectedUserIds = roleUsers.map((ru) => {
             if (ru.selected) return ru.id;
           }) as Array<string>;
         }
@@ -123,7 +128,10 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
       this.subs.push(rs);
 
       if (selectedUserIds.length > 0) {
-        const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
+        const result = await this.roleState.deleteUserByRole(
+          this.id,
+          selectedUserIds
+        );
         if (result.type === CommonConstants.ResponseType.Error) {
           this.flashMessageState.message(result.type, result.message);
           this.isCheckAllUser = false;
@@ -137,11 +145,34 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     let selectedUserIds: Array<string> = [];
     selectedUserIds.push(id);
     if (selectedUserIds.length > 0) {
-      const result = await this.roleState.deleteUserByRole(this.id, selectedUserIds);
+      const result = await this.roleState.deleteUserByRole(
+        this.id,
+        selectedUserIds
+      );
       if (result.type === CommonConstants.ResponseType.Error) {
         this.flashMessageState.message(result.type, result.message);
         this.onSearchRoleUsers();
       }
     }
+  }
+
+  public getDescriptMenuPermission(menuPermission: PermissionModel) {
+    let result = '';
+    const menuList = MenuList;
+    let permissionList: Array<string> = [];
+    const menu = menuList.find((x) => x.key === menuPermission.claimType);
+    if (menu != null) {
+      result += menu.display;
+    }
+    if (menuPermission.isView) permissionList.push('Xem');
+    if (menuPermission.isCreate) permissionList.push('Thêm');
+    if (menuPermission.isEdit) permissionList.push('Sửa');
+    if (menuPermission.isDelete) permissionList.push('Xóa');
+
+    if(permissionList){
+      result +=`: ${permissionList.join(', ')}`
+    }
+
+    return result;
   }
 }

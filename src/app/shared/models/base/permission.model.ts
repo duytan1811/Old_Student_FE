@@ -1,13 +1,7 @@
 export class PermissionModel {
-  isView: boolean;
-  isCreate: boolean;
-  isEdit: boolean;
-  isDelete: boolean;
-
-  constructor() {
-    this.isView = false;
-    this.isCreate = false;
-    this.isEdit = false;
-    this.isDelete = false;
-  }
+  claimType:string='';
+  isView: boolean = false;
+  isCreate: boolean = false;
+  isEdit: boolean = false;
+  isDelete: boolean = false;
 }

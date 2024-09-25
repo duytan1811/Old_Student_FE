@@ -18,7 +18,7 @@ export class SettingConstants {
       icon: 'assets/media/icons/duotune/coding/cod001.svg',
       key: 'role',
       title: 'Phân quyền',
-      href: '/settings/roles',
+      href: '/roles',
       description: 'Cài đặt phân quyền cho thành viên',
     },
   ];

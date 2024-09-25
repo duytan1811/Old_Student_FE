@@ -1,5 +1,6 @@
 [
   {
+    "key":"forum",
     "display": "Diễn đàn",
     "icon": "./assets/media/icons/duotune/ecommerce/ecm001.svg",
     "href": "/forum",
@@ -11,6 +12,7 @@
     "href": "/news",
     "items": [
       {
+        "key":"news",
         "display": "Tin tức",
         "href": "/news"
       }
@@ -22,12 +24,14 @@
     "href": "/",
     "items": [
       {
+        "key":"jobs",
         "display": "Bảng tin việc làm",
         "href": "/jobs"
       },
       {
+        "key":"jobRegister",
         "display": "Đăng ký ứng tuyển",
-        "href": "/products"
+        "href": "/job-register"
       }
     ]
   },
@@ -37,10 +41,12 @@
     "href": "/users",
     "items": [
       {
+        "key":"students",
         "display": "Danh sách cựu sinh viên",
         "href": "/students"
       },
       {
+        "key":"users",
         "display": "Danh sách thành viên",
         "href": "/users"
       }
@@ -52,20 +58,24 @@
     "href": "/statistics",
     "items": [
       {
-        "display": "Sổ quỹ",
+        "key":"statisticsMembers",
+        "display": "Thành viên",
         "href": "/statistics/members"
       },
       {
+        "key":"statisticsEvents",
         "display": "Sự kiện",
         "href": "/statistics/events"
       },
       {
+        "key":"statisticsTraffic",
         "display": "Tương tác",
         "href": "/statistics/traffic"
       }
     ]
   },
   {
+    "key":"setting",
     "display": "Cài đặt",
     "icon": "./assets/media/icons/duotune/ecommerce/ecm003.svg",
     "href": "/settings",

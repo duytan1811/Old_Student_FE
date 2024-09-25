@@ -1,5 +1,4 @@
 import { BaseModel } from "../base/base.model";
-import { PermissionMenuModel } from "../base/permission-menu.model";
 
 export class UserModel extends BaseModel {
   id: string;
@@ -8,7 +7,6 @@ export class UserModel extends BaseModel {
   name: string;
   email: string;
   avatar: string;
-  permissionMenus: PermissionMenuModel[] = [];
   phone: string;
   firstname: string;
   lastname: string;
@@ -22,7 +20,6 @@ export class UserModel extends BaseModel {
     this.name = '';
     this.email = '';
     this.avatar = './assets/media/avatars/300-1.jpg';
-    this.permissionMenus = [];
     this.phone = '';
     this.selected = false;
   }
@@ -35,7 +32,6 @@ export class UserModel extends BaseModel {
     this.name = user.name || '';
     this.email = user.email || '';
     this.avatar = user.avatar || './assets/media/avatars/300-1.jpg';
-    this.permissionMenus = user.permissionMenus || [];
     this.phone = user.phone || '';
   }
 }

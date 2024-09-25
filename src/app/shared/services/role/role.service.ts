@@ -16,34 +16,34 @@ export class RoleService {
   }
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<RoleModel>>(`${EndPointConstants.Role}/search`, data);
+    return this.apiService.postData<BaseTableResponse<RoleModel>>(`${EndPointConstants.Role.Index}/search`, data);
   }
 
   searchUsersByRoleId(data: any) {
-    return this.apiService.postData<BaseTableResponse<UserModel>>(`${EndPointConstants.Role}/${data.searchParams.roleId}/users`, data);
+    return this.apiService.postData<BaseTableResponse<UserModel>>(`${EndPointConstants.Role.Index}/${data.searchParams.roleId}/users`, data);
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<RoleModel>>(`${EndPointConstants.Role}/${id}`);
+    return this.apiService.getData<BaseResponse<RoleModel>>(`${EndPointConstants.Role.Index}/${id}`);
   }
 
   save(obj: RoleModel) {
-    return this.apiService.postData<BaseResponse<RoleModel>>(`${EndPointConstants.Role}`, obj);
+    return this.apiService.postData<BaseResponse<RoleModel>>(`${EndPointConstants.Role.Index}`, obj);
   }
 
   update(id: string, obj: RoleModel) {
-    return this.apiService.putData<BaseResponse<RoleModel>>(`${EndPointConstants.Role}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<RoleModel>>(`${EndPointConstants.Role.Index}/${id}`, obj);
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Role}/${id}`);
+    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Role.Index}/${id}`);
   }
 
   saveUserByRole(id: string, userIds: Array<string>) {
-    return this.apiService.putData<BaseResponse<boolean>>(`${EndPointConstants.Role}/${id}/users`, { userIds });
+    return this.apiService.putData<BaseResponse<boolean>>(`${EndPointConstants.Role.Index}/${id}/users`, { userIds });
   }
 
   deleteUserByRole(id: string, userIds: Array<string>) {
-    return this.apiService.deleteWithBodyData<BaseResponse<boolean>>(`${EndPointConstants.Role}/${id}/users`, { userIds });
+    return this.apiService.deleteWithBodyData<BaseResponse<boolean>>(`${EndPointConstants.Role.Index}/${id}/users`, { userIds });
   }
 }

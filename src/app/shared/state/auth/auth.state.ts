@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { AuthService } from 'src/app/shared/services';
 import { UserModel } from 'src/app/shared/models/users/user.model';
-import { PermissionMenuModel } from 'src/app/shared/models/base/permission-menu.model';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 
 @Injectable({
@@ -31,12 +30,6 @@ export class AuthState implements OnDestroy {
 
   setCurrentUser(user: UserModel) {
     this.currentUserSubject.next(user);
-  }
-
-  getPermissionMenus(): Array<PermissionMenuModel> {
-    const user = this.getCurrentUser();
-
-    return user.permissionMenus;
   }
 
   getIsLoading(): boolean {
@@ -97,19 +90,11 @@ export class AuthState implements OnDestroy {
     });
   }
 
-  public checkPermissionMenu(menuKey: string, rule: number) {
+  public checkPermissionMenu(menuKey: string, rule: string) {
     const user = this.getCurrentUser();
 
     if (user.isAdmin) return true;
-    const permissions = this.getPermissionMenus();
-    const permission = permissions.find(p => p.menuKey === menuKey);
-
-    if (!permission) return false;
-
-    if (rule === CommonConstants.PERMISSION.VIEW) return permission.permission.isView;
-    if (rule === CommonConstants.PERMISSION.CREATE) return permission.permission.isCreate;
-    if (rule === CommonConstants.PERMISSION.EDIT) return permission.permission.isEdit;
-    if (rule === CommonConstants.PERMISSION.DELETE) return permission.permission.isDelete;
+    
   }
 
   public getUserByToken(res?: any): Observable<BaseResponse<UserModel>> {

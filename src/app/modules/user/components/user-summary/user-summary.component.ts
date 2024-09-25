@@ -8,8 +8,7 @@ import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
 import { UserEditModalComponent } from '../user-edit-modal/user-edit-modal.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
-import { StatusEnum } from 'src/app/shared/enum/status.enum';
+import { ClaimValue, CommonConstants } from 'src/app/shared/constants/common-constants';
 
 @Component({
   selector: 'app-user-summary',
@@ -22,7 +21,7 @@ export class UserSummaryComponent implements OnInit {
   public totalUser$: Observable<number>;
   public userView$: Observable<BaseViewModel>;
   public formGroupSearch: FormGroup;
-  public permissionConstants = CommonConstants.PERMISSION;
+  public permissionConstants = ClaimValue;
   public searchStatuses = CommonConstants.SearchStatus;
 
   constructor(
@@ -101,7 +100,7 @@ export class UserSummaryComponent implements OnInit {
     });
   }
 
-  public checkPermission(rule: number) {
+  public checkPermission(rule: string) {
     return this.authState.checkPermissionMenu(
       CommonConstants.MENU_KEYS.User,
       rule

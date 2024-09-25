@@ -1,20 +1,17 @@
 import { BaseModel } from "../base/base.model";
-import { MenuModel } from "../menus/menu.model";
+import { PermissionModel } from "../base/permission.model";
 
 export class RoleModel extends BaseModel {
 
   code: string;
   name: string;
   countUsers: number;
-  permissionMenus: Array<MenuModel>;
-  permissionMenusString: Array<string>;
+  menuPermissions: Array<PermissionModel> = [];
 
   constructor() {
     super();
     this.code = '';
     this.name = '';
     this.countUsers = 0;
-    this.permissionMenus = [];
-    this.permissionMenusString = [];
   }
 }
