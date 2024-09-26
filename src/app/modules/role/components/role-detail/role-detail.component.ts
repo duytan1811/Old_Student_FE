@@ -149,14 +149,15 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
         this.id,
         selectedUserIds
       );
-      if (result.type === CommonConstants.ResponseType.Error) {
-        this.flashMessageState.message(result.type, result.message);
+      this.flashMessageState.message(result.type, result.message);
+
+      if (result.type === CommonConstants.ResponseType.Success) {
         this.onSearchRoleUsers();
       }
     }
   }
 
-  public getDescriptMenuPermission(menuPermission: PermissionModel) {
+  public getDescriptionMenuPermission(menuPermission: PermissionModel) {
     let result = '';
     const menuList = MenuList;
     let permissionList: Array<string> = [];

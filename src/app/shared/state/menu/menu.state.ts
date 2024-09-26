@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { MenuModel } from 'src/app/shared/models/menus/menu.model';
 import { UtilsService } from '../../services';
 import { PermissionModel } from '../../models/base/permission.model';
+import { ClaimValue } from '../../constants/common-constants';
+import { AuthState } from '../auth/auth.state';
 const URL_MENU_FILE = 'assets/data/menu-data.json';
 
 @Injectable()
@@ -48,7 +50,9 @@ export class MenuState implements OnDestroy {
   setIsLoading(isLoading: boolean) {
     this._isLoadingSubject.next(isLoading);
   }
-  constructor(private utilsService: UtilsService) {
+  constructor(private utilsService: UtilsService,
+    private authState: AuthState,
+  ) {
     this.initialAsideBarMenus();
   }
 
@@ -87,10 +91,10 @@ export class MenuState implements OnDestroy {
                 subMenu.permission.isDelete = subMenuPermission.isDelete;
               }
 
-              if(subMenu.permission.isView || subMenu.permission.isCreate
+              if (subMenu.permission.isView || subMenu.permission.isCreate
                 || subMenu.permission.isEdit || subMenu.permission.isDelete
-              ){
-                menu.expand=true;
+              ) {
+                menu.expand = true;
               }
             });
           }
@@ -104,8 +108,38 @@ export class MenuState implements OnDestroy {
     this.utilsService.loadFileUrl(URL_MENU_FILE).then((value) => {
       if (value) {
         const data = Object.values(value) as Array<MenuModel>;
-        this.setAsideBarMenus(data);
+        let dataLatest: Array<MenuModel> = [];
+
+        data.forEach((menu, menuIndex) => {
+          if (menu.items?.length === 0 || menu.items === null) {
+            if (this.checkHasPermission(menu.key)) {
+              dataLatest.push(menu);
+            }
+          } else {
+            let countSubMenu = 0;
+            let removeSubMenu: Array<string> = [];
+            menu.items.forEach((subMenu, subMenuIndex) => {
+              if (this.checkHasPermission(subMenu.key)) {
+                countSubMenu++;
+              } else {
+                removeSubMenu.push(subMenu.key);
+              }
+            })
+
+            if (countSubMenu > 0) {
+              menu.items = menu.items?.filter(x => !removeSubMenu.includes(x.key));
+
+              dataLatest.push(menu);
+            }
+          }
+        })
+        this.setAsideBarMenus(dataLatest);
       }
     });
+  }
+
+  public checkHasPermission(menuKey: string) {
+    return this.authState.checkPermissionMenu(menuKey, ClaimValue.View) || this.authState.checkPermissionMenu(menuKey, ClaimValue.Create)
+      || this.authState.checkPermissionMenu(menuKey, ClaimValue.Edit) || this.authState.checkPermissionMenu(menuKey, ClaimValue.Delete);
   }
 }

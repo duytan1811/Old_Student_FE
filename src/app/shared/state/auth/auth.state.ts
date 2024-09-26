@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { AuthService } from 'src/app/shared/services';
 import { UserModel } from 'src/app/shared/models/users/user.model';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import { ClaimValue, CommonConstants } from 'src/app/shared/constants/common-constants';
 
 @Injectable({
   providedIn: 'root',
@@ -92,9 +92,19 @@ export class AuthState implements OnDestroy {
 
   public checkPermissionMenu(menuKey: string, rule: string) {
     const user = this.getCurrentUser();
-
     if (user.isAdmin) return true;
-    
+
+    const menuPermissions = user.menuPermissions;
+
+    var menuPermission = menuPermissions?.find(x => x.claimType == menuKey);
+
+    if (menuPermission == null) return false;
+
+    if (rule === ClaimValue.View) return menuPermission?.isView;
+    if (rule === ClaimValue.Create) return menuPermission?.isCreate;
+    if (rule === ClaimValue.Edit) return menuPermission?.isEdit;
+    if (rule === ClaimValue.Delete) return menuPermission?.isDelete;
+
   }
 
   public getUserByToken(res?: any): Observable<BaseResponse<UserModel>> {

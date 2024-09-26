@@ -9,13 +9,13 @@
       <div class="card-body pt-1">
         <div class="fw-bolder text-gray-600 mb-5">Số người dùng: {{ role.countUsers }}</div>
         <div class="d-flex flex-column text-gray-600">
-          <!-- <ng-container  *ngFor="let permissionString of role.permissionMenusString;let i=index" >
+          <ng-container *ngFor="let menuPermission of role.menuPermissions;let i=index">
             <div *ngIf="i < 5" class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>{{ permissionString }}
+              <span class="bullet bg-primary me-3"></span>{{ getDescriptionMenuPermission(menuPermission) }}
             </div>
-          </ng-container> -->
-          
-          <div class='d-flex align-items-center py-2'>
+          </ng-container>
+
+          <div class='d-flex align-items-center py-2' *ngIf="role.menuPermissions && role.menuPermissions.length > 5">
             <span class='bullet bg-primary me-3'></span>
             <em>và tính năng khác...</em>
           </div>
@@ -23,7 +23,8 @@
       </div>
       <div class="card-footer flex-wrap pt-0">
         <a [routerLink]="role.id" class="btn btn-light btn-active-primary my-1 me-2">Chi tiết</a>
-        <button type="button" (click)="onOpenEditRoleUser(role.id)" class="btn btn-light btn-active-light-primary my-1 me-2">Cập
+        <button type="button" (click)="onOpenEditRoleUser(role.id)"
+          class="btn btn-light btn-active-light-primary my-1 me-2">Cập
           nhật</button>
         <button type="button" (click)="goDelete(role)" class="btn btn-light btn-active-light-primary my-1">Xóa</button>
       </div>

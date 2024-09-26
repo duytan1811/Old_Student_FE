@@ -229,10 +229,12 @@ export class RoleState implements OnDestroy {
 
   public saveUserByRole(id: string, userIds: Array<string>): Promise<any> {
     this.setIsLoading(true);
+    const cv = this.viewState.getViewState();
     return new Promise((resolve) => {
       this.roleService.saveUserByRole(id, userIds).subscribe({
         next: (res) => {
           this.setIsLoading(false);
+          this.search(cv);
           resolve(res);
         },
         error: (e) => {
@@ -245,11 +247,13 @@ export class RoleState implements OnDestroy {
 
   public deleteUserByRole(id: string | undefined, userIds: Array<string>): Promise<any> {
     this.setIsLoading(true);
+    const cv = this.viewState.getViewState();
     return new Promise((resolve) => {
       if (id !== undefined) {
         this.roleService.deleteUserByRole(id, userIds).subscribe({
           next: (res) => {
             this.setIsLoading(false);
+            this.search(cv);
             resolve(res);
           },
           error: (e) => {

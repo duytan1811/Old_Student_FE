@@ -102,7 +102,7 @@ export class UserSummaryComponent implements OnInit {
 
   public checkPermission(rule: string) {
     return this.authState.checkPermissionMenu(
-      CommonConstants.MENU_KEYS.User,
+      CommonConstants.MenuKey.User,
       rule
     );
   }

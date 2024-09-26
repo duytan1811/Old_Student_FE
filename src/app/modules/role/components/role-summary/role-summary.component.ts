@@ -5,8 +5,10 @@ import * as state from 'src/app/shared/state';
 import { Observable } from 'rxjs';
 import { RoleModel } from 'src/app/shared/models/roles/role.model';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import { ClaimValue, CommonConstants, MenuList } from 'src/app/shared/constants/common-constants';
 import { RoleUserModalComponent } from '../role-user-modal/role-user-modal.component';
+import { PermissionModel } from 'src/app/shared/models/base/permission.model';
+import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 
 @Component({
   selector: 'app-role-summary',
@@ -23,6 +25,7 @@ export class RoleSummaryComponent implements OnInit {
     private dialog: MatDialog,
     private viewState: state.ViewState,
     private roleState: state.RoleState,
+    private authState: state.AuthState,
     private flashMessageState: state.FlashMessageState,
   ) { }
 
@@ -42,6 +45,7 @@ export class RoleSummaryComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(RoleEditModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      this.roleState.search(new BaseViewModel())
     });
   }
 
@@ -72,5 +76,25 @@ export class RoleSummaryComponent implements OnInit {
         this.flashMessageState.message(res.type, res.message);
       }
     });
+  }
+
+  public getDescriptionMenuPermission(menuPermission: PermissionModel) {
+    let result = '';
+    const menuList = MenuList;
+    let permissionList: Array<string> = [];
+    const menu = menuList.find((x) => x.key === menuPermission.claimType);
+    if (menu != null) {
+      result += menu.display;
+    }
+    if (menuPermission.isView) permissionList.push('Xem');
+    if (menuPermission.isCreate) permissionList.push('Thêm');
+    if (menuPermission.isEdit) permissionList.push('Sửa');
+    if (menuPermission.isDelete) permissionList.push('Xóa');
+
+    if(permissionList){
+      result +=`: ${permissionList.join(', ')}`
+    }
+
+    return result;
   }
 }

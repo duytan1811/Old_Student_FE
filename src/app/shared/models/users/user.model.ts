@@ -1,4 +1,5 @@
 import { BaseModel } from "../base/base.model";
+import { PermissionModel } from "../base/permission.model";
 
 export class UserModel extends BaseModel {
   id: string;
@@ -11,6 +12,7 @@ export class UserModel extends BaseModel {
   firstname: string;
   lastname: string;
   selected: boolean;
+  menuPermissions: Array<PermissionModel> | null = null;
 
   constructor() {
     super();
