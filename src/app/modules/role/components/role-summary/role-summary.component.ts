@@ -5,21 +5,27 @@ import * as state from 'src/app/shared/state';
 import { Observable } from 'rxjs';
 import { RoleModel } from 'src/app/shared/models/roles/role.model';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
-import { ClaimValue, CommonConstants, MenuList } from 'src/app/shared/constants/common-constants';
+import {
+  ClaimValue,
+  CommonConstants,
+  MenuList,
+} from 'src/app/shared/constants/common-constants';
 import { RoleUserModalComponent } from '../role-user-modal/role-user-modal.component';
 import { PermissionModel } from 'src/app/shared/models/base/permission.model';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
+import { Title } from '@angular/platform-browser';
+import { PageInfoService } from 'src/app/_metronic/layout';
 
 @Component({
   selector: 'app-role-summary',
   templateUrl: './role-summary.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class RoleSummaryComponent implements OnInit {
-
   public isLoading$: Observable<boolean>;
   public roles$: Observable<Array<RoleModel>>;
   public totalRole$: Observable<number>;
+  public claimValue= ClaimValue;
 
   constructor(
     private dialog: MatDialog,
@@ -27,9 +33,13 @@ export class RoleSummaryComponent implements OnInit {
     private roleState: state.RoleState,
     private authState: state.AuthState,
     private flashMessageState: state.FlashMessageState,
-  ) { }
+    private title: Title,
+    private pageInfo: PageInfoService
+  ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('Phân quyền');
+    this.pageInfo.updateTitle('Phân quyền');
     this.roles$ = this.roleState.roles$;
     this.totalRole$ = this.roleState.totalRole$;
     this.isLoading$ = this.roleState.isLoading$;
@@ -39,13 +49,14 @@ export class RoleSummaryComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
     dialogConfig.data = {
-      id, isCreate
+      id,
+      isCreate,
     };
     const dialogRef = this.dialog.open(RoleEditModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      this.roleState.search(new BaseViewModel())
+    dialogRef.afterClosed().subscribe((result) => {
+      this.roleState.search(new BaseViewModel());
     });
   }
 
@@ -53,13 +64,12 @@ export class RoleSummaryComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "40%";
+    dialogConfig.width = '40%';
     dialogConfig.data = {
       roleId,
     };
     const dialogRef = this.dialog.open(RoleUserModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   public goDelete(data: RoleModel): void {
@@ -69,8 +79,11 @@ export class RoleSummaryComponent implements OnInit {
     dialogConfig.data = {
       id: data.id,
     };
-    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(async result => {
+    const dialogRef = this.dialog.open(
+      ConfirmDeleteModalComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
         const res = await this.roleState.delete(data.id);
         this.flashMessageState.message(res.type, res.message);
@@ -91,10 +104,14 @@ export class RoleSummaryComponent implements OnInit {
     if (menuPermission.isEdit) permissionList.push('Sửa');
     if (menuPermission.isDelete) permissionList.push('Xóa');
 
-    if(permissionList){
-      result +=`: ${permissionList.join(', ')}`
+    if (permissionList) {
+      result += `: ${permissionList.join(', ')}`;
     }
 
     return result;
+  }
+
+  public checkPermission(rule: string) {
+    return this.authState.checkPermissionMenu(CommonConstants.MenuKey.Role, rule);
   }
 }

@@ -1,0 +1,59 @@
+<div class="card mb-5">
+    <div class="card-header">
+        <h3 class="card-title">{{ newsId ? 'Cập nhật' : 'Thêm mới'}} bài viết</h3>
+        <div class="card-toolbar">
+            <a class="btn btn-sm btn-danger" style="vertical-align: middle;" [routerLink]="'/news'">
+                <span class="svg svg-icon" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"></span>
+                Quay lại
+            </a>
+        </div>
+    </div>
+    <div class="card-body pb-0 pt-4">
+        <div class="row mb-6">
+            <label class="col-lg-2 col-form-label required fw-bold fs-6">Họ tên</label>
+            <div class="col-lg-10">
+                <input type="text" 
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Họ" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-2 col-form-label fw-bold fs-6">
+                <span>Tiêu đề</span>
+            </label>
+            <div class="col-lg-10 fv-row">
+                <input type="text" class="form-control form-control-lg form-control-solid"
+                    placeholder="Số điện thoại" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-2 col-form-label fw-bold fs-6">
+                <span>Danh mục</span>
+            </label>
+            <div class="col-lg-10 fv-row">
+                <input type="email"  class="form-control form-control-lg form-control-solid"
+                    placeholder="Email" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-2 col-form-label fw-bold fs-6">
+                <span>Giới thiệu</span>
+            </label>
+            <div class="col-lg-10 fv-row">
+                <input type="email"  class="form-control form-control-lg form-control-solid"
+                    placeholder="Email" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-2 col-form-label fw-bold fs-6">
+                <span>Nội dung chi tiết</span>
+            </label>
+            <div class="col-lg-10 fv-row">
+                <ckeditor [editor]="Editor" ></ckeditor>
+            </div>
+        </div>
+    </div>
+</div>

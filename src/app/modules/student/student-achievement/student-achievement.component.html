@@ -22,11 +22,19 @@
                     </span>
                 </div>
                 <label class="fw-bolder">{{ item.name }}</label><br>
-                <small>{{ item.description }}</small>
+                <small [innerHTML]="item.description"></small>
             </div>
             <div>
-                <button class="btn btn-icon btn-sm"></button>
+                <button class="btn btn-icon btn-sm"><span class="svg-icon svg-icon-2 svg-icon-primary"
+                        (click)="onEdit(item.id)"
+                        [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span></button>
+                <button class="btn btn-icon btn-sm "><span class="svg-icon svg-icon-2 svg-icon-danger"
+                        (click)="goDelete(item.id)"
+                        [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span></button>
             </div>
+        </div>
+        <div *ngIf="studentAchievements.length ==0" class="text-center">
+            <p>Hiện tại bạn chưa có thành tích</p>
         </div>
     </div>
 </div>

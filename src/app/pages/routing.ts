@@ -33,6 +33,16 @@ const Routing: Routes = [
       import('../modules/setting/setting.module').then((m) => m.SettingModule),
   },
   {
+    path: EndPointConstants.News.Index,
+    loadChildren: () =>
+      import('../modules/news/news.module').then((m) => m.NewsModule),
+  },
+  {
+    path: EndPointConstants.Forum.Index,
+    loadChildren: () =>
+      import('../modules/forum/forum.module').then((m) => m.ForumModule),
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

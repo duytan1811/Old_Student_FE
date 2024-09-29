@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-6 text-end">
           <mat-checkbox (change)="onChangeDefaultPassword($event)" formControlName="isDefaultPassword"
-          [color]="'primary'"> Mặc định</mat-checkbox>
+            [color]="'primary'"> Mặc định</mat-checkbox>
         </div>
       </div>
       <input *ngIf="!isDefaultPassword()" id="password" formControlName="password" type="text"
@@ -25,19 +25,27 @@
     </div>
 
     <div class="mb-5">
-      <label for="fullName" class="form-label required">Tên người dùng</label>
-      <input id="fullName" formControlName="fullName" type="text" class="form-control form-control-solid" />
+      <label for="name" class="form-label required">Tên người dùng</label>
+      <input id="name" formControlName="name" type="text" class="form-control form-control-solid" />
     </div>
 
     <div class="mb-5">
       <label for="email" class="form-label required">Email</label>
       <input id="email" formControlName="email" type="text" class="form-control form-control-solid" />
     </div>
+
+    <div class="mb-5">
+      <label for="status" class="form-label">Trạng thái</label>
+      <mat-select formControlName="status" class="form-control form-control-sm form-control-solid">
+        <mat-option *ngFor="let item of formStatuses" [value]="item.value">{{ item.text
+          }}</mat-option>
+      </mat-select>
+    </div>
   </div>
 
   <div class="float-end" mat-dialog-actions>
     <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
-    <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid || (isLoading$ | async)"
-      (click)="onSave()">Xác nhận</button>
+    <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid || (isLoading$ | async)" (click)="onSave()">Xác
+      nhận</button>
   </div>
 </form>

@@ -1,7 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { isEmpty } from 'rxjs';
+import { isEmpty, Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { StudentAchievementModel } from 'src/app/shared/models/student-achivements/student-achievement.model';
 import * as state from 'src/app/shared/state';
@@ -14,7 +15,7 @@ import * as state from 'src/app/shared/state';
 export class StudentAchievementEditDialogComponent implements OnInit {
   public id: string | null;
   public studentId: string | null;
-  public studentAchievement: StudentAchievementModel;
+  public studentAchievement$: Observable<StudentAchievementModel>;
   public formGroup: FormGroup;
 
   constructor(
@@ -28,6 +29,10 @@ export class StudentAchievementEditDialogComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.data.id;
     this.studentId = this.data.studentId;
+    this.studentAchievement$ = this.studentAchievementState.studentAchievement$;
+    if (this.id) {
+      this.studentAchievementState.findById(this.id);
+    }
     this.initFormGroup();
   }
 
@@ -44,6 +49,7 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     }
     this.flashMessageState.message(res.type, res.message);
     if (res.type === CommonConstants.ResponseType.Success) {
+      this.formGroup.reset();
       this.dialogRef.close();
     }
   }
@@ -52,8 +58,8 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      fromDate: [null],
-      toDate: [null],
+      fromDateFormat: [''],
+      toDateFormat: [''],
       status: [''],
     });
   }

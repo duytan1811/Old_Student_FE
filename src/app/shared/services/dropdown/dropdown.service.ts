@@ -14,11 +14,14 @@ export class DropdownService {
   }
 
   getMajors() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Index}/majors`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Major}`);
   }
 
   getUsers() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Index}/users`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.User}`);
   }
 
+  getRoles() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Role}`);
+  }
 }

@@ -92,6 +92,7 @@ export class AuthState implements OnDestroy {
 
   public checkPermissionMenu(menuKey: string, rule: string) {
     const user = this.getCurrentUser();
+
     if (user.isAdmin) return true;
 
     const menuPermissions = user.menuPermissions;

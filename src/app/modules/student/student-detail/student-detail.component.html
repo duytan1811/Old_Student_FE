@@ -1,24 +1,25 @@
 <div class="card mb-5">
     <div class="card-body pb-0 pt-4" *ngIf="student$ | async as student">
-        <div class="mt-0 mb-4">
-            <a class="btn btn-sm btn-danger mb-0" style="vertical-align: middle;" [routerLink]="'/students'"> Quay
-                lại</a>
+        <div class="mt-0 mb-4 text-end">
+            <a class="btn btn-sm btn-danger" style="vertical-align: middle;" [routerLink]="'/students'">
+                <span class="svg svg-icon" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"></span>
+                Quay lại
+            </a>
         </div>
         <div class="d-flex flex-wrap flex-sm-nowrap">
-
             <div class="me-7 mb-4">
                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
                     <img src="assets/media/avatars/300-1.jpg" alt="image" />
-                    
                 </div>
+
             </div>
             <div class="flex-grow-1">
                 <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
                     <div class="d-flex flex-column">
                         <div class="d-flex align-items-center mb-2">
-                            <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ student.fullName
+                            <a href="javascript:void(0)" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ student.fullName
                                 }}</a>
-                            <a href="#">
+                            <a href="javascript:void(0)">
                                 <i class="ki-duotone ki-verify fs-1 text-primary">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -26,18 +27,15 @@
                             </a>
                         </div>
                         <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                            <a href="javascript:void(0)"
+                                class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                 <i class="ki-duotone ki-profile-circle fs-4 me-1">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
-                                </i>Developer</a>
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                <i class="ki-duotone ki-geolocation fs-4 me-1">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>SF, Bay Area</a>
-                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                                </i>{{ student.jobTitle }}</a>
+                            <a href="mailto:{{student.email}}"
+                                class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                 <i class="ki-duotone ki-sms fs-4">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -54,8 +52,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="4500"
-                                        data-kt-countup-prefix="$">0</div>
+                                    <div class="fs-2 fw-bold">{{ student.countArchievement }}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Thành tích</div>
                             </div>
@@ -65,7 +62,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="80">0</div>
+                                    <div class="fs-2 fw-bold">{{student.schoolYear }}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Niên khóa</div>
                             </div>
@@ -75,8 +72,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="60"
-                                        data-kt-countup-prefix="%">0</div>
+                                    <div class="fs-2 fw-bold">{{ student.yearOfGraduation}}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Năm tốt nghiệp</div>
                             </div>
@@ -91,12 +87,11 @@
                     (click)="onChangeTab(tab.href)" [routerLink]="'/students/'+id" [queryParams]="{tab:tab.href}">{{
                     tab.text}}</a>
             </li>
-
         </ul>
     </div>
 </div>
 <div class="card mb-5 mb-xl-10" id="kt_profile_details_view" *ngIf="student$ | async as student">
-    <app-student-overview *ngIf="tabSelected === 'overview'" [student] ="student" ></app-student-overview>
-    <app-student-achievement *ngIf="tabSelected === 'achievements'" [student] ="student" ></app-student-achievement>
-    <app-student-setting *ngIf="tabSelected === 'setting'" ></app-student-setting>
+    <app-student-overview *ngIf="tabSelected === 'overview'" [student]="student"></app-student-overview>
+    <app-student-achievement *ngIf="tabSelected === 'achievements'" [student]="student"></app-student-achievement>
+    <app-student-setting *ngIf="tabSelected === 'setting'" [student]="student"></app-student-setting>
 </div>

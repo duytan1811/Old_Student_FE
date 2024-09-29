@@ -4,29 +4,32 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
 
 @Component({
   selector: 'app-user-edit-modal',
   templateUrl: './user-edit-modal.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class UserEditModalComponent implements OnInit {
-
   public id: string;
   public isCreate: boolean;
   public user$: Observable<UserModel>;
   public isLoading$: Observable<boolean>;
+  public dropdownRole$: Observable<Array<SelectListItem>>;
   public formGroup: FormGroup;
+  public formStatuses = CommonConstants.FormStatuses;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private userState: state.UserState,
     private flashMessageState: state.FlashMessageState,
-    public dialogRef: MatDialogRef<UserEditModalComponent>,
-  ) { }
+    private dropdownState: state.DropdownState,
+    public dialogRef: MatDialogRef<UserEditModalComponent>
+  ) {}
 
   ngOnInit(): void {
     this.id = this.data.id;
@@ -64,7 +67,7 @@ export class UserEditModalComponent implements OnInit {
     } else {
       res = await this.userState.save(data);
     }
-    this.flashMessageState.message(res.type,  res.message);
+    this.flashMessageState.message(res.type, res.message);
     if (res.type === CommonConstants.ResponseType.Success) {
       this.dialogRef.close();
     }
@@ -73,9 +76,17 @@ export class UserEditModalComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       userName: ['', [Validators.required]],
-      fullName: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$/)]],
+      roleId: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$/),
+        ],
+      ],
+      status: [''],
       isDefaultPassword: [false],
     });
   }

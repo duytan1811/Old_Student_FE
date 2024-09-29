@@ -1,0 +1,99 @@
+<div class="card shadow-sm">
+    <div class="card-header">
+      <h3 class="card-title">Danh sách bài viết</h3>
+      <div class="card-toolbar">
+        <button *ngIf="checkPermission(claimValue.Create)" (click)="goCreate()" type="button"
+          class="btn btn-sm btn-primary">
+          <span class="svg-icon svg-icon-2 align-middle"
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
+          Thêm mới
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive overflow-hidden">
+        <form [formGroup]="formGroupSearch">
+          <table class="table table-row-bordered ">
+            <thead>
+              <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th class="w-50px">#</th>
+                <th>Tên</th>
+                <th>Loại tin</th>
+                <th>Trạng thái</th>
+                <th class="w-150px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">
+                  <input formControlName="fullName" type="text" (change)="onSearch()" placeholder="Nhập tên ..."
+                    class="form-control form-control-sm form-control-solid">
+                </td>
+                <td>
+                  <mat-select (selectionChange)="onSearch()" formControlName="majorId"
+                    class="form-control form-control-sm form-control-solid">
+                    <mat-option value="">Tất cả</mat-option>
+                    <mat-option *ngFor="let major of dropdownMajors$ | async" [value]="major.value">{{ major.text
+                      }}</mat-option>
+                  </mat-select>
+                </td>
+                <td>
+                  <mat-select (selectionChange)="onSearch()" formControlName="status"
+                    class="form-control form-control-sm form-control-solid">
+                    <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
+                      }}</mat-option>
+                  </mat-select>
+                </td>
+                <td>
+                  <button (click)="onSearch()" class="btn btn-sm btn-primary">
+                    <span class="svg-icon svg-icon-2 align-middle"
+                      [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"></span>
+                    Tìm kiếm
+                  </button>
+                </td>
+              </tr>
+  
+              <ng-container *ngIf="newsList$ | async as newsList;else emptyTable">
+                <ng-container *ngIf="(totalNews$ | async);else emptyTable">
+                  <tr *ngFor="let student of newsList" style="vertical-align: middle;">
+                    <td>
+                      <div class="symbol symbol-50px symbol-circle">
+                        <img src="../../../assets/media/avatars/300-1.jpg" alt="" />
+                      </div>
+                    </td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.typeName }}</td>
+                    <td>{{ student.statusName }}</td>
+                    <td class="text-center">
+                      <app-status-badge [status]="student.status" [statusName]="student.statusName"></app-status-badge>
+                    </td>
+                    <td>
+                      <button title="Cập nhật" (click)="goEdit(student.id)"  *ngIf="checkPermission(claimValue.Edit)"
+                        class="btn btn-sm btn-light-primary btn-icon me-2">
+                        <span class="svg-icon svg-icon-2"
+                          [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
+                      </button>
+                      <button (click)="goDelete(student)" title="Xóa" *ngIf="checkPermission(claimValue.Delete)"
+                        class="btn btn-sm btn-light-danger btn-icon">
+                        <span class="svg-icon svg-icon-2"
+                          [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+              <ng-template #emptyTable>
+                <tr>
+                  <td colspan="5" class="text-center">
+                    <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+          <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+            [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+        </form>
+      </div>
+    </div>
+  </div>

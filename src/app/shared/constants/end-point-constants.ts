@@ -3,7 +3,9 @@ export const EndPointConstants = {
     Index: `dashboard`,
   },
   Dropdown: {
-    Index: `dropdowns`,
+    Major: `dropdowns/majors`,
+    User: `dropdowns/users`,
+    Role: `dropdowns/roles`,
   },
   Role: {
     Index: `roles`,
@@ -26,5 +28,11 @@ export const EndPointConstants = {
   Auth: {
     Login: `login`,
     Register: `register`,
+  },
+  News: {
+    Index: `news`,
+  },
+  Forum: {
+    Index: `forum`,
   },
 };

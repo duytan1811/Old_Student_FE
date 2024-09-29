@@ -7,7 +7,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SpinnerScreenComponent } from 'src/app/shared/components/spinner-screen/spinner-screen.component';
 import { SettingMajorComponent } from './setting-major/setting-major.component';
 import { SettingMajorEditModalComponent } from './setting-major/components/setting-major-edit-modal/setting-major-edit-modal.component';
-import { SettingMajorImportModalComponent } from './setting-major/components/setting-major-import-modal/setting-major-import-modal.component';
 import { SharedComponentModule } from 'src/app/shared/components/shared-components.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
@@ -16,7 +15,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     SettingComponent,
     SettingMajorComponent,
     SettingMajorEditModalComponent,
-    SettingMajorImportModalComponent,
     SpinnerScreenComponent,
   ],
   imports: [

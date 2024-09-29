@@ -15,23 +15,23 @@ export class StudentService {
   }
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<StudentModel>>(`${EndPointConstants.Student}/search`, data);
+    return this.apiService.postData<BaseTableResponse<StudentModel>>(`${EndPointConstants.Student.Index}/search`, data);
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<StudentModel>>(`${EndPointConstants.Student}/${id}`);
+    return this.apiService.getData<BaseResponse<StudentModel>>(`${EndPointConstants.Student.Index}/${id}`);
   }
 
   save(obj: StudentModel) {
-    return this.apiService.postData<BaseResponse<StudentModel>>(`${EndPointConstants.Student}`, obj);
+    return this.apiService.postData<BaseResponse<StudentModel>>(`${EndPointConstants.Student.Index}`, obj);
   }
 
   update(id: string, obj: StudentModel) {
-    return this.apiService.putData<BaseResponse<StudentModel>>(`${EndPointConstants.Student}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<StudentModel>>(`${EndPointConstants.Student.Index}/${id}`, obj);
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Student}/${id}`);
+    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Student.Index}/${id}`);
   }
 
 }

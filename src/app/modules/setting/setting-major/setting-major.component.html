@@ -2,16 +2,11 @@
   <div class="card-header">
     <h3 class="card-title">Danh sách nghề nghiệp</h3>
     <div class="card-toolbar">
-      <button (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary me-2">
+      <button *ngIf="checkPermission(claimValue.Create)" (click)="goEdit(null)" type="button" class="btn btn-sm btn-primary me-2">
         <span class="svg-icon svg-icon-2 align-middle"
           [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
         Thêm mới
       </button>
-      <!-- <button (click)="goImport()" type="button" class="btn btn-sm btn-primary">
-        <span class="svg-icon svg-icon-2 align-middle"
-          [inlineSVG]="'./assets/media/icons/duotune/files/fil022.svg'"></span>
-        Nhập
-      </button> -->
     </div>
   </div>
   <div class="card-body">
@@ -57,12 +52,12 @@
                     <app-status-badge [status]="major.status" [statusName]="major.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button (click)="goEdit(major.id,false)" title="Cập nhật"
+                    <button (click)="goEdit(major.id,false)" title="Cập nhật" *ngIf="checkPermission(claimValue.Edit)"
                       class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>
-                    <button (click)="goDelete(major)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
+                    <button (click)="goDelete(major)" *ngIf="checkPermission(claimValue.Delete)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
                     </button>

@@ -20,6 +20,11 @@ export class DropdownState implements OnDestroy {
   public dropdownMajors$: Observable<Array<SelectListItem>> =
     this._dropdownMajorsSubject.asObservable();
 
+    private _dropdownRolesSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownRoles$: Observable<Array<SelectListItem>> =
+    this._dropdownRolesSubject.asObservable();
+
   getUsers(): Array<SelectListItem> {
     return this._dropdownUsersSubject.getValue();
   }
@@ -34,6 +39,14 @@ export class DropdownState implements OnDestroy {
 
   setMajors(data: Array<SelectListItem>) {
     this._dropdownMajorsSubject.next(data);
+  }
+
+  getRoles(): Array<SelectListItem> {
+    return this._dropdownRolesSubject.getValue();
+  }
+
+  setRoles(data: Array<SelectListItem>) {
+    this._dropdownRolesSubject.next(data);
   }
 
   constructor(private dropdownService: DropdownService) {}
@@ -59,6 +72,19 @@ export class DropdownState implements OnDestroy {
     const sub = this.dropdownService.getMajors().subscribe({
       next: (res: BaseResponse<Array<SelectListItem>>) => {
         this.setMajors(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown major`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownRoles() {
+    const sub = this.dropdownService.getRoles().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setRoles(res.data);
       },
       error: (err) => {
         console.log(`Error get dropdown major`, err);

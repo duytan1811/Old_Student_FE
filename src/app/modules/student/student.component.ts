@@ -3,7 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import {
+  ClaimValue,
+  CommonConstants,
+} from 'src/app/shared/constants/common-constants';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { StudentModel } from 'src/app/shared/models/students/student.model';
@@ -26,6 +29,7 @@ export class StudentComponent implements OnInit {
   public userView$: Observable<BaseViewModel>;
   public formGroupSearch: FormGroup;
   public searchStatuses = CommonConstants.SearchStatus;
+  public claimValue = ClaimValue;
 
   constructor(
     private fb: FormBuilder,
@@ -35,8 +39,9 @@ export class StudentComponent implements OnInit {
     private flashMessageState: state.FlashMessageState,
     private title: Title,
     private pageInfo: PageInfoService,
-    private router:Router,
-    private dropdownState: state.DropdownState
+    private router: Router,
+    private dropdownState: state.DropdownState,
+    private authState: state.AuthState
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +63,8 @@ export class StudentComponent implements OnInit {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.schoolYear = dataSearch.schoolYear !== '' ? dataSearch.schoolYear : null;
+    dataSearch.yearOfGraduation = dataSearch.yearOfGraduation !== '' ? dataSearch.yearOfGraduation : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.studentState.search(viewState);
@@ -95,11 +102,20 @@ export class StudentComponent implements OnInit {
     });
   }
 
+  public checkPermission(rule: string) {
+    return this.authState.checkPermissionMenu(
+      CommonConstants.MenuKey.Student,
+      rule
+    );
+  }
+
   private initFormGroupSearch() {
     this.formGroupSearch = this.fb.group({
       fullName: [''],
-      email: [''],
+      phone: [''],
       majorId: [''],
+      schoolYear: [''],
+      yearOfGraduation: [''],
       status: [''],
     });
   }

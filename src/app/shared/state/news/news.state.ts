@@ -4,55 +4,55 @@ import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { BaseTableResponse } from 'src/app/shared/models/base/base-table-response.model';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { ViewState } from '../base/view.state';
-import { StudentModel } from 'src/app/shared/models/students/student.model';
-import { StudentService } from '../../services/student/student.service';
+import { NewsModel } from 'src/app/shared/models/news/news.model';
+import { NewsService } from '../../services/news/news.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentState implements OnDestroy {
+export class NewsState implements OnDestroy {
   private unsubscribe: Subscription[] = [];
 
-  private _studentsSubject: BehaviorSubject<Array<StudentModel>> = new BehaviorSubject(Array());
-  public students$: Observable<Array<StudentModel>> = this._studentsSubject.asObservable();
+  private _newsListSubject: BehaviorSubject<Array<NewsModel>> = new BehaviorSubject(Array());
+  public newsList$: Observable<Array<NewsModel>> = this._newsListSubject.asObservable();
 
-  private _totalStudentSubject: BehaviorSubject<number> = new BehaviorSubject(0);
-  public totalStudent$: Observable<number> = this._totalStudentSubject.asObservable();
+  private _totalNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  public totalNews$: Observable<number> = this._totalNewsSubject.asObservable();
 
-  private _studentStudentsSubject: BehaviorSubject<Array<StudentModel>> = new BehaviorSubject(Array());
-  public studentStudents$: Observable<Array<StudentModel>> = this._studentStudentsSubject.asObservable();
+  private _newsNewssSubject: BehaviorSubject<Array<NewsModel>> = new BehaviorSubject(Array());
+  public newsNewss$: Observable<Array<NewsModel>> = this._newsNewssSubject.asObservable();
 
-  private _totalStudentStudentSubject: BehaviorSubject<number> = new BehaviorSubject(0);
-  public totalStudentStudent$: Observable<number> = this._totalStudentStudentSubject.asObservable();
+  private _totalNewsNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  public totalNewsNews$: Observable<number> = this._totalNewsNewsSubject.asObservable();
 
-  private _studentSubject: BehaviorSubject<StudentModel> = new BehaviorSubject(Object());
-  public student$: Observable<StudentModel> = this._studentSubject.asObservable();
+  private _newsSubject: BehaviorSubject<NewsModel> = new BehaviorSubject(Object());
+  public news$: Observable<NewsModel> = this._newsSubject.asObservable();
 
   private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(Boolean());
   public isLoading$: Observable<boolean> = this._isLoadingSubject.asObservable();
 
-  getStudents(): Array<StudentModel> {
-    return this._studentsSubject.getValue();
+  getNewsList(): Array<NewsModel> {
+    return this._newsListSubject.getValue();
   }
 
-  setStudents(data: Array<StudentModel>) {
-    this._studentsSubject.next(data);
+  setNewsList(data: Array<NewsModel>) {
+    this._newsListSubject.next(data);
   }
 
-  getTotalStudent(): number {
-    return this._totalStudentSubject.getValue();
+  getTotalNews(): number {
+    return this._totalNewsSubject.getValue();
   }
 
-  setTotalStudent(data: number) {
-    this._totalStudentSubject.next(data);
+  setTotalNews(data: number) {
+    this._totalNewsSubject.next(data);
   }
 
-  getStudent(): StudentModel {
-    return this._studentSubject.getValue();
+  getNews(): NewsModel {
+    return this._newsSubject.getValue();
   }
 
-  setStudent(data: StudentModel) {
-    this._studentSubject.next(data);
+  setNews(data: NewsModel) {
+    this._newsSubject.next(data);
   }
 
   getIsLoading(): boolean {
@@ -64,7 +64,7 @@ export class StudentState implements OnDestroy {
   }
 
   constructor(
-    private studentService: StudentService,
+    private newsService: NewsService,
     private viewState: ViewState,
   ) {
     this.search(new BaseViewModel());
@@ -77,16 +77,16 @@ export class StudentState implements OnDestroy {
   public search(dataSearch: any) {
     this.setIsLoading(true);
     const cv = this.viewState.getViewState();
-    const sub = this.studentService.search(dataSearch).subscribe({
-      next: (res: BaseTableResponse<StudentModel>) => {
+    const sub = this.newsService.search(dataSearch).subscribe({
+      next: (res: BaseTableResponse<NewsModel>) => {
         this.setIsLoading(false);
         cv.paginator.total = res.total;
-        this.setStudents(res.items);
-        this.setTotalStudent(res.total);
+        this.setNewsList(res.items);
+        this.setTotalNews(res.total);
       },
       error: (err) => {
         this.setIsLoading(false);
-        console.log(`Error get students`, err)
+        console.log(`Error get newss`, err)
       }
     })
 
@@ -97,28 +97,28 @@ export class StudentState implements OnDestroy {
     this.setIsLoading(true);
 
     if (id) {
-      const sub = this.studentService.findById(id).subscribe({
-        next: (res: BaseResponse<StudentModel>) => {
-          this.setStudent(res.data);
+      const sub = this.newsService.findById(id).subscribe({
+        next: (res: BaseResponse<NewsModel>) => {
+          this.setNews(res.data);
         },
         error: (err) => {
           this.setIsLoading(false);
-          console.log(`Error get student`, err)
+          console.log(`Error get news`, err)
         }
       })
 
       this.unsubscribe.push(sub);
     } else {
-      this.setStudent(new StudentModel());
+      this.setNews(new NewsModel());
     }
     this.setIsLoading(false);
   }
 
-  public save(obj: StudentModel): Promise<any> {
+  public save(obj: NewsModel): Promise<any> {
     this.setIsLoading(true);
     const cv = this.viewState.getViewState();
     return new Promise((resolve) => {
-      this.studentService.save(obj).subscribe({
+      this.newsService.save(obj).subscribe({
         next: (result) => {
           this.setIsLoading(false);
           this.search(cv);
@@ -132,10 +132,10 @@ export class StudentState implements OnDestroy {
     })
   }
 
-  public update(id: string, obj: StudentModel): Promise<any> {
+  public update(id: string, obj: NewsModel): Promise<any> {
     this.setIsLoading(true);
     return new Promise((resolve) => {
-      this.studentService.update(id, obj).subscribe({
+      this.newsService.update(id, obj).subscribe({
         next: (res) => {
           this.setIsLoading(false);
           resolve(res);
@@ -152,7 +152,7 @@ export class StudentState implements OnDestroy {
     this.setIsLoading(true);
     const cv = this.viewState.getViewState();
     return new Promise((resolve) => {
-      this.studentService.delete(id).subscribe({
+      this.newsService.delete(id).subscribe({
         next: (res) => {
           this.search(cv);
           this.setIsLoading(false);

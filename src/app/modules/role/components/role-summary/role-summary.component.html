@@ -23,14 +23,15 @@
       </div>
       <div class="card-footer flex-wrap pt-0">
         <a [routerLink]="role.id" class="btn btn-light btn-active-primary my-1 me-2">Chi tiết</a>
-        <button type="button" (click)="onOpenEditRoleUser(role.id)"
+        <button type="button" (click)="onOpenEditRoleUser(role.id)" *ngIf="checkPermission(claimValue.Edit)"
           class="btn btn-light btn-active-light-primary my-1 me-2">Cập
           nhật</button>
-        <button type="button" (click)="goDelete(role)" class="btn btn-light btn-active-light-primary my-1">Xóa</button>
+        <button type="button" (click)="goDelete(role)" class="btn btn-light btn-active-light-primary my-1"
+          *ngIf="checkPermission(claimValue.Delete)">Xóa</button>
       </div>
     </div>
   </div>
-  <div class="ol-md-4">
+  <div class="ol-md-4" *ngIf="checkPermission(claimValue.Create)">
     <div class="card h-md-100">
       <div class="card-body d-flex flex-center">
         <button (click)="goEdit(null)" type="button" class="btn btn-clear d-flex flex-column flex-center">

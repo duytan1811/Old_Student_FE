@@ -12,18 +12,18 @@ export class SettingService {
   constructor(private apiService: APIService) { }
 
   getAll() {
-    return this.apiService.getData<BaseResponse<Array<SettingModel>>>(`${EndPointConstants.Setting}/all`);
+    return this.apiService.getData<BaseResponse<Array<SettingModel>>>(`${EndPointConstants.Setting.Index}/all`);
   }
 
   getSettingByType(type: string) {
-    return this.apiService.getData<BaseResponse<Array<SettingModel>>>(`${EndPointConstants.Setting}/types/${type}`);
+    return this.apiService.getData<BaseResponse<Array<SettingModel>>>(`${EndPointConstants.Setting.Index}/types/${type}`);
   }
 
   getSettingByKey(key: string) {
-    return this.apiService.getData<BaseResponse<SettingModel>>(`${EndPointConstants.Setting}/keys/${key}`);
+    return this.apiService.getData<BaseResponse<SettingModel>>(`${EndPointConstants.Setting.Index}/keys/${key}`);
   }
 
   updateSettings(data: any) {
-    return this.apiService.putData<BaseResponse<boolean>>(`${EndPointConstants.Setting}/update`, data);
+    return this.apiService.putData<BaseResponse<boolean>>(`${EndPointConstants.Setting.Index}/update`, data);
   }
 }

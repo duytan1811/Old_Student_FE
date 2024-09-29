@@ -4,27 +4,40 @@ import { RoleDetailComponent } from './components/role-detail/role-detail.compon
 import { RoleSummaryComponent } from './components/role-summary/role-summary.component';
 import { RoleComponent } from './role.component';
 import { PermissionGuard } from 'src/app/shared/guards/permission.guard';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import {
+  ClaimValue,
+  CommonConstants,
+} from 'src/app/shared/constants/common-constants';
 
-const routes: Routes = [{
-  path: '',
-  component: RoleComponent,
-  children: [
-    {
-      path: '',
-      component: RoleSummaryComponent,
-      canActivate: [PermissionGuard],
-    },
-    {
-      path: ':id',
-      component: RoleDetailComponent,
-      canActivate: [PermissionGuard],
-    }
-  ]
-}];
+const routes: Routes = [
+  {
+    path: '',
+    component: RoleComponent,
+    children: [
+      {
+        path: '',
+        component: RoleSummaryComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: CommonConstants.MenuKey.Role,
+          action: ClaimValue.View,
+        },
+      },
+      {
+        path: ':id',
+        component: RoleDetailComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: CommonConstants.MenuKey.Role,
+          action: ClaimValue.View,
+        },
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class RoleRoutingModule { }
+export class RoleRoutingModule {}

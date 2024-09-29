@@ -11,6 +11,7 @@ import * as state from 'src/app/shared/state';
 import { RoleEditModalComponent } from '../role-edit-modal/role-edit-modal.component';
 import { RoleUserModalComponent } from '../role-user-modal/role-user-modal.component';
 import {
+  ClaimValue,
   CommonConstants,
   MenuList,
 } from 'src/app/shared/constants/common-constants';
@@ -22,15 +23,17 @@ import { PermissionModel } from 'src/app/shared/models/base/permission.model';
   styleUrls: [],
 })
 export class RoleDetailComponent implements OnInit, OnDestroy {
-  id: string | undefined;
-  role$: Observable<RoleModel>;
-  isLoading$: Observable<boolean>;
-  roleUsers$: Observable<Array<UserModel>>;
-  totalRoleUser$: Observable<Number>;
-  roleUserView$: Observable<BaseViewModel>;
-  userNameSearch: string = '';
-  isCheckAllUser: boolean = false;
-  subs: Array<Subscription> = [];
+  public id: string | undefined;
+  public role$: Observable<RoleModel>;
+  public isLoading$: Observable<boolean>;
+  public roleUsers$: Observable<Array<UserModel>>;
+  public totalRoleUser$: Observable<Number>;
+  public roleUserView$: Observable<BaseViewModel>;
+  public userNameSearch: string = '';
+  public isCheckAllUser: boolean = false;
+  public claimValue = ClaimValue;
+
+  private subs: Array<Subscription> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +41,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     private viewState: state.ViewState,
     private dialog: MatDialog,
     private flashMessageState: state.FlashMessageState,
-    private menuState: state.MenuState
+    private authState: state.AuthState
   ) {}
 
   ngOnInit(): void {
@@ -170,10 +173,14 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     if (menuPermission.isEdit) permissionList.push('Sửa');
     if (menuPermission.isDelete) permissionList.push('Xóa');
 
-    if(permissionList){
-      result +=`: ${permissionList.join(', ')}`
+    if (permissionList) {
+      result += `: ${permissionList.join(', ')}`;
     }
 
     return result;
+  }
+
+  public checkPermission(rule: string) {
+    return this.authState.checkPermissionMenu(CommonConstants.MenuKey.Role, rule);
   }
 }

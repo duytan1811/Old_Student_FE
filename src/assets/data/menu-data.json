@@ -79,6 +79,22 @@
     "display": "Cài đặt",
     "icon": "./assets/media/icons/duotune/ecommerce/ecm003.svg",
     "href": "/settings",
-    "items": null
+    "items": [
+      {
+        "key":"general",
+        "display": "Cấu hình chung",
+        "href": "/settings/general"
+      },
+      {
+        "key":"major",
+        "display": "Nghề nghiệp",
+        "href": "/settings/majors"
+      },
+      {
+        "key":"role",
+        "display": "Phân quyền",
+        "href": "/roles"
+      }
+    ]
   }
 ]

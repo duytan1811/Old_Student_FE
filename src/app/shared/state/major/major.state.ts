@@ -161,39 +161,4 @@ export class MajorState implements OnDestroy {
       });
     })
   }
-
-  public exportTemplate(): Promise<any> {
-    this.setIsLoading(true);
-    return new Promise((resolve) => {
-      this.majorService.exportTemplate().subscribe({
-        next: (res) => {
-          this.setIsLoading(false);
-          resolve(res);
-        },
-        error: (e) => {
-          this.setIsLoading(false);
-          resolve(e.error?.message || e);
-        },
-      });
-    })
-  }
-
-  public import(formData: FormData): Promise<any> {
-    this.setIsLoading(true);
-    const cv = this.viewState.getViewState();
-    return new Promise((resolve) => {
-      this.majorService.import(formData).subscribe({
-        next: (res) => {
-          this.search(cv);
-          this.setIsLoading(false);
-          resolve(res);
-        },
-        error: (e) => {
-          this.setIsLoading(false);
-          resolve(e.error?.message || e);
-        },
-      });
-    })
-
-  }
 }

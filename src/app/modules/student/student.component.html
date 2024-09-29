@@ -11,6 +11,8 @@
               <th class="w-50px">Ảnh</th>
               <th>Tên</th>
               <th>Số điện thoại</th>
+              <th>Khóa học</th>
+              <th>Năm tốt nghiệp</th>
               <th>Ngành nghề</th>
               <th>Trạng thái</th>
               <th class="w-150px"></th>
@@ -19,13 +21,20 @@
           <tbody>
             <tr>
               <td colspan="2">
-                <input formControlName="fullName" type="text" placeholder="Nhập tên sinh viên..."
+                <input formControlName="fullName" type="text" (change)="onSearch()" placeholder="Nhập tên sinh viên..."
                   class="form-control form-control-sm form-control-solid">
               </td>
-
               <td>
-                <input type="text" formControlName="email" placeholder="Nhập địa chỉ email..."
+                <input type="text" formControlName="phone" (change)="onSearch()" placeholder="Nhập số điện thoại..."
                   class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <input type="text" formControlName="schoolYear" (change)="onSearch()" placeholder="Nhập khóa học..."
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <input type="text" formControlName="yearOfGraduation" (change)="onSearch()"
+                  placeholder="Nhập năm tốt nghiệp..." class="form-control form-control-sm form-control-solid">
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="majorId"
@@ -53,25 +62,28 @@
 
             <ng-container *ngIf="students$ | async as students;else emptyTable">
               <ng-container *ngIf="(totalStudent$ | async);else emptyTable">
-                <tr *ngFor="let user of students" style="vertical-align: middle;">
+                <tr *ngFor="let student of students" style="vertical-align: middle;">
                   <td>
                     <div class="symbol symbol-50px symbol-circle">
                       <img src="../../../assets/media/avatars/300-1.jpg" alt="" />
                     </div>
                   </td>
-                  <td>{{ user.fullName }}</td>
-                  <td>{{ user.phone }}</td>
-                  <td>{{ user.majorId }}</td>
+                  <td>{{ student.fullName }}</td>
+                  <td>{{ student.phone }}</td>
+                  <td>{{ student.schoolYear }}</td>
+                  <td>{{ student.yearOfGraduation }}</td>
+                  <td>{{ student.majorName }}</td>
                   <td class="text-center">
-                    <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
+                    <app-status-badge [status]="student.status" [statusName]="student.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button title="Cập nhật" (click)="goEdit(user.id)"
+                    <button title="Cập nhật" (click)="goEdit(student.id)" *ngIf="checkPermission(claimValue.Edit)"
                       class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>
-                    <button (click)="goDelete(user)" title="Xóa" class="btn btn-sm btn-light-danger btn-icon">
+                    <button (click)="goDelete(student)" title="Xóa" *ngIf="checkPermission(claimValue.Delete)"
+                      class="btn btn-sm btn-light-danger btn-icon">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
                     </button>

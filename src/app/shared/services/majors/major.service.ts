@@ -15,30 +15,22 @@ export class MajorService {
   }
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<MajorModel>>(`${EndPointConstants.Major}/search`, data);
+    return this.apiService.postData<BaseTableResponse<MajorModel>>(`${EndPointConstants.Major.Index}/search`, data);
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<MajorModel>>(`${EndPointConstants.Major}/${id}`);
+    return this.apiService.getData<BaseResponse<MajorModel>>(`${EndPointConstants.Major.Index}/${id}`);
   }
 
   save(obj: MajorModel) {
-    return this.apiService.postData<BaseResponse<MajorModel>>(`${EndPointConstants.Major}`, obj);
+    return this.apiService.postData<BaseResponse<MajorModel>>(`${EndPointConstants.Major.Index}`, obj);
   }
 
   update(id: string, obj: MajorModel) {
-    return this.apiService.putData<BaseResponse<MajorModel>>(`${EndPointConstants.Major}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<MajorModel>>(`${EndPointConstants.Major.Index}/${id}`, obj);
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Major}/${id}`);
-  }
-
-  exportTemplate() {
-    return this.apiService.getData<BaseResponse<string>>(`${EndPointConstants.Major}/export-template`);
-  }
-
-  import(formData: FormData) {
-    return this.apiService.postData<BaseResponse<boolean>>(`${EndPointConstants.Major}/import`, formData, { headers: { 'content-type': 'multipart/form-data' } });
+    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.Major.Index}/${id}`);
   }
 }

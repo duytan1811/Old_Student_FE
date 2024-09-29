@@ -13,7 +13,6 @@ import * as state from 'src/app/shared/state';
   styleUrls: []
 })
 export class StudentEditComponent implements OnInit {
-
   public formGroup: FormGroup;
   public student$: Observable<StudentModel>;
   public isLoading$: Observable<boolean>;

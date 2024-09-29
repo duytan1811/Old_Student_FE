@@ -15,23 +15,23 @@ export class StudentAchievementService {
   }
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement}/search`, data);
+    return this.apiService.postData<BaseTableResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement.Index}/search`, data);
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement}/${id}`);
+    return this.apiService.getData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement.Index}/${id}`);
   }
 
   save(obj: StudentAchievementModel) {
-    return this.apiService.postData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement}`, obj);
+    return this.apiService.postData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement.Index}`, obj);
   }
 
   update(id: string, obj: StudentAchievementModel) {
-    return this.apiService.putData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<StudentAchievementModel>>(`${EndPointConstants.StudentAchievement.Index}/${id}`, obj);
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.StudentAchievement}/${id}`);
+    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.StudentAchievement.Index}/${id}`);
   }
 
 }

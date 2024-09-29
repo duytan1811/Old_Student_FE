@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <button type="button" class="btn btn-light btn-sm btn-active-primary" (click)="goEdit(role.id,false)">Cập
+          <button type="button" *ngIf="checkPermission(claimValue.Edit)" class="btn btn-light btn-sm btn-active-primary" (click)="goEdit(role.id,false)">Cập
             nhật</button>
         </div>
       </div>
@@ -32,7 +32,7 @@
             </h2>
           </div>
           <div class="card-toolbar">
-              <button type="button" class="btn btn-light btn-sm btn-primary" (click)="goAddRoleUser(role.id)">
+              <button *ngIf="checkPermission(claimValue.Edit)" type="button" class="btn btn-light btn-sm btn-primary" (click)="goAddRoleUser(role.id)">
                 Thêm tài khoản
               </button>
           </div>
@@ -43,7 +43,7 @@
               <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                 <th class="min-w-30du00px">Tài khoản</th>
                 <th class="min-w-125px">Ngày tạo</th>
-                <th class="text-end min-w-100px">Thao tác</th>
+                <th *ngIf="checkPermission(claimValue.Edit)"  class="text-end min-w-100px">Thao tác</th>
               </tr>
             </thead>
             <tbody class="fw-bold text-gray-600">
@@ -57,7 +57,7 @@
                     </div>
                   </td>
                   <td>{{ roleUser.createdAt | date:'hh:mm - dd/MM/yyyy' }}</td>
-                  <td class="text-end">
+                  <td *ngIf="checkPermission(claimValue.Edit)"  class="text-end">
                     <button (click)="onDeleteSelectedUser(roleUser.id)" class="btn btn-sm btn-icon btn-danger">
                       <span class="svg-icon svg-icon-2 m-0"
                         [inlineSVG]="'assets/media/icons/duotune/general/gen027.svg'">

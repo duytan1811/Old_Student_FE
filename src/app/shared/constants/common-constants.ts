@@ -30,6 +30,7 @@ export class CommonConstants {
     StatisticsEvent: 'statisticsEvents',
     StatisticsTraffic: 'statisticsTraffic',
     Setting: 'setting',
+    Role: 'role',
   };
 }
 
@@ -51,4 +52,6 @@ export const MenuList = [
   { key: 'statisticsEvents', display: 'Thống kê sự kiện' },
   { key: 'statisticsTraffic', display: 'Thống kê tương tác' },
   { key: 'setting', display: 'Cài đặt' },
+  { key: 'major', display: 'Nghề nghiệp' },
+  { key: 'role', display: 'Phân quyền' },
 ];
