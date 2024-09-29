@@ -24,4 +24,8 @@ export class DropdownService {
   getRoles() {
     return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Role}`);
   }
+
+  getNewsTypes() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.NewsType}`);
+  }
 }

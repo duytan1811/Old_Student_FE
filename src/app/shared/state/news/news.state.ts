@@ -93,10 +93,10 @@ export class NewsState implements OnDestroy {
     this.unsubscribe.push(sub);
   }
 
-  public findById(id: string | undefined) {
+  public findById(id: string | null) {
     this.setIsLoading(true);
 
-    if (id) {
+    if (id !== null) {
       const sub = this.newsService.findById(id).subscribe({
         next: (res: BaseResponse<NewsModel>) => {
           this.setNews(res.data);

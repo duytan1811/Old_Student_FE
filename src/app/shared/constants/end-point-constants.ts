@@ -6,6 +6,7 @@ export const EndPointConstants = {
     Major: `dropdowns/majors`,
     User: `dropdowns/users`,
     Role: `dropdowns/roles`,
+    NewsType: `dropdowns/news-types`,
   },
   Role: {
     Index: `roles`,

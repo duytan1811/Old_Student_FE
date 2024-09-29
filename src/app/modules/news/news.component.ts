@@ -23,7 +23,7 @@ import * as state from 'src/app/shared/state';
 })
 export class NewsComponent implements OnInit {
   public newsList$: Observable<Array<NewsModel>>;
-  public dropdownMajors$: Observable<Array<SelectListItem>>;
+  public dropdownNewsTypes$: Observable<Array<SelectListItem>>;
   public isLoading$: Observable<boolean>;
   public totalNews$: Observable<number>;
   public userView$: Observable<BaseViewModel>;
@@ -52,8 +52,8 @@ export class NewsComponent implements OnInit {
     this.totalNews$ = this.newsState.totalNews$;
     this.userView$ = this.viewState.view$;
 
-    this.dropdownMajors$ = this.dropdownState.dropdownMajors$;
-    this.dropdownState.getDropdownMajors();
+    this.dropdownNewsTypes$ = this.dropdownState.dropdownNewsTypes$;
+    this.dropdownState.getDropdownNewTypes();
     this.initFormGroupSearch();
 
     this.onSearch();
@@ -63,10 +63,8 @@ export class NewsComponent implements OnInit {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
-    dataSearch.schoolYear =
-      dataSearch.schoolYear !== '' ? dataSearch.schoolYear : null;
-    dataSearch.yearOfGraduation =
-      dataSearch.yearOfGraduation !== '' ? dataSearch.yearOfGraduation : null;
+    dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
+   
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.newsState.search(viewState);
@@ -117,11 +115,8 @@ export class NewsComponent implements OnInit {
 
   private initFormGroupSearch() {
     this.formGroupSearch = this.fb.group({
-      fullName: [''],
-      phone: [''],
-      majorId: [''],
-      schoolYear: [''],
-      yearOfGraduation: [''],
+      name: [''],
+      type: [''],
       status: [''],
     });
   }

@@ -20,10 +20,23 @@ export class DropdownState implements OnDestroy {
   public dropdownMajors$: Observable<Array<SelectListItem>> =
     this._dropdownMajorsSubject.asObservable();
 
-    private _dropdownRolesSubject: BehaviorSubject<Array<SelectListItem>> =
+  private _dropdownRolesSubject: BehaviorSubject<Array<SelectListItem>> =
     new BehaviorSubject(Array());
   public dropdownRoles$: Observable<Array<SelectListItem>> =
     this._dropdownRolesSubject.asObservable();
+
+  private _dropdownNewsTypesSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownNewsTypes$: Observable<Array<SelectListItem>> =
+    this._dropdownNewsTypesSubject.asObservable();
+
+  getNewsTypes(): Array<SelectListItem> {
+    return this._dropdownNewsTypesSubject.getValue();
+  }
+
+  setNewsTypes(data: Array<SelectListItem>) {
+    this._dropdownNewsTypesSubject.next(data);
+  }
 
   getUsers(): Array<SelectListItem> {
     return this._dropdownUsersSubject.getValue();
@@ -88,6 +101,19 @@ export class DropdownState implements OnDestroy {
       },
       error: (err) => {
         console.log(`Error get dropdown major`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownNewTypes() {
+    const sub = this.dropdownService.getNewsTypes().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setNewsTypes(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown news types`, err);
       },
     });
 

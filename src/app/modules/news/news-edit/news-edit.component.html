@@ -1,6 +1,6 @@
 <div class="card mb-5">
     <div class="card-header">
-        <h3 class="card-title">{{ newsId ? 'Cập nhật' : 'Thêm mới'}} bài viết</h3>
+        <h3 class="card-title">{{ newsId !== null ? 'Cập nhật' : 'Thêm mới'}} bài viết</h3>
         <div class="card-toolbar">
             <a class="btn btn-sm btn-danger" style="vertical-align: middle;" [routerLink]="'/news'">
                 <span class="svg svg-icon" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"></span>
@@ -9,51 +9,88 @@
         </div>
     </div>
     <div class="card-body pb-0 pt-4">
-        <div class="row mb-6">
-            <label class="col-lg-2 col-form-label required fw-bold fs-6">Họ tên</label>
-            <div class="col-lg-10">
-                <input type="text" 
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Họ" />
+        <form [formGroup]="formGroup" [appConnectForm]="news$ | async">
+            <div class="row mb-6">
+                <label class="col-lg-2 col-form-label required fw-bold fs-6">
+                    <span>Tiêu đề</span>
+                </label>
+                <div class="col-lg-10 fv-row">
+                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Tiêu đề"
+                        formControlName="name" />
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-6">
-            <label class="col-lg-2 col-form-label fw-bold fs-6">
-                <span>Tiêu đề</span>
-            </label>
-            <div class="col-lg-10 fv-row">
-                <input type="text" class="form-control form-control-lg form-control-solid"
-                    placeholder="Số điện thoại" />
+            <div class="row mb-6">
+                <label class="col-lg-2 col-form-label fw-bold fs-6">
+                    <span>Danh mục</span>
+                </label>
+                <div class="col-lg-10 fv-row">
+                    <mat-select #newsType class="form-control form-control-lg form-control-solid" placeholder="Danh mục"
+                        formControlName="type">
+                        <mat-option *ngFor="let item of dropdownNewsTypes$ | async" [value]="item.value">{{ item.text
+                            }}</mat-option>
+                    </mat-select>
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-6">
-            <label class="col-lg-2 col-form-label fw-bold fs-6">
-                <span>Danh mục</span>
-            </label>
-            <div class="col-lg-10 fv-row">
-                <input type="email"  class="form-control form-control-lg form-control-solid"
-                    placeholder="Email" />
-            </div>
-        </div>
+            <div *ngIf="$any(newsType).value ==2">
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-bold fs-6">
+                        <span>Thời gian bắt đầu</span>
+                    </label>
+                    <div class="col-lg-10 fv-row">
+                        <input type="date" formControlName="startDateFormat"
+                            class="form-control form-control-lg form-control-solid" placeholder="Thời gian bắt đầu" />
+                    </div>
+                </div>
 
-        <div class="row mb-6">
-            <label class="col-lg-2 col-form-label fw-bold fs-6">
-                <span>Giới thiệu</span>
-            </label>
-            <div class="col-lg-10 fv-row">
-                <input type="email"  class="form-control form-control-lg form-control-solid"
-                    placeholder="Email" />
+                <div class="row mb-6">
+                    <label class="col-lg-2 col-form-label fw-bold fs-6">
+                        <span>Thời gian kết thúc</span>
+                    </label>
+                    <div class="col-lg-10 fv-row">
+                        <input type="date" formControlName="endDateFormat"
+                            class="form-control form-control-lg form-control-solid" placeholder="Thời gian kết thúc" />
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-6">
-            <label class="col-lg-2 col-form-label fw-bold fs-6">
-                <span>Nội dung chi tiết</span>
-            </label>
-            <div class="col-lg-10 fv-row">
-                <ckeditor [editor]="Editor" ></ckeditor>
+            <div class="row mb-6">
+                <label class="col-lg-2 col-form-label fw-bold required fs-6">
+                    <span>Trạng thái</span>
+                </label>
+                <div class="col-lg-10 fv-row">
+                    <mat-select class="form-control form-control-lg form-control-solid" placeholder="Trạng thái"
+                        formControlName="status">
+                        <mat-option *ngFor="let status of formStatuses" [value]="status.value">{{ status.text
+                            }}</mat-option>
+                    </mat-select>
+                </div>
             </div>
-        </div>
+
+            <div class="row mb-6">
+                <label class="col-lg-2 col-form-label fw-bold fs-6">
+                    <span>Giới thiệu</span>
+                </label>
+                <div class="col-lg-10 fv-row">
+                    <ckeditor [editor]="ckEditor" formControlName="description"></ckeditor>
+                </div>
+            </div>
+
+            <div class="row mb-6">
+                <label class="col-lg-2 col-form-label fw-bold fs-6">
+                    <span>Nội dung chi tiết</span>
+                </label>
+                <div class="col-lg-10 fv-row">
+                    <ckeditor [editor]="ckEditor" formControlName="content"></ckeditor>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <a type="reset" [routerLink]="'/news'" class="btn btn-light btn-active-light-danger me-2">Quay lại</a>
+        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary"
+            id="kt_account_profile_details_submit" (click)="onSave()"> {{ !newsId ? 'Thêm
+            mới':'Cập nhật' }}</button>
     </div>
 </div>
