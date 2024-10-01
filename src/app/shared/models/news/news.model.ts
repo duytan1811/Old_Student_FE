@@ -2,8 +2,6 @@ import { BaseModel } from '../base/base.model';
 
 export class NewsModel extends BaseModel {
   index: number = 0;
-  name: string = '';
-  description: string = '';
   type: number | null = null;
   typeName: string = '';
   content: string = '';
@@ -12,4 +10,5 @@ export class NewsModel extends BaseModel {
   endDate: Date;
   endDateFormat: string;
   countMember: number = 0;
+  countLike: number = 0;
 }

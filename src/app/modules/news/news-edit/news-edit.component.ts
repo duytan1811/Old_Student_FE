@@ -33,7 +33,6 @@ export class NewsEditComponent implements OnInit {
   ngOnInit(): void {
     this.newsId = this.activeRoute.snapshot.paramMap.get('id');
     if (this.newsId === 'create') this.newsId = null;
-    console.log(this.newsId);
 
     this.news$ = this.newsState.news$;
 
@@ -49,7 +48,6 @@ export class NewsEditComponent implements OnInit {
 
   public async onSave() {
     const data = this.formGroup.getRawValue();
-    console.log(data);
     data.type = parseInt(data.type);
 
     let res;
@@ -69,12 +67,10 @@ export class NewsEditComponent implements OnInit {
 
   private initFormGroup() {
     this.formGroup = this.fb.group({
-      name: ['', [Validators.required]],
       type: ['', [Validators.required]],
       startDateFormat: [''],
       endDateFormat: [''],
       status: ['', [Validators.required]],
-      description: [''],
       content: [''],
     });
   }

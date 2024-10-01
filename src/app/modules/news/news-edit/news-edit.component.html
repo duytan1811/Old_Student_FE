@@ -10,16 +10,7 @@
     </div>
     <div class="card-body pb-0 pt-4">
         <form [formGroup]="formGroup" [appConnectForm]="news$ | async">
-            <div class="row mb-6">
-                <label class="col-lg-2 col-form-label required fw-bold fs-6">
-                    <span>Tiêu đề</span>
-                </label>
-                <div class="col-lg-10 fv-row">
-                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Tiêu đề"
-                        formControlName="name" />
-                </div>
-            </div>
-
+            
             <div class="row mb-6">
                 <label class="col-lg-2 col-form-label fw-bold fs-6">
                     <span>Danh mục</span>
@@ -65,15 +56,6 @@
                         <mat-option *ngFor="let status of formStatuses" [value]="status.value">{{ status.text
                             }}</mat-option>
                     </mat-select>
-                </div>
-            </div>
-
-            <div class="row mb-6">
-                <label class="col-lg-2 col-form-label fw-bold fs-6">
-                    <span>Giới thiệu</span>
-                </label>
-                <div class="col-lg-10 fv-row">
-                    <ckeditor [editor]="ckEditor" formControlName="description"></ckeditor>
                 </div>
             </div>
 

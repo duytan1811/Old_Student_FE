@@ -3,7 +3,7 @@
     "key":"forum",
     "display": "Diễn đàn",
     "icon": "./assets/media/icons/duotune/ecommerce/ecm001.svg",
-    "href": "/forum",
+    "href": "/forums",
     "items": null
   },
   {

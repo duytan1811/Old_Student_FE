@@ -30,6 +30,11 @@ export class NewsService {
     return this.apiService.putData<BaseResponse<NewsModel>>(`${EndPointConstants.News.Index}/${id}`, obj);
   }
 
+  like(id: string) {
+    const url=EndPointConstants.News.Like.replace(':id',id);
+    return this.apiService.getData<BaseResponse<NewsModel>>(url);
+  }
+
   delete(id: string) {
     return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.News.Index}/${id}`);
   }

@@ -148,6 +148,22 @@ export class NewsState implements OnDestroy {
     })
   }
 
+  public like(id: string): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.newsService.like(id).subscribe({
+        next: (res) => {
+          this.setIsLoading(false);
+          resolve(res);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    })
+  }
+
   public delete(id: string): Promise<any> {
     this.setIsLoading(true);
     const cv = this.viewState.getViewState();

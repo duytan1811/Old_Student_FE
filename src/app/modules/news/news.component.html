@@ -17,8 +17,9 @@
             <thead>
               <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th class="w-25px">#</th>
-                <th>Tên</th>
+                <th>Nội dung</th>
                 <th>Loại tin</th>
+                <th>Lượt thích</th>
                 <th>Trạng thái</th>
                 <th class="w-150px"></th>
               </tr>
@@ -26,7 +27,7 @@
             <tbody>
               <tr>
                 <td colspan="2">
-                  <input formControlName="name" type="text" (change)="onSearch()" placeholder="Nhập tên ..."
+                  <input formControlName="content" type="text" (change)="onSearch()" placeholder="Nhập nội dung ..."
                     class="form-control form-control-sm form-control-solid">
                 </td>
                 <td>
@@ -36,6 +37,10 @@
                     <mat-option *ngFor="let item of dropdownNewsTypes$ | async" [value]="item.value">{{ item.text
                       }}</mat-option>
                   </mat-select>
+                </td>
+                <td>
+                  <input formControlName="countLike" type="text" (change)="onSearch()" placeholder="Số lượt thích bé hơn ..."
+                    class="form-control form-control-sm form-control-solid">
                 </td>
                 <td>
                   <mat-select (selectionChange)="onSearch()" formControlName="status"
@@ -57,8 +62,9 @@
                 <ng-container *ngIf="(totalNews$ | async);else emptyTable">
                   <tr *ngFor="let student of newsList" style="vertical-align: middle;">
                     <td>{{ student.index }}</td>
-                    <td>{{ student.name }}</td>
+                    <td [innerHTML]="student.content.substring(0,70)+ (student.content.length > 70 ? '...':'')"></td>
                     <td>{{ student.typeName }}</td>
+                    <td>{{ student.countLike || 0 }}</td>
                     <td class="text-center">
                       <app-status-badge [status]="student.status" [statusName]="student.statusName"></app-status-badge>
                     </td>

@@ -64,6 +64,7 @@ export class NewsComponent implements OnInit {
     const dataSearch = this.formGroupSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
     dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
+    dataSearch.countLike = dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;
    
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
@@ -115,7 +116,8 @@ export class NewsComponent implements OnInit {
 
   private initFormGroupSearch() {
     this.formGroupSearch = this.fb.group({
-      name: [''],
+      content: [''],
+      countLike: [''],
       type: [''],
       status: [''],
     });

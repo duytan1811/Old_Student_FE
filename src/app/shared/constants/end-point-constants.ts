@@ -32,8 +32,10 @@ export const EndPointConstants = {
   },
   News: {
     Index: `news`,
+    Like: `news/:id/like`,
   },
   Forum: {
-    Index: `forum`,
+    Index: `forums`,
+    Search: `forums/search`,
   },
 };
