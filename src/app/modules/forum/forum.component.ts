@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 import { Observable } from 'rxjs';
+import { BlogDetailDialogComponent } from 'src/app/shared/components/blog-detail-dialog/blog-detail-dialog.component';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
@@ -21,6 +23,7 @@ export class ForumComponent implements OnInit {
   public userView$: Observable<BaseViewModel>;
 
   constructor(
+    private dialog: MatDialog,
     private authState: state.AuthState,
     private forumState: state.ForumState,
     private newState: state.NewsState,
@@ -52,5 +55,17 @@ export class ForumComponent implements OnInit {
     if (res.type === CommonConstants.ResponseType.Success) {
       this.onSearch();
     }
+  }
+
+  public onOpenNewsDetail(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.maxHeight = '95vh';
+    dialogConfig.data = {
+    };
+    const dialogRef = this.dialog.open(BlogDetailDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

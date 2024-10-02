@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { InlineSVGModule } from 'ng-inline-svg';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,12 +11,15 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BlogDetailDialogComponent } from './blog-detail-dialog/blog-detail-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
         StatusBadgeComponent,
         PaginatorComponent,
         NgPagination,
+        BlogDetailDialogComponent,
     ],
     imports: [
         CommonModule,
@@ -28,7 +31,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         FormsModule,
         DirectiveModule,
         MatCheckboxModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatDialogModule
     ],
     exports: [
         CommonModule,
@@ -41,9 +45,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
         FormsModule,
         FormGroupDirective,
         DirectiveModule,
-        MatExpansionModule
+        MatExpansionModule,
     ],
     providers: [
-    ]
+        
+    ],
+    schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedComponentModule { }
