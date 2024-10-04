@@ -9,6 +9,8 @@ import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { ForumModel } from 'src/app/shared/models/forum/forum.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
+import { EditNewsDialogComponent } from './components/edit-news-dialog/edit-news-dialog.component';
+import { StatusEnum } from 'src/app/shared/enum/status.enum';
 
 @Component({
   selector: 'app-forum',
@@ -21,6 +23,7 @@ export class ForumComponent implements OnInit {
   public currentUser$: Observable<UserModel>;
   public news$: Observable<Array<ForumModel>>;
   public userView$: Observable<BaseViewModel>;
+  public status= StatusEnum;
 
   constructor(
     private dialog: MatDialog,
@@ -36,7 +39,7 @@ export class ForumComponent implements OnInit {
     this.onSearch();
   }
 
-  public onSearch(){
+  public onSearch() {
     const viewState = this.viewState.getViewState();
     this.forumState.search(viewState);
     this.userView$ = this.viewState.view$;
@@ -57,15 +60,32 @@ export class ForumComponent implements OnInit {
     }
   }
 
-  public onOpenNewsDetail(): void {
+  public onOpenNewsDetail(newsId: string): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.maxHeight = '95vh';
-    dialogConfig.data = {
-    };
+    dialogConfig.data = { newsId };
     const dialogRef = this.dialog.open(BlogDetailDialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.onSearch();
+    });
+  }
+
+  public onCreateNews() {
+    this.onEditNews();
+  }
+
+  public onEditNews(newsId: string | null = null): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '50%';
+    dialogConfig.data = { newsId };
+    const dialogRef = this.dialog.open(EditNewsDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      this.onSearch();
+    });
   }
 }

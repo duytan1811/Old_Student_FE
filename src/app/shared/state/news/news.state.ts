@@ -6,6 +6,7 @@ import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { ViewState } from '../base/view.state';
 import { NewsModel } from 'src/app/shared/models/news/news.model';
 import { NewsService } from '../../services/news/news.service';
+import { CommentModel } from '../../models/news/comment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,23 +14,40 @@ import { NewsService } from '../../services/news/news.service';
 export class NewsState implements OnDestroy {
   private unsubscribe: Subscription[] = [];
 
-  private _newsListSubject: BehaviorSubject<Array<NewsModel>> = new BehaviorSubject(Array());
-  public newsList$: Observable<Array<NewsModel>> = this._newsListSubject.asObservable();
+  private _newsListSubject: BehaviorSubject<Array<NewsModel>> =
+    new BehaviorSubject(Array());
+  public newsList$: Observable<Array<NewsModel>> =
+    this._newsListSubject.asObservable();
 
   private _totalNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public totalNews$: Observable<number> = this._totalNewsSubject.asObservable();
 
-  private _newsNewssSubject: BehaviorSubject<Array<NewsModel>> = new BehaviorSubject(Array());
-  public newsNewss$: Observable<Array<NewsModel>> = this._newsNewssSubject.asObservable();
+  private _newsNewssSubject: BehaviorSubject<Array<NewsModel>> =
+    new BehaviorSubject(Array());
+  public newsNewss$: Observable<Array<NewsModel>> =
+    this._newsNewssSubject.asObservable();
 
-  private _totalNewsNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
-  public totalNewsNews$: Observable<number> = this._totalNewsNewsSubject.asObservable();
+  private _totalNewsNewsSubject: BehaviorSubject<number> = new BehaviorSubject(
+    0
+  );
+  public totalNewsNews$: Observable<number> =
+    this._totalNewsNewsSubject.asObservable();
 
-  private _newsSubject: BehaviorSubject<NewsModel> = new BehaviorSubject(Object());
+  private _newsSubject: BehaviorSubject<NewsModel> = new BehaviorSubject(
+    Object()
+  );
   public news$: Observable<NewsModel> = this._newsSubject.asObservable();
 
-  private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(Boolean());
-  public isLoading$: Observable<boolean> = this._isLoadingSubject.asObservable();
+  private _commentsSubject: BehaviorSubject<Array<CommentModel>> =
+    new BehaviorSubject(Array());
+  public comments$: Observable<Array<CommentModel>> =
+    this._commentsSubject.asObservable();
+
+  private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(
+    Boolean()
+  );
+  public isLoading$: Observable<boolean> =
+    this._isLoadingSubject.asObservable();
 
   getNewsList(): Array<NewsModel> {
     return this._newsListSubject.getValue();
@@ -55,6 +73,14 @@ export class NewsState implements OnDestroy {
     this._newsSubject.next(data);
   }
 
+  getComments(): Array<CommentModel> {
+    return this._commentsSubject.getValue();
+  }
+
+  setComments(data: Array<CommentModel>) {
+    this._commentsSubject.next(data);
+  }
+
   getIsLoading(): boolean {
     return this._isLoadingSubject.getValue();
   }
@@ -63,10 +89,7 @@ export class NewsState implements OnDestroy {
     this._isLoadingSubject.next(isLoading);
   }
 
-  constructor(
-    private newsService: NewsService,
-    private viewState: ViewState,
-  ) {
+  constructor(private newsService: NewsService, private viewState: ViewState) {
     this.search(new BaseViewModel());
   }
 
@@ -86,9 +109,9 @@ export class NewsState implements OnDestroy {
       },
       error: (err) => {
         this.setIsLoading(false);
-        console.log(`Error get newss`, err)
-      }
-    })
+        console.log(`Error get newss`, err);
+      },
+    });
 
     this.unsubscribe.push(sub);
   }
@@ -103,15 +126,31 @@ export class NewsState implements OnDestroy {
         },
         error: (err) => {
           this.setIsLoading(false);
-          console.log(`Error get news`, err)
-        }
-      })
+          console.log(`Error get news`, err);
+        },
+      });
 
       this.unsubscribe.push(sub);
     } else {
       this.setNews(new NewsModel());
     }
     this.setIsLoading(false);
+  }
+
+  public getCommentList(data: any): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.newsService.getComments(data).subscribe({
+        next: (result: BaseTableResponse<CommentModel>) => {
+          this.setComments(result.items);
+          resolve(result);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    });
   }
 
   public save(obj: NewsModel): Promise<any> {
@@ -129,7 +168,23 @@ export class NewsState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
+  }
+
+  public comment(data: any): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.newsService.comment(data).subscribe({
+        next: (result) => {
+          this.setIsLoading(false);
+          resolve(result);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    });
   }
 
   public update(id: string, obj: NewsModel): Promise<any> {
@@ -145,7 +200,7 @@ export class NewsState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
   }
 
   public like(id: string): Promise<any> {
@@ -161,7 +216,7 @@ export class NewsState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
   }
 
   public delete(id: string): Promise<any> {
@@ -179,6 +234,6 @@ export class NewsState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
   }
 }

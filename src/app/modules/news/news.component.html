@@ -17,7 +17,6 @@
             <thead>
               <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th class="w-25px">#</th>
-                <th>Nội dung</th>
                 <th>Loại tin</th>
                 <th>Lượt thích</th>
                 <th>Trạng thái</th>
@@ -27,10 +26,6 @@
             <tbody>
               <tr>
                 <td colspan="2">
-                  <input formControlName="content" type="text" (change)="onSearch()" placeholder="Nhập nội dung ..."
-                    class="form-control form-control-sm form-control-solid">
-                </td>
-                <td>
                   <mat-select (selectionChange)="onSearch()" formControlName="type"
                     class="form-control form-control-sm form-control-solid">
                     <mat-option value="">Tất cả</mat-option>
@@ -62,7 +57,6 @@
                 <ng-container *ngIf="(totalNews$ | async);else emptyTable">
                   <tr *ngFor="let student of newsList" style="vertical-align: middle;">
                     <td>{{ student.index }}</td>
-                    <td [innerHTML]="student.content.substring(0,70)+ (student.content.length > 70 ? '...':'')"></td>
                     <td>{{ student.typeName }}</td>
                     <td>{{ student.countLike || 0 }}</td>
                     <td class="text-center">

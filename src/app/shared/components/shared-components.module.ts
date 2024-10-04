@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BlogDetailDialogComponent } from './blog-detail-dialog/blog-detail-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         DirectiveModule,
         MatCheckboxModule,
         MatExpansionModule,
-        MatDialogModule
+        MatDialogModule,
+        PipesModule
     ],
     exports: [
         CommonModule,

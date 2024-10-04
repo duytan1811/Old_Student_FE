@@ -1,34 +1,84 @@
-<h2 mat-dialog-title class="text-center">
-    <span>Bài viết của</span> nhóm người dùng
-</h2>
-<div class="separator my-5"></div>
-<div>
-    <div class="pl-0 h-100" mat-dialog-content >
-        
+<ng-container *ngIf="news$ | async as news">
+    <button class="flex float-end btn btn-sm btn-icon btn-white" style="border-radius: 50%;" mat-dialog-close="">
+        <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"></span>
+    </button>
+
+    <h2 mat-dialog-title class="text-center">
+        <span>Bài viết của {{ news.createdByName }}</span>
+    </h2>
+    <div class="separator my-5"></div>
+    <div class="pl-0 h-100" mat-dialog-content (scroll)="onScroll()">
         <div class="mb-5">
-            
-            <label for="name" class="form-label required">Nhóm người dùng</label>
-            <input id="name" type="text" class="form-control form-control-solid" />
+            <p [innerHTML]="news.content"></p>
+        </div>
+        <div class="row">
+            <div class="separator"></div>
+            <div class="row  m-0 p-0">
+                <div class="col-md-6  m-0 p-0">
+                    <button class="btn btn-sm w-100" [class.btn-white]="!news.isLiked" (click)="onLike()"
+                        [class.btn-danger]="news.isLiked">
+                        <span class="svg-icon svg-icon-2"
+                            [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'"></span>
+                        Thích ({{ news.countLike }})
+                    </button>
+                </div>
+                <div class="col-md-6  m-0 p-0">
+                    <button (click)="onFocusComment()" class="btn btn-sm btn-white w-100">
+                        <span class="svg-icon svg-icon-2"
+                            [inlineSVG]="'./assets/media/icons/duotune/communication/com003.svg'"></span> Bình luận ({{
+                        news.countComment }})
+                    </button>
+                </div>
+            </div>
+            <div class="separator"></div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table align-middle table-row-dashed fs-6 gy-5 mt-5 mb-10">
-                <thead>
-                    <tr>
-                        <th>Chức năng</th>
-                        <th class="text-center w-75px">Hiển thị</th>
-                        <th class="text-center w-75px">Thêm</th>
-                        <th class="text-center w-75px">Sửa</th>
-                        <th class="text-center w-75px">Xóa</th>
-                    </tr>
-                </thead>
+        <div class="row">
+            <p *ngIf="news.countComment > 10" class="cursor-pointer pt-2">Xem thêm bình luận</p>
+            <ng-container *ngIf="comments$ | async as comments">
+                <ng-container *ngIf="comments.length > 0;else emptyComment">
+                    <div class="row m-0 p-0 mt-3" *ngFor="let comment of comments$ | async ">
+                        <div class="col-md-1 ">
+                            <div class="symbol symbol-45px me-5">
+                                <img src="./assets/media/avatars/300-1.jpg" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="bg-light px-4 p-2" style="border-radius: 15px;">
+                                <label class=" fw-bolder"> {{ comment.createdByName }}</label><br>
+                                <span class="fo">{{ comment.content }}</span>
+                            </div>
+                            <small class="px-4">{{ comment.createdAt | dateAgo }}</small>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
 
-            </table>
+            <ng-template #emptyComment>
+                <div class="text-center p-4">
+                    <label >Chưa có bình luận nào</label>
+                </div>
+            </ng-template>
         </div>
     </div>
-
-    <div class="float-end" mat-dialog-actions>
-        <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
-        <button class="btn btn-sm btn-primary" [mat-dialog-close]>Xác nhận</button>
+    <div mat-dialog-actions>
+        <div class="d-flex align-items-center mb-5 w-100">
+            <div class="d-flex align-items-center flex-grow-1" *ngIf="currentUser$ |  async as currentUser">
+                <div class="symbol symbol-45px me-5">
+                    <img src="./assets/media/avatars/300-1.jpg" alt="" />
+                </div>
+                <div class="d-flex flex-column w-100">
+                    <div class="position-relative mb-3">
+                        <input #commentContent class="form-control form-control-solid" type="text" value=""
+                            [(ngModel)]="content" placeholder="Bình luận với tên {{currentUser.userName}}"
+                            (keyup.enter)="onComment(news.id)" />
+                        <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                            (click)="onComment(news.id)" data-kt-password-meter-control="visibility">
+                            <i class="bi bi-send fs-2"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</ng-container>

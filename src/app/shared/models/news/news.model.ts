@@ -11,4 +11,8 @@ export class NewsModel extends BaseModel {
   endDateFormat: string;
   countMember: number = 0;
   countLike: number = 0;
+  countComment: number = 0;
+  createdByName: string = '';
+  createdByAvater: string = '';
+  isLiked:boolean = false;
 }

@@ -2,13 +2,13 @@
   {
     "key":"forum",
     "display": "Diễn đàn",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm001.svg",
+    "icon": "./assets/media/icons/duotune/communication/com001.svg",
     "href": "/forums",
     "items": null
   },
   {
     "display": "Tin tức & sự kiện",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm006.svg",
+    "icon": "./assets/media/icons/duotune/coding/cod002.svg",
     "href": "/news",
     "items": [
       {
@@ -20,7 +20,7 @@
   },
   {
     "display": "Cơ hội nghề nghiệp",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm005.svg",
+    "icon": "./assets/media/icons/duotune/communication/com004.svg",
     "href": "/",
     "items": [
       {
@@ -37,7 +37,7 @@
   },
   {
     "display": "Quản lý thành viên",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm008.svg",
+    "icon": "./assets/media/icons/duotune/communication/com014.svg",
     "href": "/users",
     "items": [
       {
@@ -54,7 +54,7 @@
   },
   {
     "display": "Thống kê & báo cáo",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm008.svg",
+    "icon": "./assets/media/icons/duotune/graphs/gra001.svg",
     "href": "/statistics",
     "items": [
       {
@@ -77,7 +77,7 @@
   {
     "key":"setting",
     "display": "Cài đặt",
-    "icon": "./assets/media/icons/duotune/ecommerce/ecm003.svg",
+    "icon": "./assets/media/icons/duotune/coding/cod001.svg",
     "href": "/settings",
     "items": [
       {

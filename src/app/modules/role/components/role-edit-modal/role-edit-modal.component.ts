@@ -37,7 +37,7 @@ export class RoleEditModalComponent implements OnInit, OnDestroy {
   public id: string;
   public isCreate: boolean;
   public permissionMenus$: Observable<Array<MenuModel>>;
-  public claimValue= ClaimValue;
+  public claimValue = ClaimValue;
 
   private subs: Array<Subscription> = [];
 
@@ -69,10 +69,8 @@ export class RoleEditModalComponent implements OnInit, OnDestroy {
     menuKey: string,
     claimValue: string
   ) {
-
     const menuPermission = menuPermissions.find((x) => x.claimType == menuKey);
     if (menuPermission && claimValue === ClaimValue.View) {
-
       return menuPermission.isView;
     } else if (menuPermission && claimValue === ClaimValue.Create) {
       return menuPermission.isCreate;
