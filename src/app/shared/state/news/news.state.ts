@@ -43,6 +43,12 @@ export class NewsState implements OnDestroy {
   public comments$: Observable<Array<CommentModel>> =
     this._commentsSubject.asObservable();
 
+    private _totalCommentSubject: BehaviorSubject<number> =
+    new BehaviorSubject(0);
+  public totalComment$: Observable<number> =
+    this._totalCommentSubject.asObservable();
+
+
   private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(
     Boolean()
   );
@@ -79,6 +85,14 @@ export class NewsState implements OnDestroy {
 
   setComments(data: Array<CommentModel>) {
     this._commentsSubject.next(data);
+  }
+
+  getTotalComments(): number {
+    return this._totalCommentSubject.getValue();
+  }
+
+  setTotalComments(data: number) {
+    this._totalCommentSubject.next(data);
   }
 
   getIsLoading(): boolean {
@@ -143,6 +157,7 @@ export class NewsState implements OnDestroy {
       this.newsService.getComments(data).subscribe({
         next: (result: BaseTableResponse<CommentModel>) => {
           this.setComments(result.items);
+          this.setTotalComments(result.total);
           resolve(result);
         },
         error: (e) => {

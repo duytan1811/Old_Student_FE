@@ -7,22 +7,23 @@
         <span>Bài viết của {{ news.createdByName }}</span>
     </h2>
     <div class="separator my-5"></div>
-    <div class="pl-0 h-100" mat-dialog-content (scroll)="onScroll()">
+    <div class="pl-0 h-100" #contentUI mat-dialog-content (scroll)="onScrollLoadComment()">
         <div class="mb-5">
             <p [innerHTML]="news.content"></p>
         </div>
         <div class="row">
             <div class="separator"></div>
             <div class="row  m-0 p-0">
-                <div class="col-md-6  m-0 p-0">
-                    <button class="btn btn-sm w-100" [class.btn-white]="!news.isLiked" (click)="onLike()"
-                        [class.btn-danger]="news.isLiked">
+                <div class="col-6  m-0 p-0">
+                    <button class="btn  btn-sm w-100"
+                    [class.btn-color-muted]="!news.isLiked" [class.btn-icon-danger]="news.isLiked"
+                    [class.btn-text-danger]="news.isLiked">
                         <span class="svg-icon svg-icon-2"
                             [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'"></span>
                         Thích ({{ news.countLike }})
                     </button>
                 </div>
-                <div class="col-md-6  m-0 p-0">
+                <div class="col-6  m-0 p-0">
                     <button (click)="onFocusComment()" class="btn btn-sm btn-white w-100">
                         <span class="svg-icon svg-icon-2"
                             [inlineSVG]="'./assets/media/icons/duotune/communication/com003.svg'"></span> Bình luận ({{
@@ -34,16 +35,15 @@
         </div>
 
         <div class="row">
-            <p *ngIf="news.countComment > 10" class="cursor-pointer pt-2">Xem thêm bình luận</p>
-            <ng-container *ngIf="comments$ | async as comments">
+            <ng-container *ngIf="comments">
                 <ng-container *ngIf="comments.length > 0;else emptyComment">
-                    <div class="row m-0 p-0 mt-3" *ngFor="let comment of comments$ | async ">
-                        <div class="col-md-1 ">
+                    <div class="row m-0 p-0 mt-3" *ngFor="let comment of comments">
+                        <div class="col-1 ">
                             <div class="symbol symbol-45px me-5">
                                 <img src="./assets/media/avatars/300-1.jpg" alt="" />
                             </div>
                         </div>
-                        <div class="col-md-11">
+                        <div class="col-11">
                             <div class="bg-light px-4 p-2" style="border-radius: 15px;">
                                 <label class=" fw-bolder"> {{ comment.createdByName }}</label><br>
                                 <span class="fo">{{ comment.content }}</span>

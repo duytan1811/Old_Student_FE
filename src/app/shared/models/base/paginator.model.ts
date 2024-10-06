@@ -2,7 +2,7 @@ export const PageSizes = [3, 5, 10, 15, 50, 100];
 export class Paginator {
   page: number;
   pageSize: number;
-  total: number
+  total: number =0;
 
   constructor() {
     this.page = 0;

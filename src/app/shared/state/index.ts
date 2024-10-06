@@ -15,3 +15,4 @@ export { StudentState } from './students/student.state';
 export { StudentAchievementState } from './students-achievements/student-achievement.state';
 export { NewsState } from './news/news.state';
 export { ForumState } from './forum/forum.state';
+export { JobState } from './job/job.state';

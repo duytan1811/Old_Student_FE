@@ -25,13 +25,8 @@
     "items": [
       {
         "key":"jobs",
-        "display": "Bảng tin việc làm",
+        "display": "Danh sách việc làm",
         "href": "/jobs"
-      },
-      {
-        "key":"jobRegister",
-        "display": "Đăng ký ứng tuyển",
-        "href": "/job-register"
       }
     ]
   },

@@ -1,4 +1,5 @@
 export class BaseModel {
+  index: number = 0;
   isAdmin?: boolean;
   id: string;
   status?: number;

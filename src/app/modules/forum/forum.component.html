@@ -1,79 +1,28 @@
-<div class="card mb-5 mb-xxl-8">
-    <div class="card-body pb-0">
-        <div class="d-flex align-items-center mb-5">
-            <div class="d-flex align-items-center flex-grow-1" *ngIf="currentUser$ |  async as currentUser">
-                <div class="symbol symbol-45px me-5">
-                    <img src="./assets/media/avatars/300-1.jpg" alt="" />
-                </div>
-                <div class="d-flex flex-column w-100">
-                    <input type="text" readonly (click)="onCreateNews()"
-                        class="cursor-pointer form-control form-control-lg form-control-solid w-100"
-                        placeholder="{{currentUser.userName}} ơi, bạn đang nghĩ gì vậy?">
-                </div>
+<div class="card ">
+    <div class="card-header card-header-stretch">
+        <h3 class="card-title">Diễn đàn dành cho cựu sinh viên</h3>
+        <div class="card-toolbar">
+            <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                    [class.active]="tabSelected ==='news'"
+                    (click)="onChangeTab('news')"  data-bs-toggle="tab" href="javascript:void(0)">
+                        Tin tức</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                    [class.active]="tabSelected ==='job'" (click)="onChangeTab('job')"  data-bs-toggle="tab" href="javascript:void(0)">
+                        Việc làm
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body ">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" role="tabpanel">
+                <app-news-list [isShow]="tabSelected ==='news'"></app-news-list>
             </div>
         </div>
     </div>
 </div>
-
-<ng-container  *ngIf="currentUser$ |  async as currentUser">
-    <div class="card mb-5 mb-xxl-8" *ngFor="let news of news$| async">
-        <div class="card-body pb-0">
-            <div class="d-flex align-items-center mb-5">
-                <div class="d-flex align-items-center flex-grow-1">
-                    <div class="symbol symbol-45px me-5">
-                        <img src="./assets/media/avatars/300-1.jpg" alt="" />
-                    </div>
-                    <div class="d-flex flex-column">
-                        <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bolder">{{ news.createdByName }}</a>
-                        <span class="text-gray-400 fw-bold">{{ news.createdAt | dateAgo }}</span>
-                    </div>
-                </div>
-                <div class="my-0">
-                    <span class="badge badge-square p-3" [class.badge-primary]="news.type==1"
-                        [class.badge-success]="news.type==2" [class.badge-danger]="news.type==3"
-                        [class.badge-info]="news.type==4"> {{ news.typeName }}</span>
-                </div>
-            </div>
-            <div class="mb-5">
-                <ng-container *ngIf="news.type == 2">
-                    Bắt đầu: <strong>{{ news.startDate | date:'dd/MM/yyyy' }} </strong>
-                    <br><br>
-                    Kết thúc: <strong>{{ news.endDate | date:'dd/MM/yyyy' }}</strong>
-                </ng-container>
-                <ng-container *ngIf="news.type != 2">
-                    <p class="text-gray-800 fw-normal mb-5" [innerHTML]="news.content"></p>
-                </ng-container>
-                <div class="separator mb-3 mt-3"></div>
-    
-                <div class="row align-items-center mb-5">
-                    <div class="col-md-4">
-                        <a href="javascript:void(0)" (click)="onLike(news.id)"
-                            class="btn btn-sm btn-light btn-active-light-danger px-4 py-2 w-100"
-                            [class.btn-color-muted]="!news.isLiked" [class.btn-icon-danger]="news.isLiked"
-                            [class.btn-text-danger]="news.isLiked">
-                            <span class="svg-icon svg-icon-2 svg-icon-danger"
-                                [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'">
-                            </span> Thích ({{ news.countLike || 0 }})</a>
-                    </div>
-    
-                    <div class="col-md-4">
-                        <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
-                            class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4 w-100">
-                            <span class="svg-icon svg-icon-3"
-                                [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'">
-                            </span>Bình luận ({{ news.countComment || 0 }})</a>
-                    </div>
-                    <div class="col-md-4" *ngIf="currentUser.id == news.createdByName">
-                        <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
-                            class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4 w-100">
-                            <span class="svg-icon svg-icon-3"
-                                [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'">
-                            </span>Thao tác</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
-        [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
-</ng-container>

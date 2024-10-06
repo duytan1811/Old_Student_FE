@@ -43,6 +43,11 @@ const Routing: Routes = [
       import('../modules/forum/forum.module').then((m) => m.ForumModule),
   },
   {
+    path: EndPointConstants.Job.Index,
+    loadChildren: () =>
+      import('../modules/job/job.module').then((m) => m.JobModule),
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

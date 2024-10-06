@@ -48,6 +48,7 @@ import { PipesModule } from '../pipes/pipes.module';
         FormGroupDirective,
         DirectiveModule,
         MatExpansionModule,
+        MatDialogModule
     ],
     providers: [
         

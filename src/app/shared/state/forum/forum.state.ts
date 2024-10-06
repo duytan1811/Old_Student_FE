@@ -17,14 +17,24 @@ export class ForumState implements OnDestroy {
   private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(Boolean());
   public isLoading$: Observable<boolean> = this._isLoadingSubject.asObservable();
 
-  getFourms(): Array<ForumModel> {
+  private _totalNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  public totalNews$: Observable<number> = this._totalNewsSubject.asObservable();
+
+  getForums(): Array<ForumModel> {
     return this._newsSubject.getValue();
   }
 
-  setFourms(data: Array<ForumModel>) {
+  setForums(data: Array<ForumModel>) {
     this._newsSubject.next(data);
   }
 
+  getTotalNews(): number {
+    return this._totalNewsSubject.getValue();
+  }
+
+  setTotalNews(data: number) {
+    this._totalNewsSubject.next(data);
+  }
 
   getIsLoading(): boolean {
     return this._isLoadingSubject.getValue();
@@ -51,7 +61,8 @@ export class ForumState implements OnDestroy {
       next: (res: BaseTableResponse<ForumModel>) => {
         this.setIsLoading(false);
         cv.paginator.total = res.total;
-        this.setFourms(res.items);
+        this.setTotalNews(res.total || 0);
+        this.setForums(res.items);
       },
       error: (err) => {
         this.setIsLoading(false);

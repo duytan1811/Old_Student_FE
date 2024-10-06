@@ -39,4 +39,8 @@ export const EndPointConstants = {
     Index: `forums`,
     Search: `forums/search`,
   },
+  Job: {
+    Index: `jobs`,
+    Search: `jobs/search`,
+  },
 };

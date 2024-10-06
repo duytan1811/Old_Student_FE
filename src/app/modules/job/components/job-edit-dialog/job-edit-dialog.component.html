@@ -1,0 +1,76 @@
+<h2 mat-dialog-title>
+    <span *ngIf="jobId == null">Thêm mới</span>
+    <span *ngIf="jobId != null">Cập nhật</span> việc làm
+</h2>
+<div class="separator my-5"></div>
+<ng-container *ngIf="job$ | async as job">
+    <form [formGroup]="formGroup" [appConnectForm]="job">
+        <div class="pl-0" mat-dialog-content>
+            <div class="mb-5 row">
+                <div class="col-8">
+                    <label for="title" class="form-label required">Tiêu đề</label>
+                    <input id="title" formControlName="title" type="text" class="form-control form-control-solid" />
+                </div>
+                <div class="col-4">
+                    <label for="title" class="form-label required">Địa chỉ</label>
+                    <input id="title" formControlName="address" type="text" class="form-control form-control-solid" />
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label for="status" class="form-label">Ngành nghề</label>
+                <mat-select formControlName="majorId" class="form-control form-control-solid">
+                    <mat-option *ngFor="let option of majorDropdown$ | async" [value]="option.value">{{ option.text
+                        }}</mat-option>
+                </mat-select>
+            </div>
+
+            <div class="mb-5">
+                <label for="status" class="form-label">Yêu cầu kĩ năng</label>
+                <input type="date" formControlName="skils" class="form-control form-control-solid" />
+            </div>
+
+            <div class="mb-5 row">
+                <div class="col-6">
+                    <label for="">Tuyển dụng từ</label>
+                    <input type="date" formControlName="startDateFormat" class="form-control form-control-solid" />
+                </div>
+                <div class="col-6">
+                    <label for="">Thời gian kết thúc</label>
+                    <input type="date" formControlName="endDateFormat" class="form-control form-control-solid" />
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label>File đính kèm</label>
+                <input type="file" (change)="onChangeFileAttach($event)" class="form-control form-control-solid" />
+                <div class="mt-3">
+                    <a href="#">{{ job.fileName }}
+                    </a>
+                    <span class="cursor-pointer px-3 svg-icon svg-icon-danger"
+                        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"></span>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label class="required">Nội dung</label>
+                <ckeditor [editor]="ckEditor" formControlName="content"></ckeditor>
+            </div>
+
+            <div class="mb-5" *ngIf="jobId != null">
+                <label for="status" class="form-label">Trạng thái</label>
+                <mat-select formControlName="status" class="form-control form-control-solid">
+                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</mat-option>
+                </mat-select>
+            </div>
+
+        </div>
+
+        <div class="float-end" mat-dialog-actions>
+            <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+            <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid" [mat-dialog-close]
+                (click)="onSave()">Xác
+                nhận</button>
+        </div>
+    </form>
+</ng-container>
