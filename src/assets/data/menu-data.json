@@ -13,13 +13,13 @@
     "items": [
       {
         "key":"news",
-        "display": "Tin tức",
+        "display": "Tin tức & sự kiện",
         "href": "/news"
       }
     ]
   },
   {
-    "display": "Cơ hội nghề nghiệp",
+    "display": "Quản lý việc làm",
     "icon": "./assets/media/icons/duotune/communication/com004.svg",
     "href": "/",
     "items": [

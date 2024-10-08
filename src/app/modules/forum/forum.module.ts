@@ -8,7 +8,10 @@ import { ForumComponent } from './forum.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { EditNewsDialogComponent } from './components/edit-news-dialog/edit-news-dialog.component';
-import { NewsListComponent } from './components/news-list/news-list.component';
+import { JobListComponent } from './job-list/job-list.component';
+import { NewsListComponent } from './news-list/news-list.component';
+import { JobDetailComponent } from './components/job-detail/job-detail.component';
+import { ApplyJobComponent } from './components/apply-job/apply-job.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { NewsListComponent } from './components/news-list/news-list.component';
     ForumComponent,
     EditNewsDialogComponent,
     EditNewsDialogComponent,
-    NewsListComponent
+    NewsListComponent,
+    JobListComponent,
+    JobDetailComponent,
+    ApplyJobComponent
   ],
   imports: [
     CommonModule,

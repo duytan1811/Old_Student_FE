@@ -10,6 +10,7 @@ import {
   ClaimValue,
   CommonConstants,
 } from 'src/app/shared/constants/common-constants';
+import { StatusEnum } from 'src/app/shared/enum/status.enum';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
@@ -64,8 +65,9 @@ export class NewsComponent implements OnInit {
     const dataSearch = this.formGroupSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
     dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
-    dataSearch.countLike = dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;
-   
+    dataSearch.countLike =
+      dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;
+
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.newsState.search(viewState);
@@ -84,6 +86,12 @@ export class NewsComponent implements OnInit {
 
   public goEdit(id: string | null) {
     this.router.navigate([`/news/${id}`]);
+  }
+
+  public async onConfirmNews(newsId: string) {
+    const res = await this.newsState.confirm(newsId);
+    this.flashMessageState.message(res.type, res.message);
+    this.onSearch();
   }
 
   public goDelete(data: NewsModel): void {

@@ -6,16 +6,38 @@ import {
   ClaimValue,
   CommonConstants,
 } from 'src/app/shared/constants/common-constants';
+import { NewsListComponent } from './news-list/news-list.component';
+import { JobListComponent } from './job-list/job-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ForumComponent,
-    canActivate: [PermissionGuard],
-    data: {
-      permission: CommonConstants.MenuKey.Forum,
-      action: ClaimValue.View,
-    },
+    children: [
+      {
+        path: 'news',
+        component: NewsListComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: CommonConstants.MenuKey.Forum,
+          action: ClaimValue.View,
+        },
+      },
+      {
+        path: 'job',
+        component: JobListComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: CommonConstants.MenuKey.Forum,
+          action: ClaimValue.View,
+        },
+      },
+      {
+        path: '',
+        redirectTo: 'news',
+        pathMatch: 'full',
+      },
+    ],
   },
 ];
 

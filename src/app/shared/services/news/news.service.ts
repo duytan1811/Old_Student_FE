@@ -26,8 +26,14 @@ export class NewsService {
   }
 
   getComments(data: any) {
-    const url = EndPointConstants.News.Comment.replace(':id', data.searchParams.newsId);
-    return this.apiService.postData<BaseTableResponse<CommentModel>>(`${url}/search`, data);
+    const url = EndPointConstants.News.Comment.replace(
+      ':id',
+      data.searchParams.newsId
+    );
+    return this.apiService.postData<BaseTableResponse<CommentModel>>(
+      `${url}/search`,
+      data
+    );
   }
 
   save(obj: NewsModel) {
@@ -42,6 +48,11 @@ export class NewsService {
       `${EndPointConstants.News.Index}/${id}`,
       obj
     );
+  }
+
+  confirm(id: string) {
+    const url = EndPointConstants.News.Confirm.replace(':id', id);
+    return this.apiService.getData<BaseResponse<NewsModel>>(url);
   }
 
   like(id: string) {

@@ -1,32 +1,37 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { StatusEnum } from 'src/app/shared/enum/status.enum';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { ForumModel } from 'src/app/shared/models/forum/forum.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
-import { EditNewsDialogComponent } from '../edit-news-dialog/edit-news-dialog.component';
 import { BlogDetailDialogComponent } from 'src/app/shared/components/blog-detail-dialog/blog-detail-dialog.component';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
-
+import { EditNewsDialogComponent } from '../components/edit-news-dialog/edit-news-dialog.component';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class NewsListComponent implements OnInit {
   @ViewChild('content') content: ElementRef;
-  @Input() isShow: boolean = false;
   public ckEditor = ClassicEditorBuild;
   public currentUser$: Observable<UserModel>;
   public news$: Observable<Array<ForumModel>>;
   public userView$: Observable<BaseViewModel>;
   public totalNews$: Observable<number>;
   public status = StatusEnum;
+  private subs: Array<Subscription> = [];
 
   constructor(
     private dialog: MatDialog,
@@ -34,7 +39,7 @@ export class NewsListComponent implements OnInit {
     private forumState: state.ForumState,
     private newState: state.NewsState,
     private viewState: state.ViewState
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.currentUser$ = this.authState.currentUser$;
@@ -44,7 +49,7 @@ export class NewsListComponent implements OnInit {
   }
 
   public onSearch() {
-    const viewState = this.viewState.getViewState();
+    let viewState = this.viewState.getViewState();
     this.forumState.search(viewState);
     this.userView$ = this.viewState.view$;
   }
@@ -92,5 +97,4 @@ export class NewsListComponent implements OnInit {
       this.onSearch();
     });
   }
-
 }

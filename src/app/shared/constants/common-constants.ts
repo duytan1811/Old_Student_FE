@@ -1,4 +1,5 @@
 import { StatusEnum } from '../enum/status.enum';
+import { workTypeEnum } from '../enum/workType.enum';
 
 export class CommonConstants {
   public static readonly ResponseType = {
@@ -18,6 +19,12 @@ export class CommonConstants {
     { value: StatusEnum.Active, text: 'Hoạt động' },
     { value: StatusEnum.Inactive, text: 'Không hoạt động' },
     { value: StatusEnum.WaitingApproval, text: 'Chờ xác nhận' },
+  ];
+
+  public static readonly WorkType = [
+    { value: workTypeEnum.Office, text: 'Tại văn phòng' },
+    { value: workTypeEnum.Remote, text: 'Làm việc từ xa' },
+    { value: workTypeEnum.Hybrid, text: 'Linh hoạt' },
   ];
 
   public static readonly MenuKey = {

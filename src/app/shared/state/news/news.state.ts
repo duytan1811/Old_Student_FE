@@ -218,6 +218,22 @@ export class NewsState implements OnDestroy {
     });
   }
 
+  public confirm(id: string): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.newsService.confirm(id).subscribe({
+        next: (res) => {
+          this.setIsLoading(false);
+          resolve(res);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    });
+  }
+
   public like(id: string): Promise<any> {
     this.setIsLoading(true);
     return new Promise((resolve) => {

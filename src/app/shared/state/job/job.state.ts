@@ -1,4 +1,4 @@
-import {  Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
 import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { ViewState } from '../base/view.state';
@@ -12,17 +12,24 @@ import { JobService } from '../../services/job/job.service';
 export class JobState implements OnDestroy {
   private unsubscribe: Subscription[] = [];
 
-  private _jobsSubject: BehaviorSubject<Array<JobModel>> = new BehaviorSubject(Array());
+  private _jobsSubject: BehaviorSubject<Array<JobModel>> = new BehaviorSubject(
+    Array()
+  );
   public jobs$: Observable<Array<JobModel>> = this._jobsSubject.asObservable();
 
   private _totalJobSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public totalJob$: Observable<number> = this._totalJobSubject.asObservable();
 
-  private _jobSubject: BehaviorSubject<JobModel> = new BehaviorSubject(Object());
+  private _jobSubject: BehaviorSubject<JobModel> = new BehaviorSubject(
+    Object()
+  );
   public job$: Observable<JobModel> = this._jobSubject.asObservable();
 
-  private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(Boolean());
-  public isLoading$: Observable<boolean> = this._isLoadingSubject.asObservable();
+  private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(
+    Boolean()
+  );
+  public isLoading$: Observable<boolean> =
+    this._isLoadingSubject.asObservable();
 
   getJobs(): Array<JobModel> {
     return this._jobsSubject.getValue();
@@ -56,12 +63,7 @@ export class JobState implements OnDestroy {
     this._isLoadingSubject.next(isLoading);
   }
 
-  constructor(
-    private jobService: JobService,
-    private viewState: ViewState,
-  ) {
-
-  }
+  constructor(private jobService: JobService, private viewState: ViewState) {}
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -79,9 +81,9 @@ export class JobState implements OnDestroy {
       },
       error: (err) => {
         this.setIsLoading(false);
-        console.log(`Error get jobs`, err)
-      }
-    })
+        console.log(`Error get jobs`, err);
+      },
+    });
 
     this.unsubscribe.push(sub);
   }
@@ -96,9 +98,9 @@ export class JobState implements OnDestroy {
         },
         error: (err) => {
           this.setIsLoading(false);
-          console.log(`Error get job`, err)
-        }
-      })
+          console.log(`Error get job`, err);
+        },
+      });
 
       this.unsubscribe.push(sub);
     } else {
@@ -122,7 +124,7 @@ export class JobState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
   }
 
   public update(id: string, obj: JobModel): Promise<any> {
@@ -140,7 +142,7 @@ export class JobState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
   }
 
   public delete(id: string): Promise<any> {
@@ -158,6 +160,21 @@ export class JobState implements OnDestroy {
           resolve(e.error?.message || e);
         },
       });
-    })
+    });
+  }
+
+  public applyJob(data: any): Promise<any> {
+    return new Promise((resolve) => {
+      this.jobService.appllyJob(data).subscribe({
+        next: (result) => {
+          this.setIsLoading(false);
+          resolve(result);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    });
   }
 }

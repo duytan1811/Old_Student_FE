@@ -55,20 +55,25 @@
   
               <ng-container *ngIf="newsList$ | async as newsList;else emptyTable">
                 <ng-container *ngIf="(totalNews$ | async);else emptyTable">
-                  <tr *ngFor="let student of newsList" style="vertical-align: middle;">
-                    <td>{{ student.index }}</td>
-                    <td>{{ student.typeName }}</td>
-                    <td>{{ student.countLike || 0 }}</td>
+                  <tr *ngFor="let news of newsList" style="vertical-align: middle;">
+                    <td>{{ news.index }}</td>
+                    <td>{{ news.typeName }}</td>
+                    <td>{{ news.countLike || 0 }}</td>
                     <td class="text-center">
-                      <app-status-badge [status]="student.status" [statusName]="student.statusName"></app-status-badge>
+                      <app-status-badge [status]="news.status" [statusName]="news.statusName"></app-status-badge>
                     </td>
                     <td>
-                      <button title="Cập nhật" (click)="goEdit(student.id)"  *ngIf="checkPermission(claimValue.Edit)"
+                      <button *ngIf="news.status == 4" title="Xác nhận" (click)="onConfirmNews(news.id)"
+                        class="btn btn-sm btn-light-primary btn-icon me-2">
+                        <span class="svg-icon svg-icon-2"
+                          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr085.svg'"></span>
+                      </button>
+                      <button title="Cập nhật" (click)="goEdit(news.id)"  *ngIf="checkPermission(claimValue.Edit)"
                         class="btn btn-sm btn-light-primary btn-icon me-2">
                         <span class="svg-icon svg-icon-2"
                           [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                       </button>
-                      <button (click)="goDelete(student)" title="Xóa" *ngIf="checkPermission(claimValue.Delete)"
+                      <button (click)="goDelete(news)" title="Xóa" *ngIf="checkPermission(claimValue.Delete)"
                         class="btn btn-sm btn-light-danger btn-icon">
                         <span class="svg-icon svg-icon-2"
                           [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>

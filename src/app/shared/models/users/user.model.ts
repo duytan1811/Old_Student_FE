@@ -9,8 +9,7 @@ export class UserModel extends BaseModel {
   email: string;
   avatar: string;
   phone: string;
-  firstname: string;
-  lastname: string;
+  fullName: string;
   selected: boolean;
   menuPermissions: Array<PermissionModel> | null = null;
 

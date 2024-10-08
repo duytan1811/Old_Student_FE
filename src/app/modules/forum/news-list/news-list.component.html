@@ -1,6 +1,5 @@
-<ng-container *ngIf="isShow">
-    <div class="card mb-5 mb-xxl-8">
-        <div class="card-body  pt-0 pb-0">
+    <div class="card bg-secondary mb-5 mb-xxl-8">
+        <div class="card-body pt-4 pb-0">
             <div class="d-flex align-items-center mb-5">
                 <div class="d-flex align-items-center flex-grow-1" *ngIf="currentUser$ |  async as currentUser">
                     <div class="symbol symbol-45px me-5">
@@ -9,7 +8,7 @@
                     <div class="d-flex flex-column w-100">
                         <input type="text" readonly (click)="onCreateNews()"
                             class="cursor-pointer form-control form-control-lg form-control-solid w-100"
-                            placeholder="{{currentUser.userName}} ơi, bạn đang nghĩ gì vậy?">
+                            placeholder="{{currentUser.fullName}} ơi, bạn đang nghĩ gì vậy?">
                     </div>
                 </div>
             </div>
@@ -18,7 +17,7 @@
     <div class="separator mb-3 mt-3"></div>
 
     <ng-container *ngIf="currentUser$ |  async as currentUser">
-        <div class="card mb-5 mb-xxl-8" *ngFor="let news of news$| async">
+        <div class="card bg-secondary mb-5 mb-xxl-8" *ngFor="let news of news$| async">
             <div class="card-body pt-3 pb-0 ">
                 <div class="d-flex align-items-center mb-5">
                     <div class="d-flex align-items-center flex-grow-1">
@@ -52,8 +51,7 @@
                         <div class="col-4">
                             <a href="javascript:void(0)" (click)="onLike(news.id)"
                                 class="btn btn-sm btn-light btn-active-light-danger px-4 py-2 w-100"
-                                [class.btn-color-dark]="!news.isLiked" [class.btn-icon-danger]="news.isLiked"
-                                [class.btn-text-danger]="news.isLiked">
+                                [class.btn-icon-danger]="news.isLiked" [class.btn-text-danger]="news.isLiked">
                                 <span class="svg-icon svg-icon-2 svg-icon-danger"
                                     [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'">
                                 </span> Thích ({{ news.countLike || 0 }})</a>
@@ -61,14 +59,14 @@
 
                         <div class="col-4">
                             <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
-                                class="btn btn-sm btn-light btn-color-dark btn-active-light-success px-4 py-2 me-4 w-100">
+                                class="btn btn-sm btn-light btn-active-light-success px-4 py-2 me-4 w-100">
                                 <span class="svg-icon svg-icon-3"
                                     [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'">
                                 </span>Bình luận ({{ news.countComment || 0 }})</a>
                         </div>
                         <div class="col-4" *ngIf="currentUser.id == news.createdById">
                             <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
-                                class="btn btn-sm btn-light btn-color-dark btn-active-light-warning px-4 py-2 me-4 w-100">
+                                class="btn btn-sm btn-light btn-active-light-warning px-4 py-2 me-4 w-100">
                                 <span class="svg-icon svg-icon-3"
                                     [inlineSVG]="'./assets/media/icons/duotune/general/gen053.svg'">
                                 </span>Thao tác</a>
@@ -76,9 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="separator"></div>
         </div>
         <app-paginator *ngIf="(totalNews$ | async)" class="d-flex justify-content-between align-items-center flex-wrap"
             [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
     </ng-container>
-</ng-container>

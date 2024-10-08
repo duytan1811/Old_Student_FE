@@ -44,4 +44,9 @@ export class JobService {
       `${EndPointConstants.Job.Index}/${id}`
     );
   }
+
+  appllyJob(data: any) {
+    const url = EndPointConstants.Job.ApplyJob.replace(':id', data.jobId);
+    return this.apiService.postData<BaseResponse<boolean>>(url, data);
+  }
 }
