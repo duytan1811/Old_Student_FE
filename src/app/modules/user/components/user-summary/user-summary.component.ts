@@ -62,7 +62,7 @@ export class UserSummaryComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '70%';
+    dialogConfig.width = '50%';
     dialogConfig.data = {
       id,
       isCreate,

@@ -15,64 +15,84 @@
     </div>
 </div>
 <div class="separator mb-3 mt-3"></div>
+<div class="d-flex align-items-center" [formGroup]="formSearch">
+    <div class="flex-column-1" style=" width: 10%;">Phân loại</div>
+    <div class="flex-column-1 w-100">
+        <mat-select (selectionChange)="onSeachByType($event)" formControlName="type"
+            class="form-control form-control-solid">
+            <mat-option value="">Tất cả</mat-option>
+            <mat-option *ngFor="let option of dropdownNewTypes$ | async" [value]="option.value">{{ option.text
+                }}</mat-option>
+        </mat-select>
+    </div>
+</div>
+<div class="separator mb-3 mt-3"></div>
 
 <ng-container *ngIf="currentUser$ |  async as currentUser">
-    <div class="card mb-5 mb-xxl-8" *ngFor="let news of news$| async">
-        <div class="card-body pt-3 pb-0 ">
-            <div class="d-flex align-items-center mb-5">
-                <div class="d-flex align-items-center flex-grow-1">
-                    <div class="symbol symbol-45px me-5">
-                        <img src="./assets/media/avatars/300-1.jpg" alt="" />
+    <ng-container *ngIf="totalNews$| async as totalNews;else emptyTable">
+        <div class="card mb-5 mb-xxl-8" *ngFor="let news of news$| async">
+            <div class="card-body pt-3 pb-0 ">
+                <div class="d-flex align-items-center mb-5">
+                    <div class="d-flex align-items-center flex-grow-1">
+                        <div class="symbol symbol-45px me-5">
+                            <img src="./assets/media/avatars/300-1.jpg" alt="" />
+                        </div>
+                        <div class="d-flex flex-column">
+                            <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bolder">{{
+                                news.createdByName
+                                }}</a>
+                            <span class="text-gray-400 fw-bold">{{ news.createdAt | dateAgo }}</span>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column">
-                        <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bolder">{{ news.createdByName
-                            }}</a>
-                        <span class="text-gray-400 fw-bold">{{ news.createdAt | dateAgo }}</span>
+                    <div class="my-0">
+                        <span class="badge badge-square p-3" [class.badge-primary]="news.type==1"
+                            [class.badge-success]="news.type==2" [class.badge-danger]="news.type==3"
+                            [class.badge-info]="news.type==4"> {{ news.typeName }}</span>
                     </div>
                 </div>
-                <div class="my-0">
-                    <span class="badge badge-square p-3" [class.badge-primary]="news.type==1"
-                        [class.badge-success]="news.type==2" [class.badge-danger]="news.type==3"
-                        [class.badge-info]="news.type==4"> {{ news.typeName }}</span>
+                <div class="separator separator-dashed mt-3 mb-3">
                 </div>
-            </div>
-            <div class="separator separator-dashed mt-3 mb-3">
-            </div>
-            <div class="mb-5">
-                <div class="cursor-pointer" (click)="onOpenNewsDetail(news.id)">
-                    <ng-container *ngIf="news.type == 2">
-                        Bắt đầu: <strong>{{ news.startDate | date:'dd/MM/yyyy' }} </strong>
-                        <br><br>
-                        Kết thúc: <strong>{{ news.endDate | date:'dd/MM/yyyy' }}</strong>
-                    </ng-container>
-                    <ng-container *ngIf="news.type != 2">
-                        <p class="text-gray-800 fw-normal mb-5" [innerHTML]="news.content"></p>
-                    </ng-container>
-                </div>
-                <div class="separator separator-dashed  mb-3 mt-3"></div>
+                <div class="mb-5">
+                    <div class="cursor-pointer" (click)="onOpenNewsDetail(news.id)">
+                        <ng-container *ngIf="news.type == 2">
+                            Bắt đầu: <strong>{{ news.startDate | date:'dd/MM/yyyy' }} </strong>
+                            <br><br>
+                            Kết thúc: <strong>{{ news.endDate | date:'dd/MM/yyyy' }}</strong>
+                        </ng-container>
+                        <ng-container *ngIf="news.type != 2">
+                            <p class="text-gray-800 fw-normal mb-5" [innerHTML]="news.content"></p>
+                        </ng-container>
+                    </div>
+                    <div class="separator separator-dashed  mb-3 mt-3"></div>
 
-                <div class="row align-items-center mb-5">
-                    <div class="col-6">
-                        <a href="javascript:void(0)" (click)="onLike(news.id)"
-                            class="btn btn-sm btn-light btn-active-light-danger px-4 py-2 w-100"
-                            [class.btn-icon-danger]="news.isLiked" [class.btn-text-danger]="news.isLiked">
-                            <span class="svg-icon svg-icon-2 svg-icon-danger"
-                                [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'">
-                            </span> Thích ({{ news.countLike || 0 }})</a>
-                    </div>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-6">
+                            <a href="javascript:void(0)" (click)="onLike(news.id)"
+                                class="btn btn-sm btn-light btn-active-light-danger px-4 py-2 w-100"
+                                [class.btn-icon-danger]="news.isLiked" [class.btn-text-danger]="news.isLiked">
+                                <span class="svg-icon svg-icon-2 svg-icon-danger"
+                                    [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'">
+                                </span> Thích ({{ news.countLike || 0 }})</a>
+                        </div>
 
-                    <div class="col-6">
-                        <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
-                            class="btn btn-sm btn-light btn-active-light-success px-4 py-2 me-4 w-100">
-                            <span class="svg-icon svg-icon-3"
-                                [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'">
-                            </span>Bình luận ({{ news.countComment || 0 }})</a>
+                        <div class="col-6">
+                            <a href="javascript:void(0)" (click)="onOpenNewsDetail(news.id)"
+                                class="btn btn-sm btn-light btn-active-light-success px-4 py-2 me-4 w-100">
+                                <span class="svg-icon svg-icon-3"
+                                    [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'">
+                                </span>Bình luận ({{ news.countComment || 0 }})</a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="separator border-4"></div>
         </div>
-        <div class="separator border-4"></div>
-    </div>
+    </ng-container>
+    <ng-template #emptyTable>
+        <div class="text-center mt-5">
+            Không tìm thấy bài viết theo yêu cầu
+        </div>
+    </ng-template>
     <app-paginator *ngIf="(totalNews$ | async)" class="d-flex justify-content-between align-items-center flex-wrap"
         [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
 </ng-container>

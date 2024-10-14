@@ -15,6 +15,7 @@ import { ApplyJobComponent } from './components/apply-job/apply-job.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { EventRegisterDialogComponent } from './components/event-register-dialog/event-register-dialog.component';
 import { EventDetailDialogComponent } from './components/event-detail-dialog/event-detail-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -37,7 +38,6 @@ import { EventDetailDialogComponent } from './components/event-detail-dialog/eve
     SharedComponentModule,
     CKEditorModule,
     PipesModule,
-    CKEditorModule
   ]
 })
 export class ForumModule { }

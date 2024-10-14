@@ -66,8 +66,8 @@
                                 <tr *ngFor="let event of eventList" style="vertical-align: middle;">
                                     <td>{{ event.index }}</td>
                                     <td>{{ event.typeName ||'--' }}</td>
-                                    <td>{{ event.startDate | date:'dd/MM/yyyy' || '--' }}</td>
-                                    <td>{{ event.endDate | date:'dd/MM/yyyy' || '--' }}</td>
+                                    <td>{{ event.startDate | date:'HH:mm - dd/MM/yyyy' || '--' }}</td>
+                                    <td>{{ event.endDate | date:'HH:mm - dd/MM/yyyy' || '--' }}</td>
                                     <td>{{ event.countEventRegister }}</td>
                                     <td class="text-center">
                                         <app-status-badge [status]="event.status"

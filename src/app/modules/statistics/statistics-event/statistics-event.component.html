@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <ng-container *ngIf="chartOptions&& chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.dataLabels && chartOptions.grid
+                && chartOptions.stroke && chartOptions.title">
+                    <apx-chart #char [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                    [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"
+                    [title]="chartOptions.title"></apx-chart>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

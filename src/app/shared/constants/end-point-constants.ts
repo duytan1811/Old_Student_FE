@@ -50,5 +50,9 @@ export const EndPointConstants = {
     Index:'events',
     UserRegister:'events/:id/user-registers',
     Register:'events/:id/registers'
+  },
+  Statistics:{
+    Index:'statistics',
+    EventByMonth:'statistics/event-by-month'
   }
 };

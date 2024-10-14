@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 import { Observable, Subscription } from 'rxjs';
@@ -17,6 +11,8 @@ import { BlogDetailDialogComponent } from 'src/app/shared/components/blog-detail
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { EditNewsDialogComponent } from '../components/edit-news-dialog/edit-news-dialog.component';
+import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-news-list',
@@ -31,32 +27,53 @@ export class NewsListComponent implements OnInit {
   public userView$: Observable<BaseViewModel>;
   public totalNews$: Observable<number>;
   public status = StatusEnum;
-  private subs: Array<Subscription> = [];
+  public dropdownNewTypes$: Observable<Array<SelectListItem>>;
+  public formSearch: FormGroup;
 
   constructor(
     private dialog: MatDialog,
     private authState: state.AuthState,
     private forumState: state.ForumState,
     private newState: state.NewsState,
-    private viewState: state.ViewState
+    private viewState: state.ViewState,
+    private dropdownState: state.DropdownState,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.currentUser$ = this.authState.currentUser$;
     this.news$ = this.forumState.news$;
     this.totalNews$ = this.forumState.totalNews$;
+    this.dropdownNewTypes$ = this.dropdownState.dropdownNewsTypes$;
+    this.dropdownState.getDropdownNewTypes();
+    this.initFormGroup();
     this.onSearch();
   }
 
   public onSearch() {
     let viewState = this.viewState.getViewState();
     this.forumState.search(viewState);
+    const data = this.formSearch.getRawValue();
+    data.type = data.type !== '' ? parseInt(data.type) : null;
+    viewState.searchParams = data;
     this.userView$ = this.viewState.view$;
   }
 
   public paginate(paginator: Paginator) {
     const viewState = this.viewState.getViewState();
+    const data = this.formSearch.getRawValue();
+    data.type = data.type !== '' ? parseInt(data.type) : null;
     viewState.paginator = paginator;
+    viewState.searchParams = data;
+    this.viewState.setViewState(viewState);
+    this.forumState.search(viewState);
+  }
+
+  public onSeachByType(event: any) {
+    const viewState = this.viewState.getViewState();
+    const data = this.formSearch.getRawValue();
+    data.type = event?.value !== '' ? parseInt(event?.value) : null;
+    viewState.searchParams = data;
     this.viewState.setViewState(viewState);
     this.forumState.search(viewState);
   }
@@ -95,6 +112,12 @@ export class NewsListComponent implements OnInit {
     const dialogRef = this.dialog.open(EditNewsDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {
       this.onSearch();
+    });
+  }
+
+  private initFormGroup() {
+    this.formSearch = this.fb.group({
+      type: [''],
     });
   }
 }

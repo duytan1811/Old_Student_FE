@@ -52,6 +52,14 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/event/event.module').then((m) => m.EventModule),
   },
+
+  {
+    path: EndPointConstants.Statistics.Index,
+    loadChildren: () =>
+      import('../modules/statistics/statistics.module').then(
+        (m) => m.StatisticsModule
+      ),
+  },
   {
     path: '',
     redirectTo: 'dashboard',

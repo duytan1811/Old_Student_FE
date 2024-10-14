@@ -1,16 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { BlogDetailDialogComponent } from 'src/app/shared/components/blog-detail-dialog/blog-detail-dialog.component';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { StatusEnum } from 'src/app/shared/enum/status.enum';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
-import { ForumModel } from 'src/app/shared/models/forum/forum.model';
 import { JobModel } from 'src/app/shared/models/jobs/job.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
-import { EditNewsDialogComponent } from '../components/edit-news-dialog/edit-news-dialog.component';
 import { JobDetailComponent } from '../components/job-detail/job-detail.component';
 
 @Component({
@@ -29,19 +25,20 @@ export class JobListComponent implements OnInit {
     private dialog: MatDialog,
     private authState: state.AuthState,
     private jobState: state.JobState,
-    private viewState: state.ViewState
+    private viewState: state.ViewState,
   ) {}
 
   ngOnInit(): void {
     this.currentUser$ = this.authState.currentUser$;
     this.jobs$ = this.jobState.jobs$;
     this.totalJob$ = this.jobState.totalJob$;
+
     this.onSearch();
   }
 
   public onSearch() {
     let viewState = this.viewState.getViewState();
-    viewState.searchParams={status:StatusEnum.Active};
+    viewState.searchParams = { status: StatusEnum.Active };
     this.jobState.search(viewState);
     this.userView$ = this.viewState.view$;
   }

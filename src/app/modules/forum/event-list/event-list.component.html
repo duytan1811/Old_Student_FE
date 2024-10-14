@@ -1,3 +1,15 @@
+<div class="d-flex align-items-center">
+    <div class="flex-column-1" style=" width: 10%;">Phân loại</div>
+    <div class="flex-column-1 w-100">
+        <mat-select value="" (selectionChange)="onSeachByType($event)" class="form-control form-control-solid">
+            <mat-option value="" >Tất cả</mat-option>
+            <mat-option *ngFor="let option of dropdownEventType$ | async" [value]="option.value">{{ option.text
+                }}</mat-option>
+        </mat-select>
+    </div>
+</div>
+<div class="separator mb-3 mt-3"></div>
+
 <div *ngIf="totalEvent$ | async as totalJob;else emptyTable">
     <div class="card mb-5 mb-xxl-8">
         <div class="card-body bg-light mt-4 pt-3 pb-0 cursor-pointer" *ngFor="let event of events$| async"
@@ -39,7 +51,7 @@
 </div>
 
 <ng-template #emptyTable>
-    <div class="text-center">
+    <div class="text-center mt-5">
         Hiện tại chưa có sự kiện nào
     </div>
 </ng-template>
