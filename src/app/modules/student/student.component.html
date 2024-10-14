@@ -10,12 +10,11 @@
             <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
               <th class="w-50px">Ảnh</th>
               <th>Tên</th>
-              <th>Số điện thoại</th>
-              <th>Khóa học</th>
-              <th>Năm tốt nghiệp</th>
+              <th class="w-150px">Số điện thoại</th>
+              <th class="w-175px">Khóa học</th>
               <th>Ngành nghề</th>
               <th>Trạng thái</th>
-              <th class="w-150px"></th>
+              <th class="w-125px"></th>
             </tr>
           </thead>
           <tbody>
@@ -31,10 +30,6 @@
               <td>
                 <input type="text" formControlName="schoolYear" (change)="onSearch()" placeholder="Nhập khóa học..."
                   class="form-control form-control-sm form-control-solid">
-              </td>
-              <td>
-                <input type="text" formControlName="yearOfGraduation" (change)="onSearch()"
-                  placeholder="Nhập năm tốt nghiệp..." class="form-control form-control-sm form-control-solid">
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="majorId"
@@ -69,10 +64,9 @@
                     </div>
                   </td>
                   <td>{{ student.fullName }}</td>
-                  <td>{{ student.phone }}</td>
-                  <td>{{ student.schoolYear }}</td>
-                  <td>{{ student.yearOfGraduation }}</td>
-                  <td>{{ student.majorName }}</td>
+                  <td>{{ student.phone || '--' }}</td>
+                  <td>{{ student.schoolYear || '--' }}</td>
+                  <td>{{ student.majorName || '--' }}</td>
                   <td class="text-center">
                     <app-status-badge [status]="student.status" [statusName]="student.statusName"></app-status-badge>
                   </td>

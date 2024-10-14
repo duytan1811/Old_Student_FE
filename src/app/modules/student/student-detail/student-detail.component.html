@@ -52,7 +52,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold">{{ student.countArchievement }}</div>
+                                    <div class="fs-2 fw-bold">{{ student.countArchievement  }}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Thành tích</div>
                             </div>
@@ -62,7 +62,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold">{{student.schoolYear }}</div>
+                                    <div class="fs-2 fw-bold">{{student.schoolYear || '--' }}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Niên khóa</div>
                             </div>
@@ -72,7 +72,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <div class="fs-2 fw-bold">{{ student.yearOfGraduation}}</div>
+                                    <div class="fs-2 fw-bold">{{ student.yearOfGraduation || '--'}}</div>
                                 </div>
                                 <div class="fw-semibold fs-6 text-gray-400">Năm tốt nghiệp</div>
                             </div>

@@ -29,7 +29,7 @@ export class UserEditModalComponent implements OnInit {
     private flashMessageState: state.FlashMessageState,
     private dropdownState: state.DropdownState,
     public dialogRef: MatDialogRef<UserEditModalComponent>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.data.id;
@@ -42,7 +42,9 @@ export class UserEditModalComponent implements OnInit {
     this.initFormGroup();
     if (!this.isCreate) {
       this.formGroup.get('userName')?.disable();
+      this.formGroup.get('userName')?.clearValidators();
       this.formGroup.get('password')?.disable();
+      this.formGroup.get('password')?.clearValidators();
     }
   }
 
@@ -76,9 +78,9 @@ export class UserEditModalComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       userName: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      isTeacher: [false],
+      fullName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      roleId: ['', [Validators.required]],
       password: [
         '',
         [

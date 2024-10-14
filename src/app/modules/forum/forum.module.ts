@@ -12,6 +12,9 @@ import { JobListComponent } from './job-list/job-list.component';
 import { NewsListComponent } from './news-list/news-list.component';
 import { JobDetailComponent } from './components/job-detail/job-detail.component';
 import { ApplyJobComponent } from './components/apply-job/apply-job.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { EventRegisterDialogComponent } from './components/event-register-dialog/event-register-dialog.component';
+import { EventDetailDialogComponent } from './components/event-detail-dialog/event-detail-dialog.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { ApplyJobComponent } from './components/apply-job/apply-job.component';
     NewsListComponent,
     JobListComponent,
     JobDetailComponent,
-    ApplyJobComponent
+    ApplyJobComponent,
+    EventListComponent,
+    EventRegisterDialogComponent,
+    EventDetailDialogComponent
   ],
   imports: [
     CommonModule,

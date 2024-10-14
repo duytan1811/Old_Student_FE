@@ -40,6 +40,7 @@ export class CommonConstants {
     StatisticsTraffic: 'statisticsTraffic',
     Setting: 'setting',
     Role: 'role',
+    Event:'event'
   };
 }
 

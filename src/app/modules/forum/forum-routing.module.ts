@@ -8,6 +8,7 @@ import {
 } from 'src/app/shared/constants/common-constants';
 import { NewsListComponent } from './news-list/news-list.component';
 import { JobListComponent } from './job-list/job-list.component';
+import { EventListComponent } from './event-list/event-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,15 @@ const routes: Routes = [
       {
         path: 'news',
         component: NewsListComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permission: CommonConstants.MenuKey.Forum,
+          action: ClaimValue.View,
+        },
+      },
+      {
+        path: 'event',
+        component: EventListComponent,
         canActivate: [PermissionGuard],
         data: {
           permission: CommonConstants.MenuKey.Forum,

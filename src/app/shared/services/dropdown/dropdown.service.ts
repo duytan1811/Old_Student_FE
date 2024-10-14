@@ -28,4 +28,8 @@ export class DropdownService {
   getNewsTypes() {
     return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.NewsType}`);
   }
+
+  getEventTypes() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Events}`);
+  }
 }

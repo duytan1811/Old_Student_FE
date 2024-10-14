@@ -68,8 +68,6 @@ export class NewsEditComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       type: ['', [Validators.required]],
-      startDateFormat: [''],
-      endDateFormat: [''],
       status: ['', [Validators.required]],
       content: [''],
     });

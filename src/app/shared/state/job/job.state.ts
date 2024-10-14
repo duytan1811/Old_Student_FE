@@ -5,6 +5,7 @@ import { ViewState } from '../base/view.state';
 import { BaseTableResponse } from '../../models/base/base-table-response.model';
 import { JobModel } from '../../models/jobs/job.model';
 import { JobService } from '../../services/job/job.service';
+import { JobRegisterModel } from '../../models/jobs/job-register.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +18,18 @@ export class JobState implements OnDestroy {
   );
   public jobs$: Observable<Array<JobModel>> = this._jobsSubject.asObservable();
 
+  private _userAppliesSubject: BehaviorSubject<Array<JobRegisterModel>> = new BehaviorSubject(
+    Array()
+  );
+  public userApplies$: Observable<Array<JobRegisterModel>> = this._userAppliesSubject.asObservable();
+
   private _totalJobSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public totalJob$: Observable<number> = this._totalJobSubject.asObservable();
 
-  private _jobSubject: BehaviorSubject<JobModel> = new BehaviorSubject(
-    Object()
-  );
+  private _totalUserApplySubject: BehaviorSubject<number> = new BehaviorSubject(0);
+  public totalUserApply$: Observable<number> = this._totalUserApplySubject.asObservable();
+
+  private _jobSubject: BehaviorSubject<JobModel> = new BehaviorSubject(Object());
   public job$: Observable<JobModel> = this._jobSubject.asObservable();
 
   private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(
@@ -39,12 +46,28 @@ export class JobState implements OnDestroy {
     this._jobsSubject.next(data);
   }
 
+  getUserApplies(): Array<JobRegisterModel> {
+    return this._userAppliesSubject.getValue();
+  }
+
+  setUserApplies(data: Array<JobRegisterModel>) {
+    this._userAppliesSubject.next(data);
+  }
+
   getTotalJob(): number {
     return this._totalJobSubject.getValue();
   }
 
   setTotalJob(data: number) {
     this._totalJobSubject.next(data);
+  }
+
+  getTotalUserApply(): number {
+    return this._totalUserApplySubject.getValue();
+  }
+
+  setTotalUserApply(data: number) {
+    this._totalUserApplySubject.next(data);
   }
 
   getJob(): JobModel {
@@ -63,7 +86,7 @@ export class JobState implements OnDestroy {
     this._isLoadingSubject.next(isLoading);
   }
 
-  constructor(private jobService: JobService, private viewState: ViewState) {}
+  constructor(private jobService: JobService, private viewState: ViewState) { }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -78,6 +101,25 @@ export class JobState implements OnDestroy {
         cv.paginator.total = res.total;
         this.setJobs(res.items);
         this.setTotalJob(res.total);
+      },
+      error: (err) => {
+        this.setIsLoading(false);
+        console.log(`Error get jobs`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public searchUserApplies(jobId: string, dataSearch: any) {
+    this.setIsLoading(true);
+    const cv = this.viewState.getViewState();
+    const sub = this.jobService.getUserApplies(jobId, dataSearch).subscribe({
+      next: (res: BaseTableResponse<JobRegisterModel>) => {
+        this.setIsLoading(false);
+        cv.paginator.total = res.total;
+        this.setUserApplies(res.items);
+        this.setTotalUserApply(res.total);
       },
       error: (err) => {
         this.setIsLoading(false);

@@ -48,6 +48,11 @@ const Routing: Routes = [
       import('../modules/job/job.module').then((m) => m.JobModule),
   },
   {
+    path: EndPointConstants.Event.Index,
+    loadChildren: () =>
+      import('../modules/event/event.module').then((m) => m.EventModule),
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',

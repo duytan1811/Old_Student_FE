@@ -5,9 +5,9 @@ export class JobModel extends BaseModel {
   content: string = '';
   majorId: string = '';
   majorName: string = '';
-  startDate: Date;
+  startDate: Date = new Date();
   startDateFormat: string = '';
-  endDate: Date;
+  endDate: Date = new Date();
   endDateFormat: string = '';
   filePath: string = '';
   fileName: string = '';
@@ -18,4 +18,5 @@ export class JobModel extends BaseModel {
   skills: Array<string> = [];
   isApplyed: boolean = false;
   countApplyed: number = 0;
+  isExpired:boolean =false;
 }

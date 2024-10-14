@@ -1,0 +1,45 @@
+<div *ngIf="totalEvent$ | async as totalJob;else emptyTable">
+    <div class="card mb-5 mb-xxl-8">
+        <div class="card-body bg-light mt-4 pt-3 pb-0 cursor-pointer" *ngFor="let event of events$| async"
+            (click)="onOpenEventDetail(event)" style="border-radius: 20px;">
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center flex-grow-1">
+                    <div class="row mb-3">
+                        <span class="text-gray-400 fw-bold">Đăng {{ event.createdAt | dateAgo }}</span>
+                    </div>
+                </div>
+                <div class="my-0">
+                    <span class="badge badge-square p-3 badge-primary"> {{ event.typeName }}</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="h3 fw-bolder mb-2">{{ event.title}}</label>
+
+                <div class="row align-items-center mt-3">
+                    <label>
+                        <span class="svg svg-icon svg-icon-2 me-2"
+                            [inlineSVG]="'./assets/media/icons/duotune/maps/map001.svg'">
+                        </span>{{event.address}}
+                    </label>
+                </div>
+                <div class="d-flex align-items-center mt-3">
+                    <span class="svg svg-icon svg-icon-2 me-2"
+                        [inlineSVG]="'./assets/media/icons/duotune/general/gen013.svg'"></span>
+                    <label class="d-flex me-2"> Từ: </label>
+                    <strong>{{ event.startDate | date:'HH:mm dd/MM/yyyy'}}</strong>
+                    <label class="d-flex me-3 mx-3">-</label>
+                    <label class="d-flex me-3"> Đến: </label>
+                    <strong class="">{{ event.endDate | date:'HH:mm dd/MM/yyyy'}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-paginator *ngIf="(totalEvent$ | async)" class="d-flex justify-content-between align-items-center flex-wrap"
+        [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+</div>
+
+<ng-template #emptyTable>
+    <div class="text-center">
+        Hiện tại chưa có sự kiện nào
+    </div>
+</ng-template>

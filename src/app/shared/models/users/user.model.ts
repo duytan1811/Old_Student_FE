@@ -11,6 +11,7 @@ export class UserModel extends BaseModel {
   phone: string;
   fullName: string;
   selected: boolean;
+  isTeacher:boolean=false;
   menuPermissions: Array<PermissionModel> | null = null;
 
   constructor() {

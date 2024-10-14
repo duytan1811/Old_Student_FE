@@ -7,7 +7,9 @@ import {
 } from '@angular/material/dialog';
 import { JobModel } from 'src/app/shared/models/jobs/job.model';
 import { ApplyJobComponent } from '../apply-job/apply-job.component';
-
+import { Observable } from 'rxjs';
+import { UserModel } from 'src/app/shared/models/users/user.model';
+import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
@@ -15,18 +17,21 @@ import { ApplyJobComponent } from '../apply-job/apply-job.component';
 })
 export class JobDetailComponent implements OnInit {
   public job: JobModel;
+  public user$:Observable<UserModel>;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<JobDetailComponent>
+    public dialogRef: MatDialogRef<JobDetailComponent>,
+    private authState:state.AuthState,
   ) {}
 
   ngOnInit(): void {
     this.job = this.data.job;
+    this.user$ = this.authState.currentUser$;
   }
 
   public onOpenApplyJob(): void {
-    if (this.job.isApplyed) {
+    if (this.job.isApplyed || this.job.isExpired) {
       return;
     }
     this.dialogRef.close();

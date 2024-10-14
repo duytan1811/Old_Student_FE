@@ -1,0 +1,113 @@
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">Danh sách sự kiện</h3>
+        <div class="card-toolbar">
+            <button *ngIf="checkPermission(claimValue.Create)" (click)="goCreate()" type="button"
+                class="btn btn-sm btn-primary">
+                <span class="svg-icon svg-icon-2 align-middle"
+                    [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
+                Thêm mới
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive overflow-hidden">
+            <form [formGroup]="formGroupSearch">
+                <table class="table table-row-bordered ">
+                    <thead>
+                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                            <th class="w-25px">#</th>
+                            <th>Phân loại</th>
+                            <th>Bắt đâu</th>
+                            <th>Kết thúc</th>
+                            <th>SL tham gia</th>
+                            <th>Trạng thái</th>
+                            <th class="w-150px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <mat-select (selectionChange)="onSearch()" formControlName="type"
+                                    class="form-control form-control-sm form-control-solid">
+                                    <mat-option value="">Tất cả</mat-option>
+                                    <mat-option *ngFor="let item of dropdownEventTypes$ | async" [value]="item.value">{{
+                                        item.text
+                                        }}</mat-option>
+                                </mat-select>
+                            </td>
+                            <td>
+                                <input formControlName="startDate" type="date" (change)="onSearch()"
+                                    class="form-control form-control-sm form-control-solid">
+                            </td>
+                            <td>
+                                <input formControlName="endDate" type="date" (change)="onSearch()"
+                                    class="form-control form-control-sm form-control-solid">
+                            </td>
+                            <td colspan="2">
+                                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                                    class="form-control form-control-sm form-control-solid">
+                                    <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{
+                                        status.text
+                                        }}</mat-option>
+                                </mat-select>
+                            </td>
+                            <td>
+                                <button (click)="onSearch()" class="btn btn-sm btn-primary">
+                                    <span class="svg-icon svg-icon-2 align-middle"
+                                        [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"></span>
+                                    Tìm kiếm
+                                </button>
+                            </td>
+                        </tr>
+
+                        <ng-container *ngIf="eventList$ | async as eventList;else emptyTable">
+                            <ng-container *ngIf="(totalEvent$ | async);else emptyTable">
+                                <tr *ngFor="let event of eventList" style="vertical-align: middle;">
+                                    <td>{{ event.index }}</td>
+                                    <td>{{ event.typeName ||'--' }}</td>
+                                    <td>{{ event.startDate | date:'dd/MM/yyyy' || '--' }}</td>
+                                    <td>{{ event.endDate | date:'dd/MM/yyyy' || '--' }}</td>
+                                    <td>{{ event.countEventRegister }}</td>
+                                    <td class="text-center">
+                                        <app-status-badge [status]="event.status"
+                                            [statusName]="event.statusName"></app-status-badge>
+                                    </td>
+                                    <td>
+                                        <button title="Danh sách tham gia" (click)="goEventRegisterDetail(event.id)"
+                                            *ngIf="checkPermission(claimValue.View)"
+                                            class="btn btn-sm btn-light-success btn-icon me-2">
+                                            <span class="svg-icon svg-icon-2"
+                                                [inlineSVG]="'./assets/media/icons/duotune/communication/com004.svg'"></span>
+                                        </button>
+                                        <button title="Cập nhật" (click)="goEdit(event.id)"
+                                            *ngIf="checkPermission(claimValue.Edit)"
+                                            class="btn btn-sm btn-light-primary btn-icon me-2">
+                                            <span class="svg-icon svg-icon-2"
+                                                [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
+                                        </button>
+                                        <button (click)="goDelete(event)" title="Xóa"
+                                            *ngIf="checkPermission(claimValue.Delete)"
+                                            class="btn btn-sm btn-light-danger btn-icon">
+                                            <span class="svg-icon svg-icon-2"
+                                                [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #emptyTable>
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+                <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+                    [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+            </form>
+        </div>
+    </div>
+</div>

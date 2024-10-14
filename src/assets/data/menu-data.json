@@ -13,8 +13,13 @@
     "items": [
       {
         "key":"news",
-        "display": "Tin tức & sự kiện",
+        "display": "Tin tức",
         "href": "/news"
+      },
+      {
+        "key":"event",
+        "display": "Sự kiện",
+        "href": "/events"
       }
     ]
   },

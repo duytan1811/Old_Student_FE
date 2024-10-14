@@ -13,6 +13,7 @@ import { SelectListItem } from 'src/app/shared/models/base/select-list-item.mode
 import { JobModel } from 'src/app/shared/models/jobs/job.model';
 import * as state from 'src/app/shared/state';
 import { JobEditDialogComponent } from './components/job-edit-dialog/job-edit-dialog.component';
+import { JobRegisterDetailDialogComponent } from './components/job-register-detail-dialog/job-register-detail-dialog.component';
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -77,6 +78,22 @@ export class JobComponent implements OnInit {
   public goCreate(){
     this.goEdit(null);
   }
+
+  public goJobRegisterDetai(id: string | null): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = {
+      jobId:id,
+    };
+    const dialogRef = this.dialog.open(
+      JobRegisterDetailDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
+
   public goEdit(id: string | null, isCreate: boolean = true): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

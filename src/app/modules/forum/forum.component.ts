@@ -27,7 +27,9 @@ export class ForumComponent implements OnInit {
     this.tabSelected = tab;
     if (tab === 'news') {
       this.titleTab = 'Bài viết';
-    } else if (tab === 'job') {
+    }else if (tab === 'event') {
+      this.titleTab = 'Sự kiện';
+    }  else if (tab === 'job') {
       this.titleTab = 'Việc làm';
     }
     this.router.navigate([`/forums/${tab}`]);

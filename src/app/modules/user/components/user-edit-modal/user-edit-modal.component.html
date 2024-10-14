@@ -5,9 +5,14 @@
 <div class="separator my-5"></div>
 <form [formGroup]="formGroup" [appConnectForm]="user$ | async">
   <div class="pl-0" mat-dialog-content>
-    <div class="mb-5">
-      <label for="userName" class="form-label required">Tên tài khoản</label>
-      <input id="userName" formControlName="userName" type="text" class="form-control form-control-solid" />
+    <div class="mb-5 row ">
+      <div class="col-9">
+        <label for="userName" class="form-label required">Tên tài khoản</label>
+        <input id="userName" formControlName="userName" type="text" class="form-control form-control-solid" />
+      </div>
+      <div class="col-3 d-flex align-items-center">
+        <mat-checkbox type="checkbox" color="primary" formControlName="isTeacher" class="me-2 pt-3"> Là giáo viên</mat-checkbox>
+      </div>
     </div>
 
     <div *ngIf="isCreate" class="mb-5">
@@ -26,7 +31,7 @@
 
     <div class="mb-5">
       <label for="name" class="form-label required">Tên người dùng</label>
-      <input id="name" formControlName="name" type="text" class="form-control form-control-solid" />
+      <input id="name" formControlName="fullName" type="text" class="form-control form-control-solid" />
     </div>
 
     <div class="mb-5">

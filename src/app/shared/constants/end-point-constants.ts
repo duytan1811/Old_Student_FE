@@ -7,6 +7,7 @@ export const EndPointConstants = {
     User: `dropdowns/users`,
     Role: `dropdowns/roles`,
     NewsType: `dropdowns/news-types`,
+    Events: `dropdowns/events`,
   },
   Role: {
     Index: `roles`,
@@ -45,4 +46,9 @@ export const EndPointConstants = {
     Search: `jobs/search`,
     ApplyJob: `jobs/:id/apply-job`,
   },
+  Event:{
+    Index:'events',
+    UserRegister:'events/:id/user-registers',
+    Register:'events/:id/registers'
+  }
 };

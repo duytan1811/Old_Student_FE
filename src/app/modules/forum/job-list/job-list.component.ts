@@ -29,7 +29,6 @@ export class JobListComponent implements OnInit {
     private dialog: MatDialog,
     private authState: state.AuthState,
     private jobState: state.JobState,
-    private newState: state.NewsState,
     private viewState: state.ViewState
   ) {}
 
@@ -42,6 +41,7 @@ export class JobListComponent implements OnInit {
 
   public onSearch() {
     let viewState = this.viewState.getViewState();
+    viewState.searchParams={status:StatusEnum.Active};
     this.jobState.search(viewState);
     this.userView$ = this.viewState.view$;
   }

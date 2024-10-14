@@ -30,12 +30,25 @@ export class DropdownState implements OnDestroy {
   public dropdownNewsTypes$: Observable<Array<SelectListItem>> =
     this._dropdownNewsTypesSubject.asObservable();
 
+    private _dropdownEventTypesSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownEventTypes$: Observable<Array<SelectListItem>> =
+    this._dropdownEventTypesSubject.asObservable();
+
   getNewsTypes(): Array<SelectListItem> {
     return this._dropdownNewsTypesSubject.getValue();
   }
 
   setNewsTypes(data: Array<SelectListItem>) {
     this._dropdownNewsTypesSubject.next(data);
+  }
+
+  getEventTypes(): Array<SelectListItem> {
+    return this._dropdownEventTypesSubject.getValue();
+  }
+
+  setEventTypes(data: Array<SelectListItem>) {
+    this._dropdownEventTypesSubject.next(data);
   }
 
   getUsers(): Array<SelectListItem> {
@@ -114,6 +127,19 @@ export class DropdownState implements OnDestroy {
       },
       error: (err) => {
         console.log(`Error get dropdown news types`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownEventTypes() {
+    const sub = this.dropdownService.getEventTypes().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setEventTypes(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown event types`, err);
       },
     });
 

@@ -9,25 +9,30 @@
     <div class="separator my-5"></div>
     <div class="pl-0 h-100" #contentUI mat-dialog-content (scroll)="onScrollLoadComment()">
         <div class="mb-5">
-            <p [innerHTML]="news.content"></p>
+            <ng-container *ngIf="news.type == 2">
+                Bắt đầu: <strong>{{ news.startDate | date:'dd/MM/yyyy' }} </strong>
+                <br><br>
+                Kết thúc: <strong>{{ news.endDate | date:'dd/MM/yyyy' }}</strong>
+            </ng-container>
+            <div *ngIf="news.type != 2">
+                <p [innerHTML]="news.content"></p>
+            </div>
         </div>
         <div class="row">
             <div class="separator"></div>
             <div class="row  m-0 p-0">
-                <div class="col-6  m-0 p-0">
-                    <button class="btn  btn-sm w-100"
-                    [class.btn-color-muted]="!news.isLiked" [class.btn-icon-danger]="news.isLiked"
-                    [class.btn-text-danger]="news.isLiked">
+                <div class="m-0 p-0 col-6">
+                    <button class="btn  btn-sm w-100" [class.btn-color-muted]="!news.isLiked" (click)="onLike()"
+                        [class.btn-icon-danger]="news.isLiked" [class.btn-text-danger]="news.isLiked">
                         <span class="svg-icon svg-icon-2"
                             [inlineSVG]="'./assets/media/icons/duotune/general/gen030.svg'"></span>
                         Thích ({{ news.countLike }})
                     </button>
                 </div>
-                <div class="col-6  m-0 p-0">
+                <div class="m-0 p-0 col-6">
                     <button (click)="onFocusComment()" class="btn btn-sm btn-white w-100">
                         <span class="svg-icon svg-icon-2"
-                            [inlineSVG]="'./assets/media/icons/duotune/communication/com003.svg'"></span> Bình luận ({{
-                        news.countComment }})
+                            [inlineSVG]="'./assets/media/icons/duotune/communication/com003.svg'"></span> Bình luận
                     </button>
                 </div>
             </div>
@@ -56,7 +61,7 @@
 
             <ng-template #emptyComment>
                 <div class="text-center p-4">
-                    <label >Chưa có bình luận nào</label>
+                    <label>Chưa có bình luận nào</label>
                 </div>
             </ng-template>
         </div>

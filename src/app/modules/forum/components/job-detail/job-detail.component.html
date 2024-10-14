@@ -8,26 +8,30 @@
         <label class="fw-bolder">{{ job.title }}</label><br>
         <small style="font-size: 14px;">Công ty: {{ job.companyName }}</small>
     </div>
-    <div class="row">
-        <button class="btn btn-primary" (click)="onOpenApplyJob()" [class.btn-secondary]="job.isApplyed">
-            <span *ngIf="!job.isApplyed">Ứng tuyển ngay</span>
-            <span *ngIf="job.isApplyed">Đã ứng tuyển</span>
-        </button>
-    </div>
+    <ng-container *ngIf="user$| async as user">
+        <div class="row" *ngIf="!user.isAdmin && !user.isTeacher">
+            <button class="btn btn-primary" (click)="onOpenApplyJob()"
+             [class.btn-secondary]="(job.isApplyed || job.isExpired)">
+                <span *ngIf="!job.isApplyed && !job.isExpired">Ứng tuyển ngay</span>
+                <span *ngIf="job.isApplyed">Đã ứng tuyển </span>
+                <span *ngIf="job.isExpired && !job.isApplyed">Tin đã hết hạn</span>
+            </button>
+        </div>
+    </ng-container>
     <div class="separator my-5"></div>
 
     <div class="pl-0 h-100" mat-dialog-content>
         <div class="d-flex mb-3">
-            <span class="svg svg-icon svg-icon-2"
+            <span class="svg svg-icon svg-icon-2 me-2"
                 [inlineSVG]="'./assets/media/icons/duotune/general/gen018.svg'"></span>
             {{ job.address}}
         </div>
         <div class="d-flex mb-3">
-            <span class="svg svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/maps/map007.svg'"></span>
+            <span class="svg svg-icon svg-icon-2 me-2" [inlineSVG]="'./assets/media/icons/duotune/maps/map007.svg'"></span>
             {{ job.workTypeName}}
         </div>
         <div class="d-flex mb-3">
-            <span class="svg svg-icon svg-icon-2"
+            <span class="svg svg-icon svg-icon-2 me-2"
                 [inlineSVG]="'./assets/media/icons/duotune/general/gen013.svg'"></span>
             {{ job.createdAt | dateAgo }}
         </div>

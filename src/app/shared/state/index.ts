@@ -16,3 +16,4 @@ export { StudentAchievementState } from './students-achievements/student-achieve
 export { NewsState } from './news/news.state';
 export { ForumState } from './forum/forum.state';
 export { JobState } from './job/job.state';
+export { EventState } from './event/event.state';

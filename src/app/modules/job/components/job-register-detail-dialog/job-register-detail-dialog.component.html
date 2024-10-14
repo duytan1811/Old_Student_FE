@@ -1,0 +1,88 @@
+<ng-container *ngIf="job$| async as job">
+    <button class="flex float-end btn btn-sm btn-icon btn-white" style="border-radius: 50%;"
+        (click)=" this.dialogRef.close()">
+        <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"></span>
+    </button>
+    <h2 mat-dialog-title>
+        {{ job.title }}
+    </h2>
+    <div class="separator my-5"></div>
+    <div class="pl-0" mat-dialog-content>
+        <div class="mb-5 row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Địa chỉ:</div>
+                    <div class="col-8">{{ job.address || '--' }}</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Hình thức:</div>
+                    <div class="col-8">{{ job.workTypeName || '--' }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Ngành nghề:</div>
+                    <div class="col-8">{{ job.majorName || '--' }}</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Công ty:</div>
+                    <div class="col-8">{{ job.companyName || '--' }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Thời gian từ:</div>
+                    <div class="col-8">{{ job.startDate | date:'dd/MM/yyyy' || '--'}}</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-4">Đến:</div>
+                    <div class="col-8">{{ job.endDate | date:'dd/MM/yyyy'||'--' }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="separator my-5"></div>
+        <label class="fw-bolder">Danh sách thí sinh ứng tuyển</label>
+        <table class="table table-row-bordered mt-3">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th class="w-25px">#</th>
+                    <th>Tên thí sinh</th>
+                    <th>Thời gian ứng tuyển</th>
+                    <th>CV</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="userApplies$ | async as userApplies">
+                <ng-container *ngIf="userApplies.length > 0;else emptyTable">
+                    <tr *ngFor="let item of userApplies">
+                        <td>{{ item.index }}</td>
+                        <td>{{ item.fullName }}</td>
+                        <td>{{ item.createdAt | date:'dd/MM/yyyy - HH:mm' }}</td>
+                        <td>
+                            <a href="{{ item.filePath }}"> {{ item.fileName}}</a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+            [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+    </div>
+
+    <ng-template #emptyTable>
+        <tr>
+            <td colspan="4" class="text-center">
+                Chưa có thí sinh ứng tuyển
+            </td>
+        </tr>
+    </ng-template>
+</ng-container>

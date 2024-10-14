@@ -7,12 +7,14 @@ import { SharedComponentModule } from 'src/app/shared/components/shared-componen
 import { DirectiveModule } from 'src/app/shared/directives/directive.module';
 import { JobEditDialogComponent } from './components/job-edit-dialog/job-edit-dialog.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { JobRegisterDetailDialogComponent } from './components/job-register-detail-dialog/job-register-detail-dialog.component';
 
 
 @NgModule({
   declarations: [
     JobComponent,
-    JobEditDialogComponent
+    JobEditDialogComponent,
+    JobRegisterDetailDialogComponent
   ],
   imports: [
     CommonModule,

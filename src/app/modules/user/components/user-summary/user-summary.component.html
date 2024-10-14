@@ -58,16 +58,16 @@
               <ng-container *ngIf="(totalUser$ | async);else emptyTable">
                 <tr *ngFor="let user of users;let i= index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ user.userName }}</td>
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.email }}</td>
+                  <td>{{ user.userName || '--' }}</td>
+                  <td>{{ user.fullName || '--' }}</td>
+                  <td>{{ user.email || '--'}}</td>
 
                   <td class="text-center">
                     <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
                   </td>
                   <td>
-                    <button *ngIf="checkPermission(claimValue.Edit)" title="Cập nhật"
-                      (click)="goEdit(user.id,false)" class="btn btn-sm btn-light-primary btn-icon me-2">
+                    <button *ngIf="checkPermission(claimValue.Edit)" title="Cập nhật" (click)="goEdit(user.id,false)"
+                      class="btn btn-sm btn-light-primary btn-icon me-2">
                       <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
                     </button>

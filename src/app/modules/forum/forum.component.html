@@ -9,6 +9,11 @@
                         Tin tức</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" [class.active]="tabSelected ==='event'" (click)="onChangeTab('event')"
+                        href="javascript:void(0)">
+                        Sự kiện</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" [class.active]="tabSelected ==='job'" (click)="onChangeTab('job')"
                         href="javascript:void(0)">
                         Việc làm
