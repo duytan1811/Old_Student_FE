@@ -56,4 +56,8 @@ export class EventService {
       `${EndPointConstants.Event.Index}/${id}`
     );
   }
+
+  exportExcel() {
+    return this.apiService.getData<BaseResponse<string>>(`${EndPointConstants.Event.ExportExcel}`);
+  }
 }

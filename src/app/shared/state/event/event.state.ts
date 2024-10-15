@@ -225,4 +225,20 @@ export class EventState implements OnDestroy {
       });
     });
   }
+
+  public exportExcel(): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.eventService.exportExcel().subscribe({
+        next: (res) => {
+          this.setIsLoading(false);
+          resolve(res);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    })
+  }
 }

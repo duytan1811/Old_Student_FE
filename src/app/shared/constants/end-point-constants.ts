@@ -49,7 +49,8 @@ export const EndPointConstants = {
   Event:{
     Index:'events',
     UserRegister:'events/:id/user-registers',
-    Register:'events/:id/registers'
+    Register:'events/:id/registers',
+    ExportExcel:'events/export-excel',
   },
   Statistics:{
     Index:'statistics',
