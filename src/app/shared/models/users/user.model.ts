@@ -5,7 +5,6 @@ export class UserModel extends BaseModel {
   id: string;
   userName: string;
   password: string;
-  name: string;
   email: string;
   avatar: string;
   phone: string;
@@ -19,9 +18,8 @@ export class UserModel extends BaseModel {
     this.id = '';
     this.userName = '';
     this.password = '';
-    this.name = '';
     this.email = '';
-    this.avatar = './assets/media/avatars/300-1.jpg';
+    this.avatar = './assets/media/avatars/blank.png';
     this.phone = '';
     this.selected = false;
   }
@@ -31,9 +29,8 @@ export class UserModel extends BaseModel {
     this.id = user.id;
     this.userName = user.userName || '';
     this.password = user.password || '';
-    this.name = user.name || '';
     this.email = user.email || '';
-    this.avatar = user.avatar || './assets/media/avatars/300-1.jpg';
+    this.avatar = user.avatar || './assets/media/avatars/blank.png';
     this.phone = user.phone || '';
   }
 }

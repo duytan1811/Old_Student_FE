@@ -38,7 +38,7 @@ export class JobComponent implements OnInit {
     private title: Title,
     private pageInfo: PageInfoService,
     private authState: state.AuthState,
-    private router: Router,
+    private commonState: state.CommonState,
     private dropdownState:state.DropdownState
   ) { }
 
@@ -60,8 +60,8 @@ export class JobComponent implements OnInit {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
-    dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
-    dataSearch.countLike = dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;
+    dataSearch.majorId = dataSearch.majorId !== '' ? parseInt(dataSearch.majorId) : null;
+    dataSearch.countApply = dataSearch.countApply !== '' ? parseInt(dataSearch.countApply) : null;
    
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
@@ -73,6 +73,15 @@ export class JobComponent implements OnInit {
     viewState.paginator = paginator;
     this.viewState.setViewState(viewState);
     this.jobState.search(viewState);
+  }
+
+  openPdf(base64Pdf: string) {
+    const blob = this.commonState.convertBase64ToBlob(
+      base64Pdf,
+      'application/pdf'
+    );
+    const url = URL.createObjectURL(blob);
+    window.open(url);
   }
 
   public goCreate(){
@@ -140,6 +149,8 @@ export class JobComponent implements OnInit {
   private initFormGroupSearch() {
     this.formGroupSearch = this.fb.group({
       title: [''],
+      fileName: [''],
+      countApply: [''],
       majorId: [''],
       status: [''],
     });

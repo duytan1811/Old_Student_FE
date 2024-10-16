@@ -19,12 +19,6 @@ export class UserState implements OnDestroy {
   private _totalUserSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public totalUser$: Observable<number> = this._totalUserSubject.asObservable();
 
-  private _userUsersSubject: BehaviorSubject<Array<UserModel>> = new BehaviorSubject(Array());
-  public userUsers$: Observable<Array<UserModel>> = this._userUsersSubject.asObservable();
-
-  private _totalUserUserSubject: BehaviorSubject<number> = new BehaviorSubject(0);
-  public totalUserUser$: Observable<number> = this._totalUserUserSubject.asObservable();
-
   private _userSubject: BehaviorSubject<UserModel> = new BehaviorSubject(Object());
   public user$: Observable<UserModel> = this._userSubject.asObservable();
 
@@ -39,28 +33,12 @@ export class UserState implements OnDestroy {
     this._usersSubject.next(data);
   }
 
-  getUserUsers(): Array<UserModel> {
-    return this._userUsersSubject.getValue();
-  }
-
-  setUserUsers(data: Array<UserModel>) {
-    this._userUsersSubject.next(data);
-  }
-
   getTotalUser(): number {
     return this._totalUserSubject.getValue();
   }
 
   setTotalUser(data: number) {
     this._totalUserSubject.next(data);
-  }
-
-  getTotalUserUser(): number {
-    return this._totalUserUserSubject.getValue();
-  }
-
-  setTotalUserUser(data: number) {
-    this._totalUserUserSubject.next(data);
   }
 
   getUser(): UserModel {
@@ -173,6 +151,22 @@ export class UserState implements OnDestroy {
       this.userService.delete(id).subscribe({
         next: (res) => {
           this.search(cv);
+          this.setIsLoading(false);
+          resolve(res);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    })
+  }
+
+  public exportExcel(): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.userService.exportExcel().subscribe({
+        next: (res) => {
           this.setIsLoading(false);
           resolve(res);
         },

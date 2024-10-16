@@ -11,6 +11,7 @@ export class JobModel extends BaseModel {
   endDateFormat: string = '';
   filePath: string = '';
   fileName: string = '';
+  fileBase64: string = '';
   companyName: string = '';
   address: string = '';
   workType: string = '';

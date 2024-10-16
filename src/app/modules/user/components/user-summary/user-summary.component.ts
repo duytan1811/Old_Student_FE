@@ -8,7 +8,10 @@ import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import * as state from 'src/app/shared/state';
 import { UserEditModalComponent } from '../user-edit-modal/user-edit-modal.component';
-import { ClaimValue, CommonConstants } from 'src/app/shared/constants/common-constants';
+import {
+  ClaimValue,
+  CommonConstants,
+} from 'src/app/shared/constants/common-constants';
 
 @Component({
   selector: 'app-user-summary',
@@ -90,10 +93,7 @@ export class UserSummaryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
         const res = await this.userState.delete(data.id);
-        this.flashMessageState.message(
-          res.type,
-          res.message
-        );
+        this.flashMessageState.message(res.type, res.message);
         const viewState = this.viewState.getViewState();
         this.userState.search(viewState);
       }
@@ -111,6 +111,8 @@ export class UserSummaryComponent implements OnInit {
     this.formGroupSearch = this.fb.group({
       userName: [''],
       name: [''],
+      isStudent: [false],
+      isTeacher: [false],
       email: [''],
       status: [''],
     });

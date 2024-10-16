@@ -6,29 +6,47 @@ import { APIService } from '../api.service';
 import { EndPointConstants } from 'src/app/shared/constants/end-point-constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private apiService :APIService) { }
+  constructor(private apiService: APIService) {}
 
   search(data: any) {
-    return this.apiService.postData<BaseTableResponse<UserModel>>(`${EndPointConstants.User.Index}/search`, data);
+    return this.apiService.postData<BaseTableResponse<UserModel>>(
+      `${EndPointConstants.User.Index}/search`,
+      data
+    );
   }
 
   findById(id: string) {
-    return this.apiService.getData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}/${id}`);
+    return this.apiService.getData<BaseResponse<UserModel>>(
+      `${EndPointConstants.User.Index}/${id}`
+    );
   }
 
   save(obj: UserModel) {
-    return this.apiService.postData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}`, obj);
+    return this.apiService.postData<BaseResponse<UserModel>>(
+      `${EndPointConstants.User.Index}`,
+      obj
+    );
   }
 
   update(id: string, obj: UserModel) {
-    return this.apiService.putData<BaseResponse<UserModel>>(`${EndPointConstants.User.Index}/${id}`, obj);
+    return this.apiService.putData<BaseResponse<UserModel>>(
+      `${EndPointConstants.User.Index}/${id}`,
+      obj
+    );
   }
 
   delete(id: string) {
-    return this.apiService.deleteData<BaseResponse<boolean>>(`${EndPointConstants.User.Index}/${id}`);
+    return this.apiService.deleteData<BaseResponse<boolean>>(
+      `${EndPointConstants.User.Index}/${id}`
+    );
+  }
+
+  exportExcel() {
+    return this.apiService.getData<BaseResponse<string>>(
+      `${EndPointConstants.User.ExportExcel}`
+    );
   }
 }

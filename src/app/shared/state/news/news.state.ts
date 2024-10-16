@@ -22,17 +22,6 @@ export class NewsState implements OnDestroy {
   private _totalNewsSubject: BehaviorSubject<number> = new BehaviorSubject(0);
   public totalNews$: Observable<number> = this._totalNewsSubject.asObservable();
 
-  private _newsNewssSubject: BehaviorSubject<Array<NewsModel>> =
-    new BehaviorSubject(Array());
-  public newsNewss$: Observable<Array<NewsModel>> =
-    this._newsNewssSubject.asObservable();
-
-  private _totalNewsNewsSubject: BehaviorSubject<number> = new BehaviorSubject(
-    0
-  );
-  public totalNewsNews$: Observable<number> =
-    this._totalNewsNewsSubject.asObservable();
-
   private _newsSubject: BehaviorSubject<NewsModel> = new BehaviorSubject(
     Object()
   );
@@ -266,5 +255,21 @@ export class NewsState implements OnDestroy {
         },
       });
     });
+  }
+
+  public exportExcel(): Promise<any> {
+    this.setIsLoading(true);
+    return new Promise((resolve) => {
+      this.newsService.exportExcel().subscribe({
+        next: (res) => {
+          this.setIsLoading(false);
+          resolve(res);
+        },
+        error: (e) => {
+          this.setIsLoading(false);
+          resolve(e.error?.message || e);
+        },
+      });
+    })
   }
 }

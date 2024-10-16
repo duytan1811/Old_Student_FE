@@ -20,6 +20,7 @@ export const EndPointConstants = {
   },
   User: {
     Index: `users`,
+    ExportExcel:'users/export-excel',
   },
   Student: {
     Index: `students`,
@@ -36,6 +37,7 @@ export const EndPointConstants = {
     Like: `news/:id/like`,
     Comment: `news/:id/comments`,
     Confirm: `news/:id/confirm`,
+    ExportExcel:'news/export-excel',
   },
   Forum: {
     Index: `forums`,
@@ -54,6 +56,8 @@ export const EndPointConstants = {
   },
   Statistics:{
     Index:'statistics',
-    EventByMonth:'statistics/event-by-month'
+    EventByMonth:'statistics/event-by-month',
+    MemberByMonth:'statistics/member-by-month',
+    NewsByMonth:'statistics/news-by-month',
   }
 };

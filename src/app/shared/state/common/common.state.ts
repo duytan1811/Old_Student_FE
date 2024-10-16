@@ -1,8 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, ReplaySubject, Subscription, map, tap } from 'rxjs';
 import { saveAs } from 'file-saver';
-import { TranslateService } from '@ngx-translate/core';
-import { CommonConstants } from 'src/app/shared/constants/common-constants';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +37,15 @@ export class CommonState implements OnDestroy {
     const blob = new Blob([byteArray], { type: fileType });
 
     saveAs(blob, fileName);
+  }
+
+  public convertBase64ToBlob(base64: string, contentType: string) {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
   }
 }

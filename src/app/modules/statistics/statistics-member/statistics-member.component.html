@@ -1,9 +1,69 @@
-<div class="card shadow-sm">
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <ng-container *ngIf="chartOptions.series && chartOptions.chart && chartOptions.xaxis && chartOptions.dataLabels && chartOptions.grid
+                && chartOptions.stroke && chartOptions.title">
+                    <apx-chart #char [series]="chartOptions.series" [chart]="chartOptions.chart"
+                        [xaxis]="chartOptions.xaxis" [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid"
+                        [stroke]="chartOptions.stroke" [title]="chartOptions.title"></apx-chart>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-10">
     <div class="card-header">
-        <h3 class="card-title">Thống kê thành viên</h3>
-        
+        <h3 class="card-title">Thành viên mới tham gia gần đây</h3>
+        <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-primary" (click)="onExportTemplate()">
+                <span class="svg-icon svg-icon-2 align-middle"
+                    [inlineSVG]="'./assets/media/icons/duotune/files/fil021.svg'"></span>
+                Xuất file
+            </button>
+        </div>
     </div>
     <div class="card-body">
-        
+        <div class="table-responsive overflow-hidden">
+            <table class="table table-row-bordered ">
+                <thead>
+                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                        <th class="w-25px">#</th>
+                        <th>Tài khoản</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="userList$ | async as userList;else emptyTable">
+                        <ng-container *ngIf="(totalUser$ | async);else emptyTable">
+                            <tr *ngFor="let user of userList" style="vertical-align: middle;">
+                                <td>{{ user.index }}</td>
+                                <td>{{ user.userName ||'--' }}</td>
+                                <td>{{ user.fullName|| '--' }}</td>
+                                <td>{{ user.phone || '--' }}</td>
+                                <td>{{ user.email || '--' }}</td>
+                                <td>
+                                    <app-status-badge [status]="user.status"
+                                        [statusName]="user.statusName"></app-status-badge>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #emptyTable>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+            <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+                [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+        </div>
     </div>
 </div>

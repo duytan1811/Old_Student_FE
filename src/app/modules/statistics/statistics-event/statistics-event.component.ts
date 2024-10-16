@@ -130,7 +130,7 @@ export class StatisticsEventComponent implements OnInit {
         curve: 'straight',
       },
       title: {
-        text: 'Thống kê sự kiện theo tháng',
+        text: 'Số sự kiện theo tháng',
         align: 'left',
       },
       grid: {

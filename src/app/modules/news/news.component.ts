@@ -67,6 +67,8 @@ export class NewsComponent implements OnInit {
     dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
     dataSearch.countLike =
       dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;
+    dataSearch.countComment =
+      dataSearch.countComment !== '' ? parseInt(dataSearch.countComment) : null;
 
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
@@ -126,6 +128,7 @@ export class NewsComponent implements OnInit {
     this.formGroupSearch = this.fb.group({
       content: [''],
       countLike: [''],
+      countComment: [''],
       type: [''],
       status: [''],
     });

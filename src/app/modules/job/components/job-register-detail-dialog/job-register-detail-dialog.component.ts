@@ -10,7 +10,7 @@ import * as state from 'src/app/shared/state';
 @Component({
   selector: 'app-job-register-detail-dialog',
   templateUrl: './job-register-detail-dialog.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class JobRegisterDetailDialogComponent implements OnInit {
   public job$: Observable<JobModel>;
@@ -22,14 +22,15 @@ export class JobRegisterDetailDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<JobRegisterDetailDialogComponent>,
     private jobState: state.JobState,
-    private viewState: state.ViewState
-  ) { }
+    private viewState: state.ViewState,
+    private commonState: state.CommonState
+  ) {}
 
   ngOnInit(): void {
     this.jobId = this.data.jobId;
     this.job$ = this.jobState.job$;
     this.userApplies$ = this.jobState.userApplies$;
-    
+
     this.userView$ = this.viewState.view$;
     this.jobState.findById(this.jobId);
     this.onSearchUserApplies();
@@ -46,4 +47,12 @@ export class JobRegisterDetailDialogComponent implements OnInit {
     this.jobState.searchUserApplies(this.jobId, viewState);
   }
 
+  openPdf(base64Pdf: string) {
+    const blob = this.commonState.convertBase64ToBlob(
+      base64Pdf,
+      'application/pdf'
+    );
+    const url = URL.createObjectURL(blob);
+    window.open(url);
+  }
 }

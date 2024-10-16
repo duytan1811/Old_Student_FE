@@ -68,7 +68,7 @@
                         <td>{{ item.fullName }}</td>
                         <td>{{ item.createdAt | date:'dd/MM/yyyy - HH:mm' }}</td>
                         <td>
-                            <a href="{{ item.filePath }}"> {{ item.fileName}}</a>
+                            <a href="javascript:void(0)" (click)="openPdf(item.fileBase64)"> {{ item.fileName}}</a>
                         </td>
                     </tr>
                 </ng-container>

@@ -20,6 +20,8 @@
               <th>Tài khoản</th>
               <th>Tên</th>
               <th>Email</th>
+              <th class="text-center">Là giáo viên</th>
+              <th class="text-center">Là sinh viên</th>
               <th>Trạng thái</th>
               <th></th>
             </tr>
@@ -37,6 +39,12 @@
               <td>
                 <input type="text" formControlName="email" placeholder="Nhập địa chỉ email..."
                   class="form-control form-control-sm form-control-solid">
+              </td>
+              <td class="text-center">
+                <mat-checkbox color="primary" formControlName="isTeacher" (change)="onSearch()"></mat-checkbox>
+              </td>
+              <td class="text-center">
+                <mat-checkbox color="primary" formControlName="isStudent" (change)="onSearch()"></mat-checkbox>
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="status"
@@ -61,6 +69,18 @@
                   <td>{{ user.userName || '--' }}</td>
                   <td>{{ user.fullName || '--' }}</td>
                   <td>{{ user.email || '--'}}</td>
+                  <td class="text-center">
+                    <span *ngIf="user.isTeacher" class="svg svg-icon svg-icon-2 svg-icon-primary"
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr085.svg'"></span>
+                    <span *ngIf="!user.isTeacher" class="svg svg-icon svg-icon-2 svg-icon-danger"
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"></span>
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="!user.isTeacher" class="svg svg-icon svg-icon-2 svg-icon-primary"
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr085.svg'"></span>
+                    <span *ngIf="user.isTeacher" class="svg svg-icon svg-icon-2 svg-icon-danger"
+                      [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"></span>
+                  </td>
 
                   <td class="text-center">
                     <app-status-badge [status]="user.status" [statusName]="user.statusName"></app-status-badge>
@@ -82,7 +102,7 @@
             </ng-container>
             <ng-template #emptyTable>
               <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="7" class="text-center">
                   <span>Không tìm thấy dữ liệu theo yêu cầu</span>
                 </td>
               </tr>

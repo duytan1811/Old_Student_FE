@@ -35,7 +35,7 @@ export class JobEditDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private jobState: state.JobState,
     private fb: FormBuilder,
-    private flashMessageState: state.FlashMessageState,
+    private commonState: state.CommonState,
     private dialogRef: MatDialogRef<JobEditDialogComponent>,
     private dropdownState: state.DropdownState
   ) {}
@@ -77,6 +77,15 @@ export class JobEditDialogComponent implements OnInit {
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  openPdf(base64Pdf: string) {
+    const blob = this.commonState.convertBase64ToBlob(
+      base64Pdf,
+      'application/pdf'
+    );
+    const url = URL.createObjectURL(blob);
+    window.open(url);
   }
 
   public async onSave() {

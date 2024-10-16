@@ -70,4 +70,10 @@ export class NewsService {
       `${EndPointConstants.News.Index}/${id}`
     );
   }
+
+  exportExcel() {
+    return this.apiService.getData<BaseResponse<string>>(
+      `${EndPointConstants.News.ExportExcel}`
+    );
+  }
 }

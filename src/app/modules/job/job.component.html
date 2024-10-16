@@ -19,7 +19,8 @@
               <th class="w-25px">#</th>
               <th>Tiêu đề</th>
               <th>Ngành nghề</th>
-              <th>Đã ứng tuyển</th>
+              <th class="w-250px">CV</th>
+              <th class="w-175px">Đã ứng tuyển</th>
               <th>Trạng thái</th>
               <th class="w-150px"></th>
             </tr>
@@ -30,13 +31,21 @@
                 <input formControlName="title" type="text" (change)="onSearch()" placeholder="Nhập tiêu đề..."
                   class="form-control form-control-sm form-control-solid">
               </td>
-              <td colspan="2">
+              <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="majorId"
                   class="form-control form-control-sm form-control-solid">
                   <mat-option value="">Tất cả</mat-option>
                   <mat-option *ngFor="let item of dropdownMajors$ | async" [value]="item.value">{{ item.text
                     }}</mat-option>
                 </mat-select>
+              </td>
+              <td >
+                <input formControlName="fileName" type="text" (change)="onSearch()" placeholder="Nhập tên CV..."
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <input formControlName="countApply" type="text" (change)="onSearch()" placeholder="Số lượng ứng tuyển..."
+                  class="form-control form-control-sm form-control-solid">
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="status"
@@ -60,6 +69,9 @@
                   <td>{{ job.index|| '--' }}</td>
                   <td>{{ job.title|| '--' }}</td>
                   <td>{{ job.majorName || '--'}}</td>
+                  <td>
+                    <a href="javascrip:void(0)" (click)="openPdf(job.fileBase64)">{{ job.fileName }}</a>
+                  </td>
                   <td>{{ job.countApplyed|| '--' }}</td>
                   <td class="text-center">
                     <app-status-badge [status]="job.status" [statusName]="job.statusName"></app-status-badge>

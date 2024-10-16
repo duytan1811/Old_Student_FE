@@ -8,4 +8,5 @@ export class JobRegisterModel extends BaseModel {
     content: string = '';
     fileName: string = '';
     filePath: string = '';
+    fileBase64: string = '';
 }
