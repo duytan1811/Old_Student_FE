@@ -30,9 +30,7 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     this.id = this.data.id;
     this.studentId = this.data.studentId;
     this.studentAchievement$ = this.studentAchievementState.studentAchievement$;
-    if (this.id) {
       this.studentAchievementState.findById(this.id);
-    }
     this.initFormGroup();
   }
 

@@ -87,7 +87,7 @@ export class NewsComponent implements OnInit {
   }
 
   public goEdit(id: string | null) {
-    this.router.navigate([`/news/${id}`]);
+    this.router.navigate([`/news/${id}/edit`]);
   }
 
   public async onConfirmNews(newsId: string) {

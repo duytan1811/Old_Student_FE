@@ -45,6 +45,7 @@ export class EventListComponent implements OnInit {
   public onSearch() {
     let viewState = this.viewState.getViewState();
     viewState.searchParams = { status: StatusEnum.Active };
+    viewState.sorting.column="CreatedAt";
     this.eventState.search(viewState);
     this.userView$ = this.viewState.view$;
   }
@@ -55,7 +56,7 @@ export class EventListComponent implements OnInit {
     this.eventState.search(viewState);
   }
 
-  public onSeachByType(event: any) {
+  public onSearchByType(event: any) {
     const viewState = this.viewState.getViewState();
     viewState.searchParams = {
       status: StatusEnum.Active,

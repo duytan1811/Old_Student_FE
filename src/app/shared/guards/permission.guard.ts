@@ -25,6 +25,7 @@ export class PermissionGuard implements CanActivate {
 
     const permissionMenu = menuPermissions?.find(item => item.claimType === permissionData);
     if (permissionMenu) {
+
       switch (actionData) {
         case ClaimValue.View: result = permissionMenu.isView; break;
         case ClaimValue.Create: result = permissionMenu.isCreate; break;
@@ -34,6 +35,7 @@ export class PermissionGuard implements CanActivate {
     } else {
       result = false;
     }
+
     if (!result) {
       this.router.navigate(['error/403']);
     }

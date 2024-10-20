@@ -23,7 +23,6 @@ import { StudentAchievementEditDialogComponent } from './student-achievement/com
   imports: [
     CommonModule,
     StudentRoutingModule,
-    MatDialogModule,
     SharedComponentModule,
   ]
 })

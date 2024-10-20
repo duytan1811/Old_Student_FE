@@ -54,6 +54,7 @@ export const ClaimValue = {
 export const MenuList = [
   { key: 'forum', display: 'Diễn đàn' },
   { key: 'news', display: 'Tin tức' },
+  { key: 'event', display: 'Sự kiện' },
   { key: 'jobs', display: 'Bảng tin việc làm' },
   { key: 'jobRegister', display: 'Đăng ký ứng tuyển' },
   { key: 'students', display: 'Cựu sinh viên' },

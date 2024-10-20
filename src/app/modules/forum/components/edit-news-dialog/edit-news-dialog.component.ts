@@ -58,26 +58,10 @@ export class EditNewsDialogComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  public onChangeType(event: any) {
-    if (event.target?.value == 2) {
-      this.formGroup.get('startDateFormat')?.setValidators(Validators.required);
-      this.formGroup.get('endDateFormat')?.setValidators(Validators.required);
-      this.formGroup.get('content')?.clearValidators();
-    } else {
-      this.formGroup.get('content')?.setValidators(Validators.required);
-
-      this.formGroup.get('startDateFormat')?.clearValidators();
-      this.formGroup.get('endDateFormat')?.clearValidators();
-    }
-    this.formGroup.updateValueAndValidity();
-  }
-
   private initFormGroup() {
     this.formGroup = this.fb.group({
-      content: [''],
+      content: ['',[Validators.required]],
       type: [''],
-      startDateFormat: [''],
-      endDateFormat: [''],
     });
   }
 }

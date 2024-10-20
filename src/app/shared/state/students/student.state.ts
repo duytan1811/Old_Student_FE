@@ -93,7 +93,7 @@ export class StudentState implements OnDestroy {
     this.unsubscribe.push(sub);
   }
 
-  public findById(id: string | undefined) {
+  public findById(id: string | undefined | null) {
     this.setIsLoading(true);
 
     if (id) {

@@ -66,7 +66,6 @@ export class EventEditDialogComponent implements OnInit {
       startDateFormat: ['', [Validators.required]],
       endDateFormat: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      status: [''],
       content: [''],
     });
   }

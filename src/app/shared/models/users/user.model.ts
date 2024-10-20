@@ -10,7 +10,8 @@ export class UserModel extends BaseModel {
   phone: string;
   fullName: string;
   selected: boolean;
-  isTeacher:boolean=false;
+  isTeacher: boolean = false;
+  studentId: string | null = null;
   menuPermissions: Array<PermissionModel> | null = null;
 
   constructor() {

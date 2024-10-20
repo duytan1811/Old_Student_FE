@@ -18,6 +18,8 @@ import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
 import { MemberByMonthModel } from 'src/app/shared/models/statistics/member-by-month.model';
+import { StudentByMajorModel } from 'src/app/shared/models/statistics/student-by-major.model';
+import { StudentByYearModel } from 'src/app/shared/models/statistics/student-by-year.model';
 import { UserModel } from 'src/app/shared/models/users/user.model';
 import { StatisticsService } from 'src/app/shared/services/statistics/statistics.service';
 import * as state from 'src/app/shared/state';
@@ -43,9 +45,12 @@ export class StatisticsMemberComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
   public chartOptions: any = null;
 
-  public userList$:Observable<Array<UserModel>>;
-  public totalUser$:Observable<number>;
+  public userList$: Observable<Array<UserModel>>;
+  public totalUser$: Observable<number>;
   public userView$: Observable<BaseViewModel>;
+
+  public studentByMajors: Array<StudentByMajorModel>;
+  public studentByYear: Array<StudentByYearModel>;
 
   constructor(
     private statisticsService: StatisticsService,
@@ -54,18 +59,20 @@ export class StatisticsMemberComponent implements OnInit {
     private title: Title,
     private pageInfo: PageInfoService,
     private commonState: state.CommonState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.pageInfo.updateTitle('Thống kê thành viên');
     this.title.setTitle('Thống kê thành viên');
     this.getMemberByMonth();
 
-    
+
     this.userList$ = this.userState.users$;
     this.totalUser$ = this.userState.totalUser$;
     this.userView$ = this.viewState.view$;
     this.onSearch();
+    this.getStudentByMajor();
+    this.getStudentByYear();
   }
 
   public onSearch() {
@@ -106,6 +113,26 @@ export class StatisticsMemberComponent implements OnInit {
           if (countMemberList && months) {
             this.initChartMemberByMonth(countMemberList, months);
           }
+        }
+      },
+    });
+  }
+
+  private getStudentByMajor() {
+    this.statisticsService.getStudentByMajor().subscribe({
+      next: (res: BaseResponse<Array<StudentByMajorModel>>) => {
+        if (res && res.data) {
+          this.studentByMajors = res.data
+        }
+      },
+    });
+  }
+
+  private getStudentByYear() {
+    this.statisticsService.getStudentByYear().subscribe({
+      next: (res: BaseResponse<Array<StudentByYearModel>>) => {
+        if (res && res.data) {
+          this.studentByYear = res.data
         }
       },
     });

@@ -1,0 +1,66 @@
+<ng-container *ngIf="user$ | async as user">
+    <div class="card-header cursor-pointer">
+        <div class="card-title m-0">
+            <h3 class="fw-bold m-0">Thông tin tài khoản </h3>
+        </div>
+    </div>
+    <ng-container *ngIf="user.isAdmin">
+        <div class="card-body p-9" >
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Tài khoản</label>
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">{{ user.userName }}</span>
+                </div>
+            </div>
+        
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Họ tên
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{ user.fullName || '--' }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!user.isAdmin">
+        <div class="card-body p-9" *ngIf="student$ | async as student">
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Họ tên</label>
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">{{ student.fullName }}</span>
+                </div>
+            </div>
+        
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Số điện thoại
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.phone || '--' }}</span>
+                </div>
+            </div>
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Email
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.email || '--' }}</span>
+                </div>
+            </div>
+        
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Nghề nghiệp
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.majorName || '--' }}</span>
+                </div>
+            </div>
+        
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">Công ty hiện tại
+                </label>
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bold fs-6 text-gray-800 me-2">{{ student.currentCompany || '--' }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

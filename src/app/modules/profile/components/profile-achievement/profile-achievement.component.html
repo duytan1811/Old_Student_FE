@@ -1,0 +1,40 @@
+<div class="card-header cursor-pointer">
+    <div class="card-title m-0">
+        <h3 class="fw-bold m-0">Danh sách thành tích</h3>
+    </div>
+    <button (click)="onCreate()" class="btn btn-sm btn-primary align-self-center">Thêm thành tích</button>
+</div>
+<div class="card-body p-9" *ngIf="student$ | async student">
+    <div class="timeline-label" *ngIf="studentAchievements$ | async as studentAchievements">
+        <div class="timeline-item" *ngFor="let item of studentAchievements">
+            <div class="timeline-label fw-bold text-gray-800 fs-6">
+            </div>
+            <div class="timeline-badge">
+                <i class="fa fa-genderless text-primary fs-1"></i>
+            </div>
+            <div class="fw-mormal timeline-content  ps-3">
+                <div class="d-block">
+                    <span *ngIf=" item.fromDate" class="text-muted">
+                        Bắt đầu: {{ item.fromDate | date:'MM/yyyy' }}
+                    </span>
+                    <span *ngIf=" item.toDate" class="text-muted">
+                        - Kết thúc: {{ item.toDate | date:'MM/yyyy'}}
+                    </span>
+                </div>
+                <label class="fw-bolder">{{ item.name }}</label><br>
+                <small [innerHTML]="item.description"></small>
+            </div>
+            <div>
+                <button class="btn btn-icon btn-sm"><span class="svg-icon svg-icon-2 svg-icon-primary"
+                        (click)="onEdit(item.id)"
+                        [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span></button>
+                <button class="btn btn-icon btn-sm "><span class="svg-icon svg-icon-2 svg-icon-danger"
+                        (click)="goDelete(item.id)"
+                        [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span></button>
+            </div>
+        </div>
+        <div *ngIf="studentAchievements.length ==0" class="text-center">
+            <p>Hiện tại bạn chưa có thành tích</p>
+        </div>
+    </div>
+</div>

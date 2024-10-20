@@ -19,7 +19,7 @@
               <th class="w-25px">#</th>
               <th>Tiêu đề</th>
               <th>Ngành nghề</th>
-              <th class="w-250px">CV</th>
+              <th>CV</th>
               <th class="w-175px">Đã ứng tuyển</th>
               <th>Trạng thái</th>
               <th class="w-150px"></th>
@@ -39,13 +39,13 @@
                     }}</mat-option>
                 </mat-select>
               </td>
-              <td >
+              <td>
                 <input formControlName="fileName" type="text" (change)="onSearch()" placeholder="Nhập tên CV..."
                   class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <input formControlName="countApply" type="text" (change)="onSearch()" placeholder="Số lượng ứng tuyển..."
-                  class="form-control form-control-sm form-control-solid">
+                <input formControlName="countApply" type="text" (change)="onSearch()"
+                  placeholder="Số lượng ứng tuyển..." class="form-control form-control-sm form-control-solid">
               </td>
               <td>
                 <mat-select (selectionChange)="onSearch()" formControlName="status"
@@ -69,8 +69,11 @@
                   <td>{{ job.index|| '--' }}</td>
                   <td>{{ job.title|| '--' }}</td>
                   <td>{{ job.majorName || '--'}}</td>
-                  <td>
-                    <a href="javascrip:void(0)" (click)="openPdf(job.fileBase64)">{{ job.fileName }}</a>
+                  <td style="width: 20%;">
+                    <a href="javascrip:void(0)" (click)="openPdf(job.fileBase64)">{{
+                      job.fileName && job.fileName.length > 20 ?
+                      job?.fileName?.substr(0,5)+'...'+job.fileName.substr(job.fileName.length-7): job.fileName
+                      }}</a>
                   </td>
                   <td>{{ job.countApplyed|| '--' }}</td>
                   <td class="text-center">

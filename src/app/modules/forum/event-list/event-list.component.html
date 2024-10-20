@@ -1,8 +1,8 @@
 <div class="d-flex align-items-center">
     <div class="flex-column-1" style=" width: 10%;">Phân loại</div>
     <div class="flex-column-1 w-100">
-        <mat-select value="" (selectionChange)="onSeachByType($event)" class="form-control form-control-solid">
-            <mat-option value="" >Tất cả</mat-option>
+        <mat-select value="" (selectionChange)="onSearchByType($event)" class="form-control form-control-solid">
+            <mat-option value="">Tất cả</mat-option>
             <mat-option *ngFor="let option of dropdownEventType$ | async" [value]="option.value">{{ option.text
                 }}</mat-option>
         </mat-select>
@@ -21,11 +21,20 @@
                     </div>
                 </div>
                 <div class="my-0">
-                    <span class="badge badge-square p-3 badge-primary"> {{ event.typeName }}</span>
+                    <label class="badge badge-square p-3 me-3" [class.badge-danger]="event.isExpired"
+                        [class.badge-primary]="event.isProgress" [class.badge-success]="event.isComming">
+                        <span *ngIf="event.isComming">Sắp diên ra</span>
+                        <span *ngIf="event.isProgress">Đang diễn ra</span>
+                        <span *ngIf="event.isExpired">Đã kết thúc</span>
+                    </label>
+                    Phân lọai: <span class="badge badge-square p-3 " [class.badge-warning]="event.type==1"
+                        [class.badge-primary]="event.type==2" [class.badge-success]="event.type==3"> {{ event.typeName
+                        }}</span>
+
                 </div>
             </div>
             <div class="mb-3">
-                <label class="h3 fw-bolder mb-2">{{ event.title}}</label>
+                <label class="h3 fw-bolder mb-2 me-3">{{ event.title}}</label>
 
                 <div class="row align-items-center mt-3">
                     <label>

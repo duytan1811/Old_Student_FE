@@ -22,35 +22,15 @@
         <form [formGroup]="formGroup">
             <div class="d-flex row mt-4 mb-4">
                 <div class="col-md-12">
-                    <mat-select #newsType class="form-control form-control-solid" placeholder="Chọn loại tin" (selectionChange)="onChangeType($event)"
+                    <mat-select #newsType class="form-control form-control-solid" placeholder="Chọn loại tin"
                         formControlName="type">
                         <mat-option *ngFor="let option of dropdownNewsTypes$ | async" [value]="option.value">{{
                             option.text }}</mat-option>
                     </mat-select>
                 </div>
             </div>
-            <div *ngIf="$any(newsType).value !== '' && $any(newsType).value ==2">
-                <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label fw-bold fs-6">
-                        <span>Thời gian bắt đầu</span>
-                    </label>
-                    <div class="col-lg-10 fv-row">
-                        <input type="date" formControlName="startDateFormat"
-                            class="form-control form-control-lg form-control-solid" placeholder="Thời gian bắt đầu" />
-                    </div>
-                </div>
-
-                <div class="row mb-6">
-                    <label class="col-lg-2 col-form-label fw-bold fs-6">
-                        <span>Thời gian kết thúc</span>
-                    </label>
-                    <div class="col-lg-10 fv-row">
-                        <input type="date" formControlName="endDateFormat"
-                            class="form-control form-control-lg form-control-solid" placeholder="Thời gian kết thúc" />
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex row mt-4 mb-4" *ngIf="$any(newsType).value !== '' && $any(newsType).value != 2">
+           
+            <div class="d-flex row mt-4 mb-4" >
                 <ckeditor [editor]="ckEditor" formControlName="content"></ckeditor>
             </div>
         </form>

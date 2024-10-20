@@ -9,14 +9,7 @@
     <div class="separator my-5"></div>
     <div class="pl-0 h-100" #contentUI mat-dialog-content (scroll)="onScrollLoadComment()">
         <div class="mb-5">
-            <ng-container *ngIf="news.type == 2">
-                Bắt đầu: <strong>{{ news.startDate | date:'dd/MM/yyyy' }} </strong>
-                <br><br>
-                Kết thúc: <strong>{{ news.endDate | date:'dd/MM/yyyy' }}</strong>
-            </ng-container>
-            <div *ngIf="news.type != 2">
-                <p [innerHTML]="news.content"></p>
-            </div>
+            <p [innerHTML]="news.content"></p>
         </div>
         <div class="row">
             <div class="separator"></div>

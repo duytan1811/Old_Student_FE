@@ -30,9 +30,7 @@ export class AuthService{
 
   // Your server should check email => If email exists send link to the user and return true | If email doesn't exist return false
   forgotPassword(email: string): Observable<BaseResponse<boolean>> {
-    return this.http.post<BaseResponse<boolean>>(`${API_AUTH_URL}/forgot-password`, {
-      email,
-    });
+    return this.http.get<BaseResponse<boolean>>(`${API_AUTH_URL}/reset-password/${email}`);
   }
 
   getUserByToken(token: string): Observable<BaseResponse<UserModel>> {

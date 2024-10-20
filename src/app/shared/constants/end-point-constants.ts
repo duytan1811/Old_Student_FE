@@ -20,6 +20,7 @@ export const EndPointConstants = {
   },
   User: {
     Index: `users`,
+    ChangePassword: `users/:id/change-password`,
     ExportExcel:'users/export-excel',
   },
   Student: {
@@ -59,5 +60,10 @@ export const EndPointConstants = {
     EventByMonth:'statistics/event-by-month',
     MemberByMonth:'statistics/member-by-month',
     NewsByMonth:'statistics/news-by-month',
+    StudentByYear:'statistics/student-by-year',
+    StudentByMajor:'statistics/student-by-major',
+  },
+  Profile:{
+    Index:'profile',
   }
 };

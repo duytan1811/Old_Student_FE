@@ -21,7 +21,7 @@ export class ErrorsComponent implements OnInit {
   ngOnInit(): void {}
 
   routeToDashboard() {
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['forums']);
     setTimeout(() => {
       ToggleComponent.bootstrap();
       ScrollTopComponent.bootstrap();

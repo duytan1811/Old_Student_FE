@@ -1,0 +1,99 @@
+<div class="card-header cursor-pointer">
+    <div class="card-title m-0">
+        <h3 class="fw-bold m-0">Cập nhật thông tin sinh viên</h3>
+    </div>
+</div>
+<form [formGroup]="formGroup" *ngIf="student$ | async as student">
+    <div class="card-body p-9" [appConnectForm]="student">
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Họ tên</label>
+            <div class="col-lg-8">
+                <input type="text" formControlName="fullName"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Họ" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+                <span>Số điện thoại</span>
+            </label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" formControlName="phone" class="form-control form-control-lg form-control-solid"
+                    placeholder="Số điện thoại" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+                <span>Email</span>
+            </label>
+            <div class="col-lg-8 fv-row">
+                <input type="email" formControlName="email" class="form-control form-control-lg form-control-solid"
+                    placeholder="Email" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+                <span>Ngày sinh</span>
+            </label>
+            <div class="col-lg-8 fv-row">
+                <input type="date" formControlName="birthdayFormat" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ngày sinh" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Thời gian học tập</label>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-6 fv-row">
+                        <input type="number" formControlName="schoolYear"
+                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                            placeholder="Niên khóa" />
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                        <input type="number" formControlName="yearOfGraduation"
+                            class="form-control form-control-lg form-control-solid" placeholder="Năm tốt nghiệp" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+                <span>Nghề nghiệp</span>
+            </label>
+            <div class="col-lg-8 fv-row">
+                <mat-select formControlName="majorId" class="form-control form-control-lg form-control-solid"
+                    placeholder="Chọn nghề nghiệp">
+                    <mat-option *ngFor="let item of majorDropdownList$ | async" [value]="item.value"> {{
+                        item.text}}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">
+                <span>Vị trí/Cấp bậc</span>
+            </label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" formControlName="jobTitle" class="form-control form-control-lg form-control-solid"
+                    placeholder="Vị trí/Cấp bậc" />
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Công ty hiện tại</label>
+            <div class="col-lg-8 fv-row">
+                <input type="text" formControlName="currentCompany"
+                    class="form-control form-control-lg form-control-solid" placeholder="Công ty" />
+            </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button type="reset" class="btn btn-light btn-active-light-danger me-2">Hủy bỏ</button>
+        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit"
+            (click)="onSave()">Lưu</button>
+    </div>
+</form>

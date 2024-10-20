@@ -26,7 +26,7 @@ export class JobListComponent implements OnInit {
     private authState: state.AuthState,
     private jobState: state.JobState,
     private viewState: state.ViewState,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.authState.currentUser$;
@@ -39,6 +39,7 @@ export class JobListComponent implements OnInit {
   public onSearch() {
     let viewState = this.viewState.getViewState();
     viewState.searchParams = { status: StatusEnum.Active };
+    viewState.sorting.column = "CreatedAt";
     this.jobState.search(viewState);
     this.userView$ = this.viewState.view$;
   }
@@ -58,6 +59,6 @@ export class JobListComponent implements OnInit {
     dialogConfig.maxHeight = '95vh';
     dialogConfig.data = { job };
     const dialogRef = this.dialog.open(JobDetailComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 }

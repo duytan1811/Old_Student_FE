@@ -19,7 +19,7 @@ const routes: Routes = [
     },
   },
   {
-    path: ':id',
+    path: ':id/edit',
     component: NewsEditComponent,
     canActivate: [PermissionGuard],
     data: {

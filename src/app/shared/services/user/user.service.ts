@@ -44,6 +44,11 @@ export class UserService {
     );
   }
 
+  changePassword(id: string,data:any) {
+    let url= EndPointConstants.User.ChangePassword.replace(':id',id);
+    return this.apiService.postData<BaseResponse<boolean>>(url,data);
+  }
+
   exportExcel() {
     return this.apiService.getData<BaseResponse<string>>(
       `${EndPointConstants.User.ExportExcel}`

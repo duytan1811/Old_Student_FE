@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: '<body[root]>',
@@ -8,9 +9,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit, OnDestroy {
   public today: Date = new Date();
 
-  constructor() {}
+  constructor(
+    private title:Title,
+  ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('STM - Đăng nhập')
     document.body.classList.add('bg-white');
   }
 

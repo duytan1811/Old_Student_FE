@@ -9,6 +9,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuthComponent } from './auth.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/register/register.component';
+import { InlineSVGModule } from 'ng-inline-svg';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { RegisterComponent } from './components/register/register.component';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule,
+    MatDialogModule,
+    InlineSVGModule
   ],
 })
 export class AuthModule {}

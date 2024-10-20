@@ -1,14 +1,20 @@
 <div class="aside-logo flex-column-auto" id="kt_aside_logo">
   <ng-container *ngIf="asideTheme === 'dark'">
-    <a routerLink="/dashboard">
-      <img alt="Logo" class="h-25px logo" src="./assets/media/logos/logo-1-dark.svg" />
-    </a>
+    <div class="d-flex align-items-center">
+      <a routerLink="/forums">
+        <img alt="Logo" class="h-25px logo" src="./assets/media/logos/logo.jpg" />
+      </a>
+      <label class="mx-3 mt-5 h3 text-white"> Alumnus System</label>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="asideTheme === 'light'">
-    <a routerLink="/dashboard">
-      <img alt="Logo" class="h-25px logo" src="./assets//media/logos/logo-1.svg" />
-    </a>
+    <div class="d-flex align-items-center">
+      <a routerLink="/forums">
+        <img alt="Logo" class="h-25px logo" src="./assets/media/logos/logo.jpg" />
+      </a>
+      <label class="mx-3 mt-5 h3 text-white"> Alumnus System</label>
+    </div>
   </ng-container>
 
   <ng-container *ngIf="asideMinimize">

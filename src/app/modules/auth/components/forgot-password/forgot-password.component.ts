@@ -5,11 +5,7 @@ import * as state from 'src/app/shared/state';
 import { first } from 'rxjs/operators';
 import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 
-enum ErrorStates {
-  NotSubmitted,
-  HasError,
-  NoError,
-}
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,12 +14,12 @@ enum ErrorStates {
 })
 export class ForgotPasswordComponent implements OnInit {
   public forgotPasswordForm: FormGroup;
-  public errorState: ErrorStates = ErrorStates.NotSubmitted;
-  public errorStates = ErrorStates;
   public isLoading$: Observable<boolean>;
 
   private unsubscribe: Subscription[] = [];
-  constructor(private fb: FormBuilder, private authState: state.AuthState) {
+  constructor(private fb: FormBuilder, private authState: state.AuthState,
+    private flashState: state.FlashMessageState
+  ) {
     this.isLoading$ = this.authState.isLoading$;
   }
 
@@ -36,12 +32,17 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   public submit() {
-    this.errorState = ErrorStates.NotSubmitted;
+    if(this.forgotPasswordForm.invalid) {
+      this.flashState.message('error', 'Nhập địa chỉ email');
+      return
+    };
     const forgotPasswordSubscr = this.authState
       .forgotPassword(this.f.email.value)
       .pipe(first())
       .subscribe((result: BaseResponse<boolean>) => {
-        this.errorState = result ? ErrorStates.NoError : ErrorStates.HasError;
+        if (result) {
+          this.flashState.message(result.type, result.message);
+        }
       });
     this.unsubscribe.push(forgotPasswordSubscr);
   }
@@ -49,12 +50,12 @@ export class ForgotPasswordComponent implements OnInit {
   private initForm() {
     this.forgotPasswordForm = this.fb.group({
       email: [
-        'admin@demo.com',
+        '',
         Validators.compose([
           Validators.required,
           Validators.email,
           Validators.minLength(3),
-          Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.maxLength(320),
         ]),
       ],
     });

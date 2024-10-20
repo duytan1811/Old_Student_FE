@@ -81,11 +81,6 @@
     "href": "/settings",
     "items": [
       {
-        "key":"general",
-        "display": "Cấu hình chung",
-        "href": "/settings/general"
-      },
-      {
         "key":"major",
         "display": "Nghề nghiệp",
         "href": "/settings/majors"

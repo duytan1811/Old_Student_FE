@@ -47,8 +47,12 @@
                                 <td>{{ event.endDate | date:'HH:mm - dd/MM/yyyy' || '--' }}</td>
                                 <td>{{ event.countEventRegister }}</td>
                                 <td class="text-center">
-                                    <app-status-badge [status]="event.status"
-                                        [statusName]="event.statusName"></app-status-badge>
+                                    <label class="badge badge-square p-3 me-3" [class.badge-danger]="event.isExpired"
+                                    [class.badge-primary]="event.isProgress" [class.badge-success]="event.isComming">
+                                    <span *ngIf="event.isComming">Sắp diên ra</span>
+                                    <span *ngIf="event.isProgress">Đang diễn ra</span>
+                                    <span *ngIf="event.isExpired">Đã kết thúc</span>
+                                </label>
                                 </td>
                             </tr>
                         </ng-container>

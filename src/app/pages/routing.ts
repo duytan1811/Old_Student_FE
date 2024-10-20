@@ -2,15 +2,11 @@ import { Routes } from '@angular/router';
 import { EndPointConstants } from '../shared/constants/end-point-constants';
 
 const Routing: Routes = [
+ 
   {
-    path: '',
+    path: EndPointConstants.Forum.Index,
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-  {
-    path: EndPointConstants.Dashboard.Index,
-    loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('../modules/forum/forum.module').then((m) => m.ForumModule),
   },
   {
     path: EndPointConstants.Role.Index,
@@ -37,11 +33,7 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/news/news.module').then((m) => m.NewsModule),
   },
-  {
-    path: EndPointConstants.Forum.Index,
-    loadChildren: () =>
-      import('../modules/forum/forum.module').then((m) => m.ForumModule),
-  },
+  
   {
     path: EndPointConstants.Job.Index,
     loadChildren: () =>
@@ -52,7 +44,6 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/event/event.module').then((m) => m.EventModule),
   },
-
   {
     path: EndPointConstants.Statistics.Index,
     loadChildren: () =>
@@ -61,8 +52,15 @@ const Routing: Routes = [
       ),
   },
   {
+    path: EndPointConstants.Profile.Index,
+    loadChildren: () =>
+      import('../modules/profile/profile.module').then(
+        (m) => m.ProfileModule
+      ),
+  },
+  {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'forums/news',
     pathMatch: 'full',
   },
   {
