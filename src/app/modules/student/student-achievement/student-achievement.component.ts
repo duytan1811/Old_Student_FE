@@ -6,6 +6,7 @@ import { StudentModel } from 'src/app/shared/models/students/student.model';
 import * as state from 'src/app/shared/state';
 import { StudentAchievementEditDialogComponent } from './components/student-achievement-edit-dialog/student-achievement-edit-dialog.component';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-achievement',
@@ -21,13 +22,30 @@ export class StudentAchievementComponent implements OnInit {
     private studentAchievementState: state.StudentAchievementState,
     private studentState: state.StudentState,
     private dialog: MatDialog,
-    private flashMessageState: state.FlashMessageState
-  ) {}
+    private flashMessageState: state.FlashMessageState,
+    private viewState: state.ViewState,
+    private activeRouter: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-    this.studentAchievementState.search({ studentId: this.id });
     this.studentAchievements$ =
       this.studentAchievementState.studentAchievements$;
+    this.activeRouter.params.subscribe(res => {
+      if (res && res.id) {
+        this.id = res.id;
+        this.onSearch()
+      }
+    })
+  }
+
+  public onSearch() {
+    const viewState = this.viewState.getViewState();
+    const dataSearch = {
+      studentId: this.id
+    };
+    viewState.searchParams = dataSearch;
+    this.viewState.setViewState(viewState);
+    this.studentAchievementState.search(viewState);
   }
 
   public onEdit(id: string | null) {
@@ -44,7 +62,7 @@ export class StudentAchievementComponent implements OnInit {
       dialogConfig
     );
     dialogRef.afterClosed().subscribe(async (result) => {
-        this.studentState.findById(this.student.id);
+      this.studentState.findById(this.student.id);
     });
   }
 
@@ -67,7 +85,7 @@ export class StudentAchievementComponent implements OnInit {
       if (result) {
         const res = await this.studentAchievementState.delete(id);
         this.flashMessageState.message(res.type, res.message);
-        this.studentAchievementState.search({ studentId: this.id });
+        this.onSearch();
         this.studentState.findById(this.student.id);
       }
     });

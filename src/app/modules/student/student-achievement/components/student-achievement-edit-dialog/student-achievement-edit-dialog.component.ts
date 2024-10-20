@@ -24,13 +24,13 @@ export class StudentAchievementEditDialogComponent implements OnInit {
     private flashMessageState: state.FlashMessageState,
     public dialogRef: MatDialogRef<StudentAchievementEditDialogComponent>,
     private studentAchievementState: state.StudentAchievementState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.data.id;
     this.studentId = this.data.studentId;
     this.studentAchievement$ = this.studentAchievementState.studentAchievement$;
-      this.studentAchievementState.findById(this.id);
+    this.studentAchievementState.findById(this.id);
     this.initFormGroup();
   }
 

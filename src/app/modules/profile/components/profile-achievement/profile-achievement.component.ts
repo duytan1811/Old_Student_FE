@@ -21,16 +21,20 @@ export class ProfileAchievementComponent implements OnInit {
     private studentAchievementState: state.StudentAchievementState,
     private studentState: state.StudentState,
     private dialog: MatDialog,
-    private flashMessageState: state.FlashMessageState
+    private flashMessageState: state.FlashMessageState,
+    private viewState:state.ViewState
   ) { }
 
   ngOnInit(): void {
     this.student$ = this.studentState.student$;
     this.studentState.findById(this.studentId);
 
-    this.studentAchievementState.search({ studentId: this.studentId });
     this.studentAchievements$ =
       this.studentAchievementState.studentAchievements$;
+
+      setTimeout(() => {
+        this.onSearch();
+      }, 100);
   }
   public onEdit(id: string | null) {
     if (this.studentId) {
@@ -50,6 +54,16 @@ export class ProfileAchievementComponent implements OnInit {
         this.studentState.findById(this.studentId);
       });
     }
+  }
+
+  public onSearch() {
+    const viewState = this.viewState.getViewState();
+    const dataSearch = {
+      studentId: this.studentId
+    };
+    viewState.searchParams = dataSearch;
+    this.viewState.setViewState(viewState);
+    this.studentAchievementState.search(viewState);
   }
 
   public onCreate() {
@@ -72,7 +86,7 @@ export class ProfileAchievementComponent implements OnInit {
         if (result) {
           const res = await this.studentAchievementState.delete(id);
           this.flashMessageState.message(res.type, res.message);
-          this.studentAchievementState.search({ studentId: this.studentId });
+          this.onSearch()
           this.studentState.findById(this.studentId);
         }
       });
