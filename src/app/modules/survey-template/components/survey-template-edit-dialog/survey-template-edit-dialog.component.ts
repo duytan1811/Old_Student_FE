@@ -1,39 +1,47 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
 import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
-import { MajorModel } from 'src/app/shared/models/major/major.model';
+import { SurveyTemplateModel } from 'src/app/shared/models/survey-templates/survey-template.mode';
 import * as state from 'src/app/shared/state';
 
 @Component({
-  selector: 'app-setting-major-edit-modal',
-  templateUrl: './setting-major-edit-modal.component.html',
-  styleUrls: [],
+  selector: 'app-survey-template-edit-dialog',
+  templateUrl: './survey-template-edit-dialog.component.html',
+  styleUrls: []
 })
-export class SettingMajorEditModalComponent implements OnInit {
+export class SurveyTemplateEditDialogComponent implements OnInit {
   public isLoading$: Observable<boolean>;
-  public major$: Observable<MajorModel>;
+  public surveyTemplate$: Observable<SurveyTemplateModel>;
+  public drpQuestions$: Observable<Array<SelectListItem>>;
+  public drpSurveyTypes$: Observable<Array<SelectListItem>>;
   public isCreate: boolean;
   public id: string;
   public formGroup: FormGroup;
   public statuses = CommonConstants.FormStatuses;
+  public questionIdsSelected: Array<string> = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private majorState: state.MajorState,
+    private surveyTemplateState: state.SurveyTemplateState,
     private fb: FormBuilder,
     private flashMessageState: state.FlashMessageState,
-    private dialogRef: MatDialogRef<SettingMajorEditModalComponent>
+    private dropdownState: state.DropdownState,
+    private dialogRef: MatDialogRef<SurveyTemplateEditDialogComponent>
   ) { }
 
   ngOnInit(): void {
     this.id = this.data.id;
     this.isCreate = this.data.isCreate;
-    this.majorState.findById(this.id);
-    this.major$ = this.majorState.major$;
+    this.surveyTemplateState.findById(this.id);
+    this.surveyTemplate$ = this.surveyTemplateState.surveyTemplate$;
 
+    this.drpQuestions$ = this.dropdownState.dropdownQuestions$;
+    this.drpSurveyTypes$ = this.dropdownState.dropdownSurveyTypes$;
+    this.dropdownState.getDropdownQuestions();
+    this.dropdownState.getDropdownSurveyTypes();
     this.initFormGroup();
   }
 
@@ -41,9 +49,9 @@ export class SettingMajorEditModalComponent implements OnInit {
     const data = this.formGroup.getRawValue();
     let res;
     if (!this.isCreate) {
-      res = await this.majorState.update(this.id, data);
+      res = await this.surveyTemplateState.update(this.id, data);
     } else {
-      res = await this.majorState.save(data);
+      res = await this.surveyTemplateState.save(data);
     }
     this.flashMessageState.message(
       res.type,
@@ -57,7 +65,6 @@ export class SettingMajorEditModalComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
       status: [null],
     });
   }

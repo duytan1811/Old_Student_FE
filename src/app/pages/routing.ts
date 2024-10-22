@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { EndPointConstants } from '../shared/constants/end-point-constants';
 
 const Routing: Routes = [
- 
+
   {
     path: EndPointConstants.Forum.Index,
     loadChildren: () =>
@@ -33,7 +33,7 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/news/news.module').then((m) => m.NewsModule),
   },
-  
+
   {
     path: EndPointConstants.Job.Index,
     loadChildren: () =>
@@ -56,6 +56,27 @@ const Routing: Routes = [
     loadChildren: () =>
       import('../modules/profile/profile.module').then(
         (m) => m.ProfileModule
+      ),
+  },
+  {
+    path: EndPointConstants.SurveyTemplate.Index,
+    loadChildren: () =>
+      import('../modules/survey-template/survey-template.module').then(
+        (m) => m.SurveyTemplateModule
+      ),
+  },
+  {
+    path: EndPointConstants.Survey.Index,
+    loadChildren: () =>
+      import('../modules/survey/survey.module').then(
+        (m) => m.SurveyModule
+      ),
+  },
+  {
+    path: EndPointConstants.Question.Index,
+    loadChildren: () =>
+      import('../modules/question/question.module').then(
+        (m) => m.QuestionModule
       ),
   },
   {

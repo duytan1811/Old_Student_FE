@@ -34,7 +34,7 @@ import { PipesModule } from '../pipes/pipes.module';
         MatCheckboxModule,
         MatExpansionModule,
         MatDialogModule,
-        PipesModule
+        PipesModule,
     ],
     exports: [
         CommonModule,
@@ -48,7 +48,8 @@ import { PipesModule } from '../pipes/pipes.module';
         FormGroupDirective,
         DirectiveModule,
         MatExpansionModule,
-        MatDialogModule
+        MatDialogModule,
+        MatCheckboxModule
     ],
     providers: [
         

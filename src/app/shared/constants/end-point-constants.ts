@@ -8,6 +8,8 @@ export const EndPointConstants = {
     Role: `dropdowns/roles`,
     NewsType: `dropdowns/news-types`,
     Events: `dropdowns/events`,
+    Questions: `dropdowns/questions`,
+    SurveyType: `dropdowns/survey-types`,
   },
   Role: {
     Index: `roles`,
@@ -21,7 +23,7 @@ export const EndPointConstants = {
   User: {
     Index: `users`,
     ChangePassword: `users/:id/change-password`,
-    ExportExcel:'users/export-excel',
+    ExportExcel: 'users/export-excel',
   },
   Student: {
     Index: `students`,
@@ -38,7 +40,7 @@ export const EndPointConstants = {
     Like: `news/:id/like`,
     Comment: `news/:id/comments`,
     Confirm: `news/:id/confirm`,
-    ExportExcel:'news/export-excel',
+    ExportExcel: 'news/export-excel',
   },
   Forum: {
     Index: `forums`,
@@ -49,21 +51,30 @@ export const EndPointConstants = {
     Search: `jobs/search`,
     ApplyJob: `jobs/:id/apply-job`,
   },
-  Event:{
-    Index:'events',
-    UserRegister:'events/:id/user-registers',
-    Register:'events/:id/registers',
-    ExportExcel:'events/export-excel',
+  Event: {
+    Index: 'events',
+    UserRegister: 'events/:id/user-registers',
+    Register: 'events/:id/registers',
+    ExportExcel: 'events/export-excel',
   },
-  Statistics:{
-    Index:'statistics',
-    EventByMonth:'statistics/event-by-month',
-    MemberByMonth:'statistics/member-by-month',
-    NewsByMonth:'statistics/news-by-month',
-    StudentByYear:'statistics/student-by-year',
-    StudentByMajor:'statistics/student-by-major',
+  Statistics: {
+    Index: 'statistics',
+    EventByMonth: 'statistics/event-by-month',
+    MemberByMonth: 'statistics/member-by-month',
+    NewsByMonth: 'statistics/news-by-month',
+    StudentByYear: 'statistics/student-by-year',
+    StudentByMajor: 'statistics/student-by-major',
   },
-  Profile:{
-    Index:'profile',
+  Profile: {
+    Index: 'profile',
+  },
+  SurveyTemplate: {
+    Index: 'survey-templates',
+  },
+  Survey: {
+    Index: 'surveys',
+  },
+  Question: {
+    Index: 'questions',
   }
 };

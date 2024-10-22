@@ -19,28 +19,16 @@ const routes: Routes = [
         path: 'news',
         component: NewsListComponent,
         canActivate: [PermissionGuard],
-        data: {
-          permission: CommonConstants.MenuKey.Forum,
-          action: ClaimValue.View,
-        },
       },
       {
         path: 'event',
         component: EventListComponent,
         canActivate: [PermissionGuard],
-        data: {
-          permission: CommonConstants.MenuKey.Forum,
-          action: ClaimValue.View,
-        },
       },
       {
         path: 'job',
         component: JobListComponent,
         canActivate: [PermissionGuard],
-        data: {
-          permission: CommonConstants.MenuKey.Forum,
-          action: ClaimValue.View,
-        },
       },
       {
         path: '',

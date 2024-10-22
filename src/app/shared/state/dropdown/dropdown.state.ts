@@ -30,10 +30,21 @@ export class DropdownState implements OnDestroy {
   public dropdownNewsTypes$: Observable<Array<SelectListItem>> =
     this._dropdownNewsTypesSubject.asObservable();
 
-    private _dropdownEventTypesSubject: BehaviorSubject<Array<SelectListItem>> =
+  private _dropdownEventTypesSubject: BehaviorSubject<Array<SelectListItem>> =
     new BehaviorSubject(Array());
   public dropdownEventTypes$: Observable<Array<SelectListItem>> =
     this._dropdownEventTypesSubject.asObservable();
+
+  private _dropdownQuestionsSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownQuestions$: Observable<Array<SelectListItem>> =
+    this._dropdownQuestionsSubject.asObservable();
+
+  private _dropdownSurveyTypesSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownSurveyTypes$: Observable<Array<SelectListItem>> =
+    this._dropdownSurveyTypesSubject.asObservable();
+
 
   getNewsTypes(): Array<SelectListItem> {
     return this._dropdownNewsTypesSubject.getValue();
@@ -75,7 +86,23 @@ export class DropdownState implements OnDestroy {
     this._dropdownRolesSubject.next(data);
   }
 
-  constructor(private dropdownService: DropdownService) {}
+  getQuestions(): Array<SelectListItem> {
+    return this._dropdownQuestionsSubject.getValue();
+  }
+
+  setQuestions(data: Array<SelectListItem>) {
+    this._dropdownQuestionsSubject.next(data);
+  }
+
+  getSurveyTypes(): Array<SelectListItem> {
+    return this._dropdownSurveyTypesSubject.getValue();
+  }
+
+  setSurveyTypes(data: Array<SelectListItem>) {
+    this._dropdownSurveyTypesSubject.next(data);
+  }
+
+  constructor(private dropdownService: DropdownService) { }
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -140,6 +167,32 @@ export class DropdownState implements OnDestroy {
       },
       error: (err) => {
         console.log(`Error get dropdown event types`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownQuestions() {
+    const sub = this.dropdownService.getQuestions().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setQuestions(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown questions`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownSurveyTypes() {
+    const sub = this.dropdownService.getSurveyTypes().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setSurveyTypes(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown survey types`, err);
       },
     });
 

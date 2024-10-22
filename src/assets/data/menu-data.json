@@ -75,6 +75,29 @@
     ]
   },
   {
+    "key":"surveyManager",
+    "display": "Khảo sát",
+    "icon": "./assets/media/icons/duotune/coding/cod001.svg",
+    "href": "/survey",
+    "items": [
+      {
+        "key":"questions",
+        "display": "Danh sách câu hỏi",
+        "href": "/questions"
+      },
+      {
+        "key":"surveyTemplate",
+        "display": "Mẫu khảo sát",
+        "href": "/survey-templates"
+      },
+      {
+        "key":"survey",
+        "display": "Phiếu khảo sát",
+        "href": "/surveys"
+      }
+    ]
+  },
+  {
     "key":"setting",
     "display": "Cài đặt",
     "icon": "./assets/media/icons/duotune/coding/cod001.svg",

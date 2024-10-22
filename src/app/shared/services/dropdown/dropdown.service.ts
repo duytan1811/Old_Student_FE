@@ -32,4 +32,12 @@ export class DropdownService {
   getEventTypes() {
     return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Events}`);
   }
+
+  getQuestions() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Questions}`);
+  }
+
+  getSurveyTypes() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.SurveyType}`);
+  }
 }
