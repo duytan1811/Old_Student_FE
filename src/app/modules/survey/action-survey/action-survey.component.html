@@ -1,0 +1,43 @@
+<div *ngIf="(totalSurvey$ | async);else empty" class="row ">
+    <div *ngFor="let survey of surveys$ | async" class="col-12 mt-4">
+        <div class="card card-flush h-md-100">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>{{ survey.name }}</h2>
+                </div>
+            </div>
+            <div class="card-body pt-1">
+                <div class="row">
+                    <label class="h4">
+                        Thời gian bắt đầu:<strong class="px-3">{{ survey.startDate| date:'dd/MM/yyyy' }}</strong>
+                    </label>
+                    <label class="h4">
+                        Thời gian kết thúc: <strong class="px-3">{{ survey.endDate| date:'dd/MM/yyyy' }}</strong>
+                    </label>
+                </div>
+            </div>
+            <div class="card-footer flex-wrap pt-0">
+                <button type="button" (click)="goSubmit(survey)" class="btn my-1 me-2"
+                    [class.btn-secondary]="survey.isSurveyed" [class.btn-primary]="!survey.isSurveyed"
+                    [disabled]="survey.isSurveyed">
+                    <span *ngIf="!survey.isSurveyed">Thực hiện</span>
+                    <span *ngIf="survey.isSurveyed">Đã thực hiện khảo sát</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #empty>
+    <div class="col-md-12 h-100">
+        <div class="card h-md-100">
+            <div class="card-body d-flex flex-center">
+                <button type="button" class="btn btn-clear d-flex flex-column flex-center">
+                    <img src="assets/media/illustrations/sketchy-1/10.png" alt="" class="mw-100 mh-150px mb-7" />
+                    <div class="fw-bolder fs-3 text-gray-600 text-hover-primary">Chưa có khảo sát mới</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

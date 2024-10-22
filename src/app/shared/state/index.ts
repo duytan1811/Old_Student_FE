@@ -17,5 +17,5 @@ export { NewsState } from './news/news.state';
 export { ForumState } from './forum/forum.state';
 export { JobState } from './job/job.state';
 export { EventState } from './event/event.state';
-export { SurveyTemplateState } from './survey-templates/survey-template.state';
+export { SurveyState } from './surveys/survey.state';
 export { QuestionState } from './questions/question.state';

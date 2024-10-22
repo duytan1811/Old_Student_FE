@@ -59,13 +59,6 @@ const Routing: Routes = [
       ),
   },
   {
-    path: EndPointConstants.SurveyTemplate.Index,
-    loadChildren: () =>
-      import('../modules/survey-template/survey-template.module').then(
-        (m) => m.SurveyTemplateModule
-      ),
-  },
-  {
     path: EndPointConstants.Survey.Index,
     loadChildren: () =>
       import('../modules/survey/survey.module').then(

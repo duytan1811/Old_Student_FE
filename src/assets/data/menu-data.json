@@ -81,17 +81,17 @@
     "href": "/survey",
     "items": [
       {
+        "key":"surveyActions",
+        "display": "Khảo sát",
+        "href": "/surveys/actions"
+      },
+      {
         "key":"questions",
         "display": "Danh sách câu hỏi",
         "href": "/questions"
       },
       {
-        "key":"surveyTemplate",
-        "display": "Mẫu khảo sát",
-        "href": "/survey-templates"
-      },
-      {
-        "key":"survey",
+        "key":"surveys",
         "display": "Phiếu khảo sát",
         "href": "/surveys"
       }

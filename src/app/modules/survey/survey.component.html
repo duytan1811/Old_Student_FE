@@ -1,1 +1,100 @@
-<p>survey works!</p>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h3 class="card-title">Danh sách mẫu khảo sát</h3>
+    <div class="card-toolbar">
+      <button *ngIf="checkPermission(claimValue.Create)" (click)="goEdit(null)" type="button"
+        class="btn btn-sm btn-primary me-2">
+        <span class="svg-icon svg-icon-2 align-middle"
+          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr087.svg'"></span>
+        Thêm mới
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive overflow-hidden">
+      <form [formGroup]="formSearch">
+        <table class="table table-row-bordered ">
+          <thead>
+            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+              <th class="w-25px">#</th>
+              <th>Tên khảo sát</th>
+              <th>Số câu hỏi</th>
+              <th>Thời gian bắt đầu</th>
+              <th>Thời gian kết thúc</th>
+              <th>Đã thực hiện</th>
+              <th>Trạng thái</th>
+              <th class="w-150px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3">
+                <input formControlName="name" type="text" placeholder="Nhập tên..."
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <input formControlName="startDate" type="date" (change)="onSearch()"
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td>
+                <input formControlName="endDate" type="date" (change)="onSearch()"
+                  class="form-control form-control-sm form-control-solid">
+              </td>
+              <td colspan="2">
+                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                  class="form-control form-control-sm form-control-solid">
+                  <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text
+                    }}</mat-option>
+                </mat-select>
+              </td>
+              <td>
+                <button (click)="onSearch()" class="btn btn-sm btn-primary">
+                  <span class="svg-icon svg-icon-2 align-middle"
+                    [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"></span>
+                  Tìm kiếm
+                </button>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="(totalSurvey$ | async);else emptyTable">
+              <tr *ngFor="let survey of surveys$| async;let i=index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ survey.name }}
+                  <span *ngIf="survey.isExpried" class="badge badge-secondary">Đã hết hạn</span>
+                </td>
+                <td>{{ survey.questionIds.length }} câu hỏi</td>
+                <td>{{ survey.startDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ survey.endDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ survey.countSurveyed|| 0 }} thành viên</td>
+                <td class="text-center">
+                  <app-status-badge [status]="survey.status" [statusName]="survey.statusName"></app-status-badge>
+                </td>
+                <td>
+                  <button (click)="goEdit(survey.id,false)" title="Cập nhật" *ngIf="checkPermission(claimValue.Edit)"
+                    class="btn btn-sm btn-light-primary btn-icon me-2">
+                    <span class="svg-icon svg-icon-2"
+                      [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
+                  </button>
+                  <button (click)="goDelete(survey)" *ngIf="checkPermission(claimValue.Delete)" title="Xóa"
+                    class="btn btn-sm btn-light-danger btn-icon">
+                    <span class="svg-icon svg-icon-2"
+                      [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #emptyTable>
+              <tr>
+                <td colspan="5" class="text-center">
+                  <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                </td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+        <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+          [paginator]="(tableView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+      </form>
+    </div>
+  </div>
+</div>

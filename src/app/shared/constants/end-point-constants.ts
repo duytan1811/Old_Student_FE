@@ -68,9 +68,6 @@ export const EndPointConstants = {
   Profile: {
     Index: 'profile',
   },
-  SurveyTemplate: {
-    Index: 'survey-templates',
-  },
   Survey: {
     Index: 'surveys',
   },
