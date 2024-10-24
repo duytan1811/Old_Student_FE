@@ -41,8 +41,12 @@ export class CommonConstants {
     Setting: 'setting',
     Role: 'role',
     Event: 'event',
-    SurveyTemplate: 'surveyTemplate',
+    Survey: 'survey',
+    SurveyAction: 'surveyAction',
     Question: 'question',
+    Honor: 'honor',
+    Reward: 'reward',
+    Contribute: 'contribute',
   };
 }
 

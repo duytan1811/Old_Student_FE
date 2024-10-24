@@ -8,4 +8,5 @@ export class BaseModel {
   statusName?: string = '';
   createdAt: Date;
   updatedAt: Date;
+  createdById: string = '';
 }

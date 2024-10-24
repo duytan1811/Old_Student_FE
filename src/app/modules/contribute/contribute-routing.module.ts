@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuestionComponent } from './question.component';
+import { ContributeComponent } from './contribute.component';
 import { PermissionGuard } from 'src/app/shared/guards/permission.guard';
 import { ClaimValue, CommonConstants } from 'src/app/shared/constants/common-constants';
 
 const routes: Routes = [
   {
     path: '',
-    component: QuestionComponent,
+    component: ContributeComponent,
     canActivate: [PermissionGuard],
     data: {
-      permission: CommonConstants.MenuKey.Question,
+      permission: CommonConstants.MenuKey.Forum,
       action: ClaimValue.View,
     },
   },
@@ -20,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class QuestionRoutingModule {}
+export class ContributeRoutingModule {}

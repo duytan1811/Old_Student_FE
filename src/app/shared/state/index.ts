@@ -19,3 +19,4 @@ export { JobState } from './job/job.state';
 export { EventState } from './event/event.state';
 export { SurveyState } from './surveys/survey.state';
 export { QuestionState } from './questions/question.state';
+export { ContributeState } from './contributes/contribute.state';

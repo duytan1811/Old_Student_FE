@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+    <span *ngIf="isCreate">Thêm mới</span>
+    <span *ngIf="!isCreate">Cập nhật</span> đóng góp
+</h2>
+<div class="separator my-5"></div>
+<form [formGroup]="formGroup" [appConnectForm]="contribute$ | async">
+    <div class="pl-0" mat-dialog-content>
+        <div class="mb-5">
+            <label for="studentId" class="form-label required">Sinh viên</label>
+            <mat-select formControlName="studentId" class="form-control form-control-solid">
+                <mat-option *ngFor="let option of drpStudent$ | async" [value]="option.value">{{ option.text }}</mat-option>
+            </mat-select>
+        </div>
+        <div class="mb-5">
+            <label for="type" class="form-label required">Phân loại</label>
+            <mat-select formControlName="type" class="form-control form-control-solid">
+                <mat-option *ngFor="let option of drpContributeTypes$ | async" [value]="option.value">{{ option.text }}</mat-option>
+            </mat-select>
+        </div>
+        <div class="mb-5">
+            <label for="amount" class="form-label required">Số tiền đóng góp</label>
+            <input id="amount" formControlName="amount" type="text" class="form-control form-control-solid" />
+        </div>
+
+        <div class="mb-5">
+            <label for="detail" class="form-label required">Nội dung</label>
+            <textarea name="detail" id="detail" class="form-control form-control-solid"
+                formControlName="detail"></textarea>
+        </div>
+
+        <div class="mb-5" *ngIf="!isCreate">
+            <label for="status" class="form-label">Trạng thái</label>
+            <mat-select formControlName="status" class="form-control form-control-solid">
+                <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</mat-option>
+            </mat-select>
+        </div>
+
+    </div>
+
+    <div class="float-end" mat-dialog-actions>
+        <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+        <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid || (isLoading$ | async)" [mat-dialog-close]
+            (click)="onSave()">Xác nhận</button>
+    </div>
+</form>

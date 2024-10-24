@@ -7,20 +7,20 @@ import { PageInfoService } from 'src/app/_metronic/layout';
 import { ClaimValue, CommonConstants } from 'src/app/shared/constants/common-constants';
 import { StatusEnum } from 'src/app/shared/enum/status.enum';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
-import * as state from 'src/app/shared/state';
 import { Paginator } from 'src/app/shared/models/base/paginator.model';
+import { ContributeModel } from 'src/app/shared/models/contributes/contribute.model';
+import * as state from 'src/app/shared/state';
+import { ContributeSaveDialogComponent } from './components/contribute-save-dialog/contribute-save-dialog.component';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
-import { SurveyEditDialogComponent } from './components/survey-template-edit-dialog/survey-edit-dialog.component';
-import { SurveyModel } from 'src/app/shared/models/surveys/survey.mode';
 
 @Component({
-  selector: 'app-survey',
-  templateUrl: './survey.component.html',
+  selector: 'app-contribute',
+  templateUrl: './contribute.component.html',
   styleUrls: []
 })
-export class SurveyComponent implements OnInit {
-  public surveys$: Observable<Array<SurveyModel>>;
-  public totalSurvey$: Observable<number>;
+export class ContributeComponent implements OnInit {
+  public contributes$: Observable<Array<ContributeModel>>;
+  public totalContribute$: Observable<number>;
   public isLoading$: Observable<boolean>;
   public tableView$: Observable<BaseViewModel>;
   public formSearch: FormGroup;
@@ -31,7 +31,7 @@ export class SurveyComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private flashMessageState: state.FlashMessageState,
-    private surveyState: state.SurveyState,
+    private contributeState: state.ContributeState,
     private viewState: state.ViewState,
     private dialog: MatDialog,
     private pageInfo: PageInfoService,
@@ -40,11 +40,11 @@ export class SurveyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pageInfo.updateTitle('Mẫu khảo sát');
-    this.title.setTitle('Mẫu khảo sát');
-    this.isLoading$ = this.surveyState.isLoading$;
-    this.totalSurvey$ = this.surveyState.totalSurvey$;
-    this.surveys$ = this.surveyState.surveys$;
+    this.pageInfo.updateTitle('Quản lý đóng góp');
+    this.title.setTitle('Quản lý đóng góp');
+    this.isLoading$ = this.contributeState.isLoading$;
+    this.totalContribute$ = this.contributeState.totalContribute$;
+    this.contributes$ = this.contributeState.contributes$;
     this.tableView$ = this.viewState.view$;
 
     this.initFormSearch();
@@ -54,39 +54,35 @@ export class SurveyComponent implements OnInit {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
     dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
-    dataSearch.startDate = dataSearch.startDate !== '' ? dataSearch.startDate : null;
-    dataSearch.endDate = dataSearch.endDate !== '' ? dataSearch.endDate : null;
-
     viewState.searchParams = dataSearch;
-    viewState.sorting.column="CreatedAt";
     this.viewState.setViewState(viewState);
-    this.surveyState.search(viewState);
+    this.contributeState.search(viewState);
   }
 
   public paginate(paginator: Paginator) {
     const viewState = this.viewState.getViewState();
     viewState.paginator = paginator;
     this.viewState.setViewState(viewState);
-    this.surveyState.search(viewState);
+    this.contributeState.search(viewState);
   }
 
   public goEdit(id: string | null, isCreate: boolean = true): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = '40%';
     dialogConfig.data = {
       id,
       isCreate,
     };
     const dialogRef = this.dialog.open(
-      SurveyEditDialogComponent,
+      ContributeSaveDialogComponent,
       dialogConfig
     );
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  public goDelete(data: SurveyModel): void {
+  public goDelete(data: ContributeModel): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -99,7 +95,7 @@ export class SurveyComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        const res = await this.surveyState.delete(data.id);
+        const res = await this.contributeState.delete(data.id);
         this.flashMessageState.message(res.type, res.message);
       }
     });
@@ -107,17 +103,17 @@ export class SurveyComponent implements OnInit {
 
   public checkPermission(rule: string) {
     return this.authState.checkPermissionMenu(
-      CommonConstants.MenuKey.Survey,
+      CommonConstants.MenuKey.Contribute,
       rule
     );
   }
 
   private initFormSearch() {
     this.formSearch = this.fb.group({
-      name: [''],
+      fullName: [''],
+      type: [''],
+      amount: [''],
       status: [''],
-      startDate:[''],
-      endDate:[''],
     });
 
     this.onSearch();

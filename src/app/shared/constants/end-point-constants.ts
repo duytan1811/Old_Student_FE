@@ -10,6 +10,8 @@ export const EndPointConstants = {
     Events: `dropdowns/events`,
     Questions: `dropdowns/questions`,
     SurveyType: `dropdowns/survey-types`,
+    Student: `dropdowns/students`,
+    Contribute: `dropdowns/contribute-types`,
   },
   Role: {
     Index: `roles`,
@@ -43,8 +45,8 @@ export const EndPointConstants = {
     ExportExcel: 'news/export-excel',
   },
   Forum: {
-    Index: `forums`,
-    Search: `forums/search`,
+    Index: `forum`,
+    Search: `forum/search`,
   },
   Job: {
     Index: `jobs`,
@@ -73,5 +75,14 @@ export const EndPointConstants = {
   },
   Question: {
     Index: 'questions',
+  },
+  Reward: {
+    Index: 'rewards',
+  },
+  Contribute: {
+    Index: 'contributes',
+  },
+  Honor: {
+    Index: 'honors',
   }
 };

@@ -7,6 +7,9 @@ import { StatusEnum } from 'src/app/shared/enum/status.enum';
 import { SurveyModel } from 'src/app/shared/models/surveys/survey.mode';
 import * as state from 'src/app/shared/state';
 import { SubmitSurveyDialogComponent } from '../submit-survey-dialog/submit-survey-dialog.component';
+import { UserModel } from 'src/app/shared/models/users/user.model';
+import { Paginator } from 'src/app/shared/models/base/paginator.model';
+import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 
 @Component({
   selector: 'app-action-survey',
@@ -15,12 +18,15 @@ import { SubmitSurveyDialogComponent } from '../submit-survey-dialog/submit-surv
 })
 export class ActionSurveyComponent implements OnInit {
   public surveys$: Observable<Array<SurveyModel>>;
+  public currentUser$: Observable<UserModel>;
   public totalSurvey$: Observable<number>;
   public isLoading$: Observable<boolean>;
+  public tableView$: Observable<BaseViewModel>;
 
   constructor(
     private surveyState: state.SurveyState,
     private viewState: state.ViewState,
+    private authState: state.AuthState,
     private pageInfo: PageInfoService,
     private title: Title,
     private dialog: MatDialog
@@ -32,6 +38,9 @@ export class ActionSurveyComponent implements OnInit {
     this.isLoading$ = this.surveyState.isLoading$;
     this.totalSurvey$ = this.surveyState.totalSurvey$;
     this.surveys$ = this.surveyState.surveys$;
+    this.tableView$ = this.viewState.view$;
+    this.currentUser$ = this.authState.currentUser$;
+
     this.onSearch();
   }
 
@@ -43,6 +52,14 @@ export class ActionSurveyComponent implements OnInit {
     };
 
     viewState.searchParams = data;
+    viewState.sorting.column = 'IsSurveyed';
+    this.viewState.setViewState(viewState);
+    this.surveyState.search(viewState);
+  }
+
+  public paginate(paginator: Paginator) {
+    const viewState = this.viewState.getViewState();
+    viewState.paginator = paginator;
     this.viewState.setViewState(viewState);
     this.surveyState.search(viewState);
   }

@@ -7,13 +7,17 @@ import { SurveyComponent } from './survey.component';
 import { SurveyEditDialogComponent } from './components/survey-template-edit-dialog/survey-edit-dialog.component';
 import { ActionSurveyComponent } from './action-survey/action-survey.component';
 import { SubmitSurveyDialogComponent } from './submit-survey-dialog/submit-survey-dialog.component';
+import { SurveyResultComponent } from './survey-result/survey-result.component';
+import { SurveyResultViewDialogComponent } from './components/survey-result-view-dialog/survey-result-view-dialog.component';
 
 @NgModule({
   declarations: [
     SurveyComponent,
     SurveyEditDialogComponent,
     ActionSurveyComponent,
-    SubmitSurveyDialogComponent
+    SubmitSurveyDialogComponent,
+    SurveyResultComponent,
+    SurveyResultViewDialogComponent
   ],
   imports: [
     CommonModule,

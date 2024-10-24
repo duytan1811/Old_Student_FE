@@ -7,37 +7,60 @@ import { EndPointConstants } from 'src/app/shared/constants/end-point-constants'
 @Injectable({
   providedIn: 'root',
 })
-
 export class DropdownService {
-
-  constructor(private apiService: APIService) {
-  }
+  constructor(private apiService: APIService) {}
 
   getMajors() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Major}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Major}`
+    );
   }
 
   getUsers() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.User}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.User}`
+    );
   }
 
   getRoles() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Role}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Role}`
+    );
   }
 
   getNewsTypes() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.NewsType}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.NewsType}`
+    );
   }
 
   getEventTypes() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Events}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Events}`
+    );
   }
 
   getQuestions() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.Questions}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Questions}`
+    );
   }
 
   getSurveyTypes() {
-    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(`${EndPointConstants.Dropdown.SurveyType}`);
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.SurveyType}`
+    );
+  }
+
+  getStudent() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Student}`
+    );
+  }
+
+  getContributeTypes() {
+    return this.apiService.getData<BaseResponse<Array<SelectListItem>>>(
+      `${EndPointConstants.Dropdown.Contribute}`
+    );
   }
 }

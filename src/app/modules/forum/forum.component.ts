@@ -37,6 +37,6 @@ export class ForumComponent implements OnInit {
     } else if (tab === 'job') {
       this.titleTab = 'Việc làm';
     }
-    this.router.navigate([`/forums/${tab}`]);
+    this.router.navigate([`/forum/${tab}`]);
   }
 }

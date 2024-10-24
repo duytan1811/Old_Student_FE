@@ -16,18 +16,23 @@
                     </label>
                 </div>
             </div>
-            <div class="card-footer flex-wrap pt-0">
-                <button type="button" (click)="goSubmit(survey)" class="btn my-1 me-2"
-                    [class.btn-secondary]="survey.isSurveyed" [class.btn-primary]="!survey.isSurveyed"
-                    [disabled]="survey.isSurveyed">
-                    <span *ngIf="!survey.isSurveyed">Thực hiện</span>
-                    <span *ngIf="survey.isSurveyed">Đã thực hiện khảo sát</span>
-                </button>
-            </div>
+            <ng-container *ngIf="currentUser$ | async as user">
+                <div class="card-footer flex-wrap pt-0" *ngIf="!user.isAdmin && !user.isTeacher">
+                    <button type="button" (click)="goSubmit(survey)" class="btn my-1 me-2"
+                        [class.btn-secondary]="survey.isSurveyed || survey.isExpried" 
+                        [class.btn-primary]="!survey.isSurveyed" [disabled]="survey.isSurveyed || survey.isExpried">
+                        <span *ngIf="survey.isExpried && !survey.isSurveyed">Đã hết hạn</span>
+                        <span *ngIf="!survey.isSurveyed && !survey.isExpried">Thực hiện</span>
+                        <span *ngIf="survey.isSurveyed">Đã thực hiện khảo sát</span>
+                    </button>
+                </div>
+            </ng-container>
         </div>
     </div>
-
 </div>
+
+<app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+    [paginator]="(tableView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
 
 <ng-template #empty>
     <div class="col-md-12 h-100">

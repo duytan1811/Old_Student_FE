@@ -1,9 +1,9 @@
 [
   {
-    "key":"forum",
+    "key": "forum",
     "display": "Diễn đàn",
     "icon": "./assets/media/icons/duotune/communication/com001.svg",
-    "href": "/forums",
+    "href": "/forum",
     "items": null
   },
   {
@@ -12,12 +12,12 @@
     "href": "/news",
     "items": [
       {
-        "key":"news",
+        "key": "news",
         "display": "Tin tức",
         "href": "/news"
       },
       {
-        "key":"event",
+        "key": "event",
         "display": "Sự kiện",
         "href": "/events"
       }
@@ -29,7 +29,7 @@
     "href": "/",
     "items": [
       {
-        "key":"jobs",
+        "key": "job",
         "display": "Danh sách việc làm",
         "href": "/jobs"
       }
@@ -41,12 +41,12 @@
     "href": "/users",
     "items": [
       {
-        "key":"students",
+        "key": "student",
         "display": "Danh sách cựu sinh viên",
         "href": "/students"
       },
       {
-        "key":"users",
+        "key": "user",
         "display": "Danh sách thành viên",
         "href": "/users"
       }
@@ -58,58 +58,73 @@
     "href": "/statistics",
     "items": [
       {
-        "key":"statisticsMembers",
+        "key": "statisticsMember",
         "display": "Thành viên",
         "href": "/statistics/members"
       },
       {
-        "key":"statisticsEvents",
+        "key": "statisticsEvent",
         "display": "Sự kiện",
         "href": "/statistics/events"
       },
       {
-        "key":"statisticsTraffic",
+        "key": "statisticsTraffic",
         "display": "Tương tác",
         "href": "/statistics/news"
       }
     ]
   },
   {
-    "key":"surveyManager",
     "display": "Khảo sát",
     "icon": "./assets/media/icons/duotune/coding/cod001.svg",
     "href": "/survey",
     "items": [
       {
-        "key":"surveyActions",
+        "key": "surveyAction",
         "display": "Khảo sát",
         "href": "/surveys/actions"
       },
       {
-        "key":"questions",
+        "key": "question",
         "display": "Danh sách câu hỏi",
         "href": "/questions"
       },
       {
-        "key":"surveys",
+        "key": "survey",
         "display": "Phiếu khảo sát",
         "href": "/surveys"
       }
     ]
   },
   {
-    "key":"setting",
+    "display": "Quản lý danh dự & khen thưởng",
+    "icon": "./assets/media/icons/duotune/coding/cod001.svg",
+    "items": [
+      {
+        "key": "reward",
+        "display": "Quản lý khen thưởng",
+        "href": "/rewards"
+      },
+      {
+        "key": "contribute",
+        "display": "Quản lý đóng góp",
+        "href": "/contributes"
+      }
+    ]
+  },
+  {
+    "key": "setting",
     "display": "Cài đặt",
     "icon": "./assets/media/icons/duotune/coding/cod001.svg",
     "href": "/settings",
     "items": [
       {
-        "key":"major",
+        "key": "major",
         "display": "Nghề nghiệp",
         "href": "/settings/majors"
       },
       {
-        "key":"role",
+        "key": "role",
         "display": "Phân quyền",
         "href": "/roles"
       }

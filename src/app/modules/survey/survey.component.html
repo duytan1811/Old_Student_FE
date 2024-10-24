@@ -70,6 +70,11 @@
                   <app-status-badge [status]="survey.status" [statusName]="survey.statusName"></app-status-badge>
                 </td>
                 <td>
+                  <a [routerLink]="'/surveys/'+survey.id+'/results'" title="Xem khảo sát" *ngIf="checkPermission(claimValue.Edit)"
+                  class="btn btn-sm btn-light-success btn-icon me-2">
+                  <span class="svg-icon svg-icon-2"
+                    [inlineSVG]="'./assets/media/icons/duotune/graphs/gra005.svg'"></span>
+                </a>
                   <button (click)="goEdit(survey.id,false)" title="Cập nhật" *ngIf="checkPermission(claimValue.Edit)"
                     class="btn btn-sm btn-light-primary btn-icon me-2">
                     <span class="svg-icon svg-icon-2"

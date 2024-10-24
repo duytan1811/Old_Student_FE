@@ -45,6 +45,16 @@ export class DropdownState implements OnDestroy {
   public dropdownSurveyTypes$: Observable<Array<SelectListItem>> =
     this._dropdownSurveyTypesSubject.asObservable();
 
+  private _dropdownStudentsSubject: BehaviorSubject<Array<SelectListItem>> =
+    new BehaviorSubject(Array());
+  public dropdownStudents$: Observable<Array<SelectListItem>> =
+    this._dropdownStudentsSubject.asObservable();
+
+  private _dropdownContributeTypesSubject: BehaviorSubject<
+    Array<SelectListItem>
+  > = new BehaviorSubject(Array());
+  public dropdownContributeTypes$: Observable<Array<SelectListItem>> =
+    this._dropdownContributeTypesSubject.asObservable();
 
   getNewsTypes(): Array<SelectListItem> {
     return this._dropdownNewsTypesSubject.getValue();
@@ -102,7 +112,23 @@ export class DropdownState implements OnDestroy {
     this._dropdownSurveyTypesSubject.next(data);
   }
 
-  constructor(private dropdownService: DropdownService) { }
+  getStudents(): Array<SelectListItem> {
+    return this._dropdownStudentsSubject.getValue();
+  }
+
+  setStudents(data: Array<SelectListItem>) {
+    this._dropdownStudentsSubject.next(data);
+  }
+
+  getContributeTypes(): Array<SelectListItem> {
+    return this._dropdownContributeTypesSubject.getValue();
+  }
+
+  setContributeTypes(data: Array<SelectListItem>) {
+    this._dropdownContributeTypesSubject.next(data);
+  }
+
+  constructor(private dropdownService: DropdownService) {}
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -190,6 +216,32 @@ export class DropdownState implements OnDestroy {
     const sub = this.dropdownService.getSurveyTypes().subscribe({
       next: (res: BaseResponse<Array<SelectListItem>>) => {
         this.setSurveyTypes(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown survey types`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownStudents() {
+    const sub = this.dropdownService.getStudent().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setStudents(res.data);
+      },
+      error: (err) => {
+        console.log(`Error get dropdown survey types`, err);
+      },
+    });
+
+    this.unsubscribe.push(sub);
+  }
+
+  public getDropdownContributeTypes() {
+    const sub = this.dropdownService.getContributeTypes().subscribe({
+      next: (res: BaseResponse<Array<SelectListItem>>) => {
+        this.setContributeTypes(res.data);
       },
       error: (err) => {
         console.log(`Error get dropdown survey types`, err);

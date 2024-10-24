@@ -73,6 +73,20 @@ const Routing: Routes = [
       ),
   },
   {
+    path: EndPointConstants.Reward.Index,
+    loadChildren: () =>
+      import('../modules/reward/reward.module').then(
+        (m) => m.RewardModule
+      ),
+  },
+  {
+    path: EndPointConstants.Contribute.Index,
+    loadChildren: () =>
+      import('../modules/contribute/contribute.module').then(
+        (m) => m.ContributeModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'forums/news',
     pathMatch: 'full',

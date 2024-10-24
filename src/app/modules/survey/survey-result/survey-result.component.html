@@ -1,0 +1,70 @@
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">Danh sách kết quả khảo sát</h3>
+        <div class="card-toolbar">
+            <a [routerLink]="'/surveys'" class="btn btn-sm btn-danger me-2">
+                <span class="svg svg-icon" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"></span>
+                Quay lại
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive overflow-hidden">
+            <form [formGroup]="formSearch">
+                <table class="table table-row-bordered ">
+                    <thead>
+                        <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                            <th class="w-25px">#</th>
+                            <th>Họ tên</th>
+                            <th>Thời gian hoàn thành</th>
+                            <th class="w-175px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td colspan="2">
+                                <input formControlName="fullName" type="text" placeholder="Nhập tên..."
+                                    class="form-control form-control-sm form-control-solid" (change)="onSearch()">
+                            </td>
+                            <td>
+                                <input formControlName="date" type="date" placeholder=""
+                                    class="form-control form-control-sm form-control-solid" (change)="onSearch()">
+                            </td>
+                            <td>
+                                <button (click)="onSearch()" class="btn btn-sm btn-primary">
+                                    <span class="svg-icon svg-icon-2 align-middle"
+                                        [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"></span>
+                                    Tìm kiếm
+                                </button>
+                            </td>
+                        </tr>
+
+                        <ng-container *ngIf="(totalSurveyResult$ | async);else emptyTable">
+                            <tr *ngFor="let survey of surveyResults$| async;let i=index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ survey.fullName }}</td>
+                                <td>{{ survey.createdAt | date:'dd/MM/yyyy' }}</td>
+                                <td>
+                                    <a href="javascript:void(0)" (click)="goDetail(survey.createdById)"
+                                        class="text-decoration-underline">Xem kết quả</a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-template #emptyTable>
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+
+                </table>
+            </form>
+
+            <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+                [paginator]="(tableView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+        </div>
+    </div>
+</div>
