@@ -16,11 +16,11 @@
                     <span>Danh mục</span>
                 </label>
                 <div class="col-lg-10 fv-row">
-                    <mat-select #newsType class="form-control form-control-lg form-control-solid" placeholder="Danh mục"
+                    <select #newsType class="form-control form-control-lg form-control-solid" placeholder="Danh mục"
                         formControlName="type">
-                        <mat-option *ngFor="let item of dropdownNewsTypes$ | async" [value]="item.value">{{ item.text
-                            }}</mat-option>
-                    </mat-select>
+                        <option *ngFor="let item of dropdownNewsTypes$ | async" [value]="item.value">{{ item.text
+                            }}</option>
+                    </select>
                 </div>
             </div>
 
@@ -29,11 +29,11 @@
                     <span>Trạng thái</span>
                 </label>
                 <div class="col-lg-10 fv-row">
-                    <mat-select class="form-control form-control-lg form-control-solid" placeholder="Trạng thái"
+                    <select class="form-control form-control-lg form-control-solid" placeholder="Trạng thái"
                         formControlName="status">
-                        <mat-option *ngFor="let status of formStatuses" [value]="status.value">{{ status.text
-                            }}</mat-option>
-                    </mat-select>
+                        <option *ngFor="let status of formStatuses" [value]="status.value">{{ status.text
+                            }}</option>
+                    </select>
                 </div>
             </div>
 

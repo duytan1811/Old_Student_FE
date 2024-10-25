@@ -36,7 +36,7 @@ export class EventDetailDialogComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.maxHeight = '95vh';
     dialogConfig.data = { event: this.event };
     const dialogRef = this.dialog.open(EventRegisterDialogComponent, dialogConfig);

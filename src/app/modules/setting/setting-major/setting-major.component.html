@@ -28,11 +28,11 @@
                   class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                <select (change)="onSearch()" formControlName="status"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text
-                    }}</mat-option>
-                </mat-select>
+                  <option *ngFor="let status of statuses" [value]="status.value">{{ status.text
+                    }}</option>
+                </select>
               </td>
               <td>
                 <button (click)="onSearch()" class="btn btn-sm btn-primary">

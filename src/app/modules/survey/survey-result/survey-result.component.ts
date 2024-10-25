@@ -60,10 +60,9 @@ export class SurveyResultComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
-    dataSearch.startDate =
-      dataSearch.startDate !== '' ? dataSearch.startDate : null;
-    dataSearch.endDate = dataSearch.endDate !== '' ? dataSearch.endDate : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
+    dataSearch.date =
+      dataSearch.date !== '' ? dataSearch.date : null;
 
     viewState.searchParams = dataSearch;
     viewState.sorting.column = 'CreatedAt';

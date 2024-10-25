@@ -14,5 +14,14 @@ export class StudentModel extends BaseModel {
   yearOfGraduation?: number;
   currentCompany?: string = '';
   jobTitle?: string = '';
-  countArchievement:number=0;
+  countArchievement: number = 0;
+  countContribute: number = 0;
+  contributes: Array<StudentContributeModel> = [];
+}
+
+export class StudentContributeModel {
+  type: string = '';
+  typeName: string = '';
+  amount: number = 0;
+  detail: string = '';
 }

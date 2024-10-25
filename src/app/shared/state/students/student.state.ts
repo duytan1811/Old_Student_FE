@@ -4,7 +4,7 @@ import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { BaseTableResponse } from 'src/app/shared/models/base/base-table-response.model';
 import { BaseViewModel } from 'src/app/shared/models/base/base-view.model';
 import { ViewState } from '../base/view.state';
-import { StudentModel } from 'src/app/shared/models/students/student.model';
+import { StudentContributeModel, StudentModel } from 'src/app/shared/models/students/student.model';
 import { StudentService } from '../../services/student/student.service';
 
 @Injectable({
@@ -30,6 +30,9 @@ export class StudentState implements OnDestroy {
 
   private _isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject(Boolean());
   public isLoading$: Observable<boolean> = this._isLoadingSubject.asObservable();
+
+  private _contributesSubject: BehaviorSubject<Array<StudentContributeModel>> = new BehaviorSubject(Array());
+  public contributes$: Observable<Array<StudentContributeModel>> = this._contributesSubject.asObservable();
 
   getStudents(): Array<StudentModel> {
     return this._studentsSubject.getValue();
@@ -100,6 +103,27 @@ export class StudentState implements OnDestroy {
       const sub = this.studentService.findById(id).subscribe({
         next: (res: BaseResponse<StudentModel>) => {
           this.setStudent(res.data);
+        },
+        error: (err) => {
+          this.setIsLoading(false);
+          console.log(`Error get student`, err)
+        }
+      })
+
+      this.unsubscribe.push(sub);
+    } else {
+      this.setStudent(new StudentModel());
+    }
+    this.setIsLoading(false);
+  }
+
+  public getContributes(id: string) {
+    this.setIsLoading(true);
+
+    if (id) {
+      const sub = this.studentService.getContributes(id).subscribe({
+        next: (res: BaseResponse<Array<StudentContributeModel>>) => {
+         this._contributesSubject.next(res.data);
         },
         error: (err) => {
           this.setIsLoading(false);

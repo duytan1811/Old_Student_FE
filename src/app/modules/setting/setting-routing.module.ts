@@ -32,7 +32,7 @@ const routes: Routes = [
           action: ClaimValue.View,
         },
       },
-      { path: '', redirectTo: 'general', pathMatch: 'full' },
+      { path: '', redirectTo: '/roles', pathMatch: 'full' },
     ],
   },
 ];

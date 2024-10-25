@@ -47,11 +47,11 @@
                 <mat-checkbox color="primary" formControlName="isStudent" (change)="onSearch()"></mat-checkbox>
               </td>
               <td>
-                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                <select (change)="onSearch()" formControlName="status"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
-                    }}</mat-option>
-                </mat-select>
+                  <option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
+                    }}</option>
+                </select>
               </td>
               <td>
                 <button (click)="onSearch()" class="btn btn-sm btn-primary">

@@ -62,7 +62,7 @@ export class StudentComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     dataSearch.schoolYear = dataSearch.schoolYear !== '' ? dataSearch.schoolYear : null;
     dataSearch.yearOfGraduation = dataSearch.yearOfGraduation !== '' ? dataSearch.yearOfGraduation : null;
     viewState.searchParams = dataSearch;

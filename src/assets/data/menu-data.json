@@ -26,7 +26,7 @@
   {
     "display": "Quản lý việc làm",
     "icon": "./assets/media/icons/duotune/communication/com004.svg",
-    "href": "/",
+    "href": "/jobs",
     "items": [
       {
         "key": "job",
@@ -38,7 +38,7 @@
   {
     "display": "Quản lý thành viên",
     "icon": "./assets/media/icons/duotune/communication/com014.svg",
-    "href": "/users",
+    "href": "/students",
     "items": [
       {
         "key": "student",
@@ -55,7 +55,7 @@
   {
     "display": "Thống kê & báo cáo",
     "icon": "./assets/media/icons/duotune/graphs/gra001.svg",
-    "href": "/statistics",
+    "href": "/statistics/members",
     "items": [
       {
         "key": "statisticsMember",
@@ -75,9 +75,26 @@
     ]
   },
   {
+    "display": "Quản lý khen thưởng & đóng góp",
+    "icon": "./assets/media/icons/duotune/general/gen020.svg",
+    "href": "/rewards",
+    "items": [
+      {
+        "key": "reward",
+        "display": "Quản lý khen thưởng",
+        "href": "/rewards"
+      },
+      {
+        "key": "contribute",
+        "display": "Quản lý đóng góp",
+        "href": "/contributes"
+      }
+    ]
+  },
+  {
     "display": "Khảo sát",
-    "icon": "./assets/media/icons/duotune/coding/cod001.svg",
-    "href": "/survey",
+    "icon": "./assets/media/icons/duotune/general/gen005.svg",
+    "href": "/surveys/actions",
     "items": [
       {
         "key": "surveyAction",
@@ -97,26 +114,10 @@
     ]
   },
   {
-    "display": "Quản lý danh dự & khen thưởng",
-    "icon": "./assets/media/icons/duotune/coding/cod001.svg",
-    "items": [
-      {
-        "key": "reward",
-        "display": "Quản lý khen thưởng",
-        "href": "/rewards"
-      },
-      {
-        "key": "contribute",
-        "display": "Quản lý đóng góp",
-        "href": "/contributes"
-      }
-    ]
-  },
-  {
     "key": "setting",
     "display": "Cài đặt",
     "icon": "./assets/media/icons/duotune/coding/cod001.svg",
-    "href": "/settings",
+    "href": "/roles",
     "items": [
       {
         "key": "major",

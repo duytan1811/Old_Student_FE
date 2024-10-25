@@ -1,1 +1,76 @@
-<p>reward works!</p>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3 class="card-title">Danh sách khen thưởng</h3>
+        <div class="card-toolbar">
+            <small class="text-primary">Để được khen thưởng phải đạt 1 trong những chỉ tiêu sau: <br>
+                Số lượng thành thành tích >= 3 hoặc số lượt đóng góp >= 10 <br> hoặc có tổng số lượt thành tích và đóng
+                góp >=10
+            </small>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive overflow-hidden">
+            <table class="table table-row-bordered ">
+                <thead>
+                    <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                        <th class="w-50px">Ảnh</th>
+                        <th>Tên</th>
+                        <th>Sô thành tích</th>
+                        <th>Số đóng góp</th>
+                        <th>Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="students$ | async as students;else emptyTable">
+                        <ng-container *ngIf="(totalStudent$ | async);else emptyTable">
+                            <tr *ngFor="let student of students" style="vertical-align: middle;">
+                                <td>
+                                    <div class="symbol symbol-50px symbol-circle">
+                                        <img src="../../../assets/media/avatars/blank.png" alt="" />
+                                    </div>
+                                </td>
+                                <td>{{ student.fullName }}</td>
+                                <td>
+                                    <span class="badge badge-primary me-4">
+                                        Số lượng: {{ student.countArchievement }}
+                                    </span>
+                                    <a href="javascript:void(0)"
+                                        (click)="goAchievementDetail(student.id,student.fullName)">
+                                        <small style="font-style: italic;">Chi tiết</small>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary me-4">
+                                        Số lượng: {{ student.countContribute }}
+                                    </span>
+                                    <a href="javascript:void(0)"
+                                        (click)="goContributeDetail(student.id,student.fullName)">
+                                        <small style="font-style: italic;">Chi tiết</small>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary" *ngIf="(student.countArchievement >=3 || student.countContribute >=10
+                                    || (student.countArchievement + student.countContribute) >= 10);else notReward">
+                                        Được khen thưởng</span>
+                                    <ng-template #notReward>
+                                        <span class="badge badge-danger">Chưa được khen
+                                            thưởng</span>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #emptyTable>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+            <app-paginator class="d-flex justify-content-between align-items-center flex-wrap"
+                [paginator]="(userView$ | async)?.paginator" (paginate)="paginate($event)"></app-paginator>
+        </div>
+    </div>
+</div>

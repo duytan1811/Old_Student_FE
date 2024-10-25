@@ -12,6 +12,7 @@ import { ContributeModel } from 'src/app/shared/models/contributes/contribute.mo
 import * as state from 'src/app/shared/state';
 import { ContributeSaveDialogComponent } from './components/contribute-save-dialog/contribute-save-dialog.component';
 import { ConfirmDeleteModalComponent } from 'src/app/shared/components/confirm-delete-modal/confirm-delete-modal.component';
+import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
 
 @Component({
   selector: 'app-contribute',
@@ -27,6 +28,7 @@ export class ContributeComponent implements OnInit {
   public statusEnum = StatusEnum;
   public statuses = CommonConstants.SearchStatus;
   public claimValue = ClaimValue;
+  public drpContributeTypes$: Observable<Array<SelectListItem>>;
 
   constructor(
     private fb: FormBuilder,
@@ -36,8 +38,9 @@ export class ContributeComponent implements OnInit {
     private dialog: MatDialog,
     private pageInfo: PageInfoService,
     private title: Title,
-    private authState: state.AuthState
-  ) {}
+    private authState: state.AuthState,
+    private drpState: state.DropdownState,
+  ) { }
 
   ngOnInit(): void {
     this.pageInfo.updateTitle('Quản lý đóng góp');
@@ -46,6 +49,9 @@ export class ContributeComponent implements OnInit {
     this.totalContribute$ = this.contributeState.totalContribute$;
     this.contributes$ = this.contributeState.contributes$;
     this.tableView$ = this.viewState.view$;
+    this.drpContributeTypes$ = this.drpState.dropdownContributeTypes$;
+
+    this.drpState.getDropdownContributeTypes();
 
     this.initFormSearch();
   }
@@ -53,16 +59,16 @@ export class ContributeComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
+    dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
+    dataSearch.amount = dataSearch.amount !== '' ? parseFloat(dataSearch.amount) : null;
     viewState.searchParams = dataSearch;
-    this.viewState.setViewState(viewState);
     this.contributeState.search(viewState);
   }
 
   public paginate(paginator: Paginator) {
     const viewState = this.viewState.getViewState();
     viewState.paginator = paginator;
-    this.viewState.setViewState(viewState);
     this.contributeState.search(viewState);
   }
 
@@ -70,7 +76,7 @@ export class ContributeComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       id,
       isCreate,
@@ -79,7 +85,7 @@ export class ContributeComponent implements OnInit {
       ContributeSaveDialogComponent,
       dialogConfig
     );
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   public goDelete(data: ContributeModel): void {

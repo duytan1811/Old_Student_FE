@@ -3,47 +3,53 @@
     <span *ngIf="eventId != null">Cập nhật</span> sự kiện
 </h2>
 <div class="separator my-5"></div>
-<form [formGroup]="formGroup" [appConnectForm]="event$ | async ">
-    <div class="pl-0" mat-dialog-content>
-        <div class="mb-5">
-            <label class="required form-label">Phân loại</label>
-            <mat-select formControlName="type" class="form-control form-control-solid">
-                <mat-option *ngFor="let option of dropdownEventTypes$ | async" [value]="option.value">
-                    {{ option.text }}
-                </mat-option>
-            </mat-select>
-        </div>
-
-        <div class="mb-5">
-            <label class="required">Tiêu đề</label>
-            <input type="text" formControlName="title" class="form-control form-control-solid">
-        </div>
-
-        <div class="mb-5 row">
-            <div class="col-6">
-                <label class="required">Thời gian bắt đầu</label>
-                <input type="datetime-local" formControlName="startDateFormat"
-                    class="form-control form-control-solid" />
+<ng-container *ngIf="event$ | async as event">
+    <form [formGroup]="formGroup" [appConnectForm]="event">
+        <div class="pl-0" mat-dialog-content>
+            <div class="mb-5">
+                <label class="required form-label">Phân loại</label>
+                <ng-container *ngIf="dropdownEventTypes$ | async as dropdownEventTypes">
+                    <select formControlName="type" class="form-control form-control-solid">
+                        <option [attr.selected]="event?.type?.toString() == option.value" *ngFor="let option of dropdownEventTypes" [value]="option.value">
+                            {{ option.text }}
+                        </option>
+                    </select>
+                </ng-container>
             </div>
-            <div class="col-6">
-                <label class="required">Thời gian kết thúc</label>
-                <input type="datetime-local" formControlName="endDateFormat" class="form-control form-control-solid" />
+
+            <div class="mb-5">
+                <label class="required">Tiêu đề</label>
+                <input type="text" formControlName="title" class="form-control form-control-solid">
+            </div>
+
+            <div class="mb-5 row">
+                <div class="col-6">
+                    <label class="required">Thời gian bắt đầu</label>
+                    <input type="datetime-local" formControlName="startDateFormat"
+                        class="form-control form-control-solid" />
+                </div>
+                <div class="col-6">
+                    <label class="required">Thời gian kết thúc</label>
+                    <input type="datetime-local" formControlName="endDateFormat"
+                        class="form-control form-control-solid" />
+                </div>
+            </div>
+            <div class="mb-5">
+                <label class="required">Địa chỉ</label>
+                <input type="text" formControlName="address" class="form-control form-control-solid">
+            </div>
+
+            <div class="mb-5">
+                <label class="">Nội dung</label>
+                <ckeditor [editor]="ckEditor" formControlName="content"></ckeditor>
             </div>
         </div>
-        <div class="mb-5">
-            <label class="required">Địa chỉ</label>
-            <input type="text" formControlName="address" class="form-control form-control-solid">
-        </div>
 
-        <div class="mb-5">
-            <label class="">Nội dung</label>
-            <ckeditor [editor]="ckEditor" formControlName="content"></ckeditor>
+        <div class="float-end" mat-dialog-actions>
+            <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+            <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid" [mat-dialog-close]
+                (click)="onSave()">Xác
+                nhận</button>
         </div>
-    </div>
-
-    <div class="float-end" mat-dialog-actions>
-        <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
-        <button class="btn btn-sm btn-primary" [disabled]="formGroup.invalid" [mat-dialog-close] (click)="onSave()">Xác
-            nhận</button>
-    </div>
-</form>
+    </form>
+</ng-container>

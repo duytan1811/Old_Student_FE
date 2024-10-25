@@ -56,7 +56,7 @@ export class SettingMajorComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.majorState.search(viewState);
@@ -73,7 +73,7 @@ export class SettingMajorComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       id,
       isCreate,

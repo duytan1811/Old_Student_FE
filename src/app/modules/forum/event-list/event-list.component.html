@@ -1,11 +1,11 @@
 <div class="d-flex align-items-center">
     <div class="flex-column-1" style=" width: 10%;">Phân loại</div>
     <div class="flex-column-1 w-100">
-        <mat-select value="" (selectionChange)="onSearchByType($event)" class="form-control form-control-solid">
-            <mat-option value="">Tất cả</mat-option>
-            <mat-option *ngFor="let option of dropdownEventType$ | async" [value]="option.value">{{ option.text
-                }}</mat-option>
-        </mat-select>
+        <select value="" (change)="onSearchByType($event)" class="form-control form-control-solid">
+            <option value="">Tất cả</option>
+            <option *ngFor="let option of dropdownEventType$ | async" [value]="option.value">{{ option.text
+                }}</option>
+        </select>
     </div>
 </div>
 <div class="separator mb-3 mt-3"></div>

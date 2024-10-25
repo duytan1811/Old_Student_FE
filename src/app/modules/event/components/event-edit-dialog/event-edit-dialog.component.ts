@@ -33,10 +33,10 @@ export class EventEditDialogComponent implements OnInit {
   ngOnInit(): void {
     this.eventId = this.data.eventId;
     this.event$ = this.eventState.event$;
-    this.eventState.findById(this.eventId);
     this.dropdownEventTypes$ = this.dropdownState.dropdownEventTypes$;
     this.dropdownState.getDropdownEventTypes();
     this.initFormGroup();
+    this.eventState.findById(this.eventId);
   }
 
   public async onSave() {

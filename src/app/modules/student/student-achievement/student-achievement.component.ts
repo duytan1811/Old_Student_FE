@@ -30,12 +30,14 @@ export class StudentAchievementComponent implements OnInit {
   ngOnInit(): void {
     this.studentAchievements$ =
       this.studentAchievementState.studentAchievements$;
-    this.activeRouter.params.subscribe(res => {
-      if (res && res.id) {
-        this.id = res.id;
-        this.onSearch()
-      }
-    })
+    setTimeout(() => {
+      this.activeRouter.params.subscribe(res => {
+        if (res && res.id) {
+          this.id = res.id;
+          this.onSearch()
+        }
+      })
+    }, 50);
   }
 
   public onSearch() {
@@ -44,6 +46,7 @@ export class StudentAchievementComponent implements OnInit {
       studentId: this.id
     };
     viewState.searchParams = dataSearch;
+    viewState.paginator.pageSize = 9999999;
     this.viewState.setViewState(viewState);
     this.studentAchievementState.search(viewState);
   }
@@ -52,7 +55,7 @@ export class StudentAchievementComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       studentId: this.student.id,
       id: id,

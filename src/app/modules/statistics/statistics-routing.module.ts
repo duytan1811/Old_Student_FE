@@ -20,7 +20,8 @@ const routes: Routes = [{
     {
       path:'news',
       component:StatisticsNewsComponent
-    }
+    },
+    { path: '', redirectTo: 'members', pathMatch: 'full' },
   ]
 }];
 

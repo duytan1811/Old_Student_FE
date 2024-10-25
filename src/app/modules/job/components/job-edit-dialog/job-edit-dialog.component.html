@@ -24,17 +24,17 @@
                 </div>
                 <div class="col-3">
                     <label for="status" class="form-label required">Ngành nghề</label>
-                    <mat-select formControlName="majorId" class="form-control form-control-solid">
-                        <mat-option *ngFor="let option of majorDropdown$ | async" [value]="option.value">{{ option.text
-                            }}</mat-option>
-                    </mat-select>
+                    <select formControlName="majorId" class="form-control form-control-solid">
+                        <option *ngFor="let option of majorDropdown$ | async" [value]="option.value">{{ option.text
+                            }}</option>
+                    </select>
                 </div>
                 <div class="col-3">
                     <label for="status" class="form-label required">Hình thức</label>
-                    <mat-select formControlName="workType" class="form-control form-control-solid">
-                        <mat-option *ngFor="let option of workTypes" [value]="option.value">{{ option.text
-                            }}</mat-option>
-                    </mat-select>
+                    <select formControlName="workType" class="form-control form-control-solid">
+                        <option *ngFor="let option of workTypes" [value]="option.value">{{ option.text
+                            }}</option>
+                    </select>
                 </div>
             </div>
 
@@ -84,9 +84,9 @@
 
             <div class="mb-5" *ngIf="jobId != null">
                 <label for="status" class="form-label">Trạng thái</label>
-                <mat-select formControlName="status" class="form-control form-control-solid">
-                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</mat-option>
-                </mat-select>
+                <select formControlName="status" class="form-control form-control-solid">
+                    <option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</option>
+                </select>
             </div>
 
         </div>

@@ -11,39 +11,46 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="table-responsive overflow-hidden">
+        <div class="table-responsive">
             <form [formGroup]="formSearch">
                 <table class="table table-row-bordered ">
                     <thead>
                         <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
                             <th class="w-25px">#</th>
-                            <th>HỌ tên</th>
-                            <th>Phân loại</th>
+                            <th>Họ tên</th>
+                            <th class="w-225px">Phân loại</th>
                             <th>Số tiền</th>
-                            <th>Trạng thái</th>
+                            <th class="w-175px">Trạng thái</th>
                             <th class="w-150px"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="2">
-                                <input formControlName="name" type="text" placeholder="Nhập tên..."
-                                    class="form-control form-control-sm form-control-solid">
-                            </td>
-                            <td >
-                                <input formControlName="type" type="text" placeholder="Nhập tên..."
-                                    class="form-control form-control-sm form-control-solid">
-                            </td>
-                            <td >
-                                <input formControlName="amount" type="text" placeholder="Nhập tên..."
+                                <input formControlName="fullName" type="text" placeholder="Nhập tên..."
                                     class="form-control form-control-sm form-control-solid">
                             </td>
                             <td>
-                                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                                <select (change)="onSearch()" formControlName="type"
                                     class="form-control form-control-sm form-control-solid">
-                                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text
-                                        }}</mat-option>
-                                </mat-select>
+                                    <option value="">Tất cả</option>
+                                    <option *ngFor="let option of drpContributeTypes$ | async"
+                                        [value]="option.value">
+                                        {{ option.text
+                                        }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input formControlName="amount" type="number" (change)="onSearch()"
+                                    placeholder="Nhập số tiền <=..."
+                                    class="form-control form-control-sm form-control-solid">
+                            </td>
+                            <td>
+                                <select (change)="onSearch()" formControlName="status"
+                                    class="form-control form-control-sm form-control-solid">
+                                    <option *ngFor="let status of statuses" [value]="status.value">{{ status.text
+                                        }}</option>
+                                </select>
                             </td>
                             <td>
                                 <button (click)="onSearch()" class="btn btn-sm btn-primary">
@@ -60,8 +67,11 @@
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ contribute.fullName }}</td>
                                     <td>{{ contribute.typeName }}</td>
-                                    <td>{{ contribute.amount }}</td>
-                                    <td class="text-center">
+                                    <td class="text-end">
+                                        <span *ngIf="contribute.amount">{{ contribute.amount|number:'1.0' }} ₫</span>
+                                        <span *ngIf="!contribute.amount"> -- </span>
+                                    </td>
+                                    <td class="text-center w-175px">
                                         <app-status-badge [status]="contribute.status"
                                             [statusName]="contribute.statusName"></app-status-badge>
                                     </td>

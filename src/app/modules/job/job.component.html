@@ -32,12 +32,12 @@
                   class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <mat-select (selectionChange)="onSearch()" formControlName="majorId"
+                <select (change)="onSearch()" formControlName="majorId"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option value="">Tất cả</mat-option>
-                  <mat-option *ngFor="let item of dropdownMajors$ | async" [value]="item.value">{{ item.text
-                    }}</mat-option>
-                </mat-select>
+                  <option value="">Tất cả</option>
+                  <option *ngFor="let item of dropdownMajors$ | async" [value]="item.value">{{ item.text
+                    }}</option>
+                </select>
               </td>
               <td>
                 <input formControlName="fileName" type="text" (change)="onSearch()" placeholder="Nhập tên CV..."
@@ -48,11 +48,11 @@
                   placeholder="Số lượng ứng tuyển..." class="form-control form-control-sm form-control-solid">
               </td>
               <td>
-                <mat-select (selectionChange)="onSearch()" formControlName="status"
+                <select (change)="onSearch()" formControlName="status"
                   class="form-control form-control-sm form-control-solid">
-                  <mat-option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
-                    }}</mat-option>
-                </mat-select>
+                  <option *ngFor="let status of searchStatuses" [value]="status.value">{{ status.text
+                    }}</option>
+                </select>
               </td>
               <td>
                 <button (click)="onSearch()" class="btn btn-sm btn-primary">

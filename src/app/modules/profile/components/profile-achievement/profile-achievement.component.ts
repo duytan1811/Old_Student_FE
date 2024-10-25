@@ -41,7 +41,7 @@ export class ProfileAchievementComponent implements OnInit {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
-      dialogConfig.width = '40%';
+      dialogConfig.width = '60%';
       dialogConfig.data = {
         studentId: this.studentId,
         id: id,

@@ -22,11 +22,11 @@
         <form [formGroup]="formGroup">
             <div class="d-flex row mt-4 mb-4">
                 <div class="col-md-12">
-                    <mat-select #newsType class="form-control form-control-solid" placeholder="Chọn loại tin"
+                    <select #newsType class="form-control form-control-solid" placeholder="Chọn loại tin"
                         formControlName="type">
-                        <mat-option *ngFor="let option of dropdownNewsTypes$ | async" [value]="option.value">{{
-                            option.text }}</mat-option>
-                    </mat-select>
+                        <option *ngFor="let option of dropdownNewsTypes$ | async" [value]="option.value">{{
+                            option.text }}</option>
+                    </select>
                 </div>
             </div>
            

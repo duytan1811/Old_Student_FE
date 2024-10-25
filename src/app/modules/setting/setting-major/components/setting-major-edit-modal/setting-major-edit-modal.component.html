@@ -12,9 +12,9 @@
 
     <div class="mb-5" *ngIf="!isCreate">
       <label for="status" class="form-label">Trạng thái</label>
-      <mat-select formControlName="status" class="form-control form-control-solid">
-        <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</mat-option>
-      </mat-select>
+      <select formControlName="status" class="form-control form-control-solid">
+        <option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</option>
+      </select>
     </div>
 
   </div>

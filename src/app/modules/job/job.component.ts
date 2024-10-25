@@ -59,7 +59,7 @@ export class JobComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     dataSearch.majorId = dataSearch.majorId !== '' ? parseInt(dataSearch.majorId) : null;
     dataSearch.countApply = dataSearch.countApply !== '' ? parseInt(dataSearch.countApply) : null;
    

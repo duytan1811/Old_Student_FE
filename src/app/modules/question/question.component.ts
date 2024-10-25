@@ -53,7 +53,7 @@ export class QuestionComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.surveyTemplateState.search(viewState);
@@ -70,7 +70,7 @@ export class QuestionComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       id,
       isCreate,

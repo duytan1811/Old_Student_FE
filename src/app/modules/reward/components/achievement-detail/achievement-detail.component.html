@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+    <span>Danh sách thành tích của {{ studentName }}</span>
+</h2>
+<div class="separator my-5"></div>
+<div class="pl-0" mat-dialog-content>
+    <div class="table-responsive">
+        <table class="table table-row-bordered ">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th>#</th>
+                    <th>Tên</th>
+                    <th>Thời gian từ</th>
+                    <th>Thời gian đến</th>
+                    <th>Nội dung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="studentAchievements$ | async as studentAchievements;else emptyTable">
+                    <ng-container *ngIf="(totalStudentAchievement$ | async);else emptyTable">
+                        <tr *ngFor="let item of studentAchievements" style="vertical-align: middle;">
+                            <td>{{ item.index }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>
+                                {{ item.fromDate | date :'dd/MM/yyyy'}}
+                            </td>
+                            <td>
+                                {{ item.toDate | date:'dd/MM/yyyy'}}
+                            </td>
+                            <td>{{ item.description || '--' }}</td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <ng-template #emptyTable>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="float-end" mat-dialog-actions>
+    <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+</div>

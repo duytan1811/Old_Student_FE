@@ -24,9 +24,9 @@
 
             <div class="mb-5" *ngIf="!isCreate">
                 <label for="status" class="form-label">Trạng thái</label>
-                <mat-select formControlName="status" class="form-control form-control-solid">
-                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</mat-option>
-                </mat-select>
+                <select formControlName="status" class="form-control form-control-solid">
+                    <option *ngFor="let status of statuses" [value]="status.value">{{ status.text }}</option>
+                </select>
             </div>
 
             <div class="mb-5">
@@ -35,10 +35,10 @@
     
             <div class="mb-5 d-flex align-items-center" *ngFor="let item of questionsSelected;let i =index">
                 <label class="me-5">{{ i + 1}}</label>
-                <mat-select [(value)]="item.value" (focus)="onFocusQuestions(i)" (selectionChange)="onChangeDropdownList(i,$event)" class="form-control form-control-solid">
-                    <mat-option *ngFor="let option of item.dropdownList"  [value]="option.value">{{ option.text
-                        }}</mat-option>
-                </mat-select>
+                <select [(value)]="item.value" (focus)="onFocusQuestions(i)" (change)="onChangeDropdownList(i,$event)" class="form-control form-control-solid">
+                    <option *ngFor="let option of item.dropdownList" [value]="option.value">{{ option.text
+                        }}</option>
+                </select>
                 <button title="Xóa" (click)="onRemoveQuestion(i)" class="btn btn-sm btn-danger btn-icon mx-5">
                     <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>

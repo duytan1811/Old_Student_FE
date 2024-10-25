@@ -41,10 +41,10 @@
 
     <div class="mb-5">
       <label for="status" class="form-label">Trạng thái</label>
-      <mat-select formControlName="status" class="form-control form-control-sm form-control-solid">
-        <mat-option *ngFor="let item of formStatuses" [value]="item.value">{{ item.text
-          }}</mat-option>
-      </mat-select>
+      <select formControlName="status" class="form-control form-control-sm form-control-solid">
+        <option *ngFor="let item of formStatuses" [value]="item.value">{{ item.text
+          }}</option>
+      </select>
     </div>
   </div>
 

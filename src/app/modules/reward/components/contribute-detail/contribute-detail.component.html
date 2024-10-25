@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>
+    <span>Danh sách đóng góp {{ studentName }}</span>
+</h2>
+<div class="separator my-5"></div>
+<div class="pl-0" mat-dialog-content>
+    <div class="table-responsive">
+        <table class="table table-row-bordered ">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th class="w-15px">#</th>
+                    <th class="w-200px">Phân loại</th>
+                    <th class="w-150px">Số tiền</th>
+                    <th>Nội dung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="studentContributes$ | async as studentContributes">
+                    <tr *ngFor="let item of studentContributes;let i =index" style="vertical-align: middle;">
+                        <td>{{ i +1 }}</td>
+                        <td>{{ item.typeName }}</td>
+                        <td>
+                            <span class="badge badge-primary" *ngIf="item.amount">{{ item.amount }} ₫</span>
+                            <span *ngIf="!item.amount"> -- </span>
+                        </td>
+                        <td>
+                            {{ item.detail || '--'}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="studentContributes.length ==0">
+                        <td colspan="4" class="text-center">
+                            <span>Không tìm thấy dữ liệu theo yêu cầu</span>
+                        </td>
+                    </tr>
+                </ng-container>
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="float-end" mat-dialog-actions>
+    <button class="btn btn-sm btn-danger me-2" [mat-dialog-close]="false">Hủy bỏ</button>
+</div>

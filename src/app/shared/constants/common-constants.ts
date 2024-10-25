@@ -11,14 +11,12 @@ export class CommonConstants {
     { value: '', text: 'Chọn trạng thái' },
     { value: StatusEnum.Active, text: 'Hoạt động' },
     { value: StatusEnum.Inactive, text: 'Không hoạt động' },
-    { value: StatusEnum.WaitingApproval, text: 'Chờ xác nhận' },
   ];
 
   public static readonly SearchStatus = [
     { value: '', text: 'Tất cả' },
     { value: StatusEnum.Active, text: 'Hoạt động' },
     { value: StatusEnum.Inactive, text: 'Không hoạt động' },
-    { value: StatusEnum.WaitingApproval, text: 'Chờ xác nhận' },
   ];
 
   public static readonly WorkType = [

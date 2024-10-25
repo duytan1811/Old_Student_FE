@@ -3,7 +3,7 @@ import { BaseResponse } from 'src/app/shared/models/base/base-response.model';
 import { APIService } from '../api.service';
 import { BaseTableResponse } from 'src/app/shared/models/base/base-table-response.model';
 import { EndPointConstants } from 'src/app/shared/constants/end-point-constants';
-import { StudentModel } from '../../models/students/student.model';
+import { StudentContributeModel, StudentModel } from '../../models/students/student.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,10 @@ export class StudentService {
 
   findById(id: string) {
     return this.apiService.getData<BaseResponse<StudentModel>>(`${EndPointConstants.Student.Index}/${id}`);
+  }
+
+  getContributes(id: string) {
+    return this.apiService.getData<BaseResponse<Array<StudentContributeModel>>>(`${EndPointConstants.Student.Index}/${id}/contributes`);
   }
 
   save(obj: StudentModel) {

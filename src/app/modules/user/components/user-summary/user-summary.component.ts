@@ -43,12 +43,13 @@ export class UserSummaryComponent implements OnInit {
     this.userView$ = this.viewState.view$;
 
     this.initFormGroupSearch();
+    this.onSearch();
   }
 
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     viewState.searchParams = dataSearch;
     this.viewState.setViewState(viewState);
     this.userState.search(viewState);
@@ -65,7 +66,7 @@ export class UserSummaryComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       id,
       isCreate,

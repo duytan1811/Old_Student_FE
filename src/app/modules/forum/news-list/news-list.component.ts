@@ -72,7 +72,7 @@ export class NewsListComponent implements OnInit {
   public onSeachByType(event: any) {
     const viewState = this.viewState.getViewState();
     const data = this.formSearch.getRawValue();
-    data.type = event?.value !== '' ? parseInt(event?.value) : null;
+    data.type = event.target?.value !== '' ? parseInt(event.target?.value) : null;
     viewState.searchParams = data;
     this.viewState.setViewState(viewState);
     this.forumState.search(viewState);
@@ -107,7 +107,7 @@ export class NewsListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.data = { newsId };
     const dialogRef = this.dialog.open(EditNewsDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {

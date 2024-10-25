@@ -60,7 +60,7 @@ export class EventListComponent implements OnInit {
     const viewState = this.viewState.getViewState();
     viewState.searchParams = {
       status: StatusEnum.Active,
-      type: event.value !== '' ? parseInt(event?.value) : null,
+      type: event.target?.value !== '' ? parseInt(event.target?.value) : null,
     };
     this.viewState.setViewState(viewState);
     this.eventState.search(viewState);

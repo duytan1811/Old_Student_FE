@@ -47,7 +47,11 @@ export class ContributeSaveDialogComponent implements OnInit {
   }
 
   public async onSave() {
+    if(this.formGroup.invalid) return;
     const data = this.formGroup.getRawValue();
+    data.type = parseInt(data.type);
+    data.amount = data.amount !== '' ? parseFloat(data.amount): null;
+
     let res;
     if (!this.isCreate) {
       res = await this.contributeState.update(this.id, data);

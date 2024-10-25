@@ -40,8 +40,8 @@ export class SurveyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pageInfo.updateTitle('Mẫu khảo sát');
-    this.title.setTitle('Mẫu khảo sát');
+    this.pageInfo.updateTitle('Phiếu khảo sát');
+    this.title.setTitle('Phiếu khảo sát');
     this.isLoading$ = this.surveyState.isLoading$;
     this.totalSurvey$ = this.surveyState.totalSurvey$;
     this.surveys$ = this.surveyState.surveys$;
@@ -53,7 +53,7 @@ export class SurveyComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     dataSearch.startDate = dataSearch.startDate !== '' ? dataSearch.startDate : null;
     dataSearch.endDate = dataSearch.endDate !== '' ? dataSearch.endDate : null;
 

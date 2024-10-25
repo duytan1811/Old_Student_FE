@@ -102,7 +102,7 @@ export class SurveyEditDialogComponent implements OnInit {
   public onChangeDropdownList(index: number, event: any) {
     let data = this.questionsSelected.find((x: any) => x.index == index);
     if (data) {
-      data.value = event.value;
+      data.value = event.target?.value;
     }
   }
 

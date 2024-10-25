@@ -63,7 +63,7 @@ export class NewsComponent implements OnInit {
   public onSearch() {
     const viewState = this.viewState.getViewState();
     const dataSearch = this.formGroupSearch.getRawValue();
-    dataSearch.status = dataSearch.status !== '' ? dataSearch.status : null;
+    dataSearch.status = dataSearch.status !== '' ? parseInt(dataSearch.status) : null;
     dataSearch.type = dataSearch.type !== '' ? parseInt(dataSearch.type) : null;
     dataSearch.countLike =
       dataSearch.countLike !== '' ? parseInt(dataSearch.countLike) : null;

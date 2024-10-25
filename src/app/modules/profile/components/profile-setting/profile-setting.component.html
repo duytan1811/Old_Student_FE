@@ -65,11 +65,11 @@
                 <span>Nghề nghiệp</span>
             </label>
             <div class="col-lg-8 fv-row">
-                <mat-select formControlName="majorId" class="form-control form-control-lg form-control-solid"
+                <select formControlName="majorId" class="form-control form-control-lg form-control-solid"
                     placeholder="Chọn nghề nghiệp">
-                    <mat-option *ngFor="let item of majorDropdownList$ | async" [value]="item.value"> {{
-                        item.text}}</mat-option>
-                </mat-select>
+                    <option *ngFor="let item of majorDropdownList$ | async" [value]="item.value"> {{
+                        item.text}}</option>
+                </select>
             </div>
         </div>
 

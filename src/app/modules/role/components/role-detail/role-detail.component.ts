@@ -68,7 +68,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       id,
       isCreate,
@@ -83,7 +83,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.data = {
       roleId,
     };
