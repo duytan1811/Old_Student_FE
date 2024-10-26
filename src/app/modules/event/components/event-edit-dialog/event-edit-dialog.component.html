@@ -8,13 +8,12 @@
         <div class="pl-0" mat-dialog-content>
             <div class="mb-5">
                 <label class="required form-label">Phân loại</label>
-                <ng-container *ngIf="dropdownEventTypes$ | async as dropdownEventTypes">
-                    <select formControlName="type" class="form-control form-control-solid">
-                        <option [attr.selected]="event?.type?.toString() == option.value" *ngFor="let option of dropdownEventTypes" [value]="option.value">
-                            {{ option.text }}
-                        </option>
-                    </select>
-                </ng-container>
+                <select formControlName="type" class="form-control form-control-solid">
+                    <option disabled hidden value="null">Chọn phân loại</option>
+                    <option *ngFor="let option of dropdownEventTypes$ | async" [value]="option.value">
+                        {{ option.text }}
+                    </option>
+                </select>
             </div>
 
             <div class="mb-5">

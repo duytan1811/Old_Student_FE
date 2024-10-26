@@ -65,6 +65,7 @@ export class EventComponent implements OnInit {
     dataSearch.endDate = dataSearch.endDate !== '' ? dataSearch.endDate : null;
 
     viewState.searchParams = dataSearch;
+    viewState.sorting.column="CreatedAt";
     this.viewState.setViewState(viewState);
     this.eventState.search(viewState);
   }

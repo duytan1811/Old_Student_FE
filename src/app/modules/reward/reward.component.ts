@@ -40,6 +40,8 @@ export class RewardComponent implements OnInit {
     this.students$ = this.studentState.students$;
     this.totalStudent$ = this.studentState.totalStudent$;
     this.userView$ = this.viewState.view$;
+
+    this.onSearch();
   }
 
   public onSearch() {
