@@ -35,10 +35,10 @@
     
             <div class="mb-5 d-flex align-items-center" *ngFor="let item of questionsSelected;let i =index">
                 <label class="me-5">{{ i + 1}}</label>
-                <select [(value)]="item.value" (focus)="onFocusQuestions(i)" (change)="onChangeDropdownList(i,$event)" class="form-control form-control-solid">
-                    <option *ngFor="let option of item.dropdownList" [value]="option.value">{{ option.text
-                        }}</option>
-                </select>
+                <mat-select [(value)]="item.value" (focus)="onFocusQuestions(i)" (change)="onChangeDropdownList(i,$event)" class="form-control form-control-solid">
+                    <mat-option *ngFor="let option of item.dropdownList" [value]="option.value">{{ option.text
+                        }}</mat-option>
+                </mat-select>
                 <button title="Xóa" (click)="onRemoveQuestion(i)" class="btn btn-sm btn-danger btn-icon mx-5">
                     <span class="svg-icon svg-icon-2"
                         [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"></span>
