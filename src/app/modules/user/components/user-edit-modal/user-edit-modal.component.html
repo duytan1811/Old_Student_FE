@@ -11,7 +11,8 @@
         <input id="userName" formControlName="userName" type="text" class="form-control form-control-solid" />
       </div>
       <div class="col-3 d-flex align-items-center">
-        <mat-checkbox type="checkbox" color="primary" formControlName="isTeacher" class="me-2 pt-3"> Là giáo viên</mat-checkbox>
+        <mat-checkbox type="checkbox" color="primary" formControlName="isTeacher" class="me-2 pt-3"> Là giáo
+          viên</mat-checkbox>
       </div>
     </div>
 
@@ -19,10 +20,15 @@
       <div class="row">
         <div class="col-md-6">
           <label for="password" class="form-label required me-5">Mật khẩu</label>
+
         </div>
         <div class="col-md-6 text-end">
           <mat-checkbox (change)="onChangeDefaultPassword($event)" formControlName="isDefaultPassword"
             [color]="'primary'"> Mặc định</mat-checkbox>
+        </div>
+        <div class="col-12 mt-0 mb-2">
+          <small class="text-primary">Mật khẩu phải lớn hơn 8 ký tự bao gồm in hoa, ký tự thường, số và ký tự đặc
+            biết</small>
         </div>
       </div>
       <input *ngIf="!isDefaultPassword()" id="password" formControlName="password" type="text"
