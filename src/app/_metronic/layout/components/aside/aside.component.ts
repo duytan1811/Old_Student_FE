@@ -6,9 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/_metronic/layout/core/layout.service';
 import { DrawerComponent, MenuComponent, ScrollComponent, ToggleComponent } from 'src/app/_metronic/kt/components';
+import { UserModel } from 'src/app/shared/models/users/user.model';
+import { AuthState } from 'src/app/shared/state';
 
 @Component({
   selector: 'app-aside',
@@ -19,16 +21,18 @@ export class AsideComponent implements OnInit, OnDestroy {
   asideTheme: string = '';
   asideMinimize: boolean = false;
   asideMenuCSSClasses: string = '';
+  currenUser$: Observable<UserModel>;
   @ViewChild('ktAsideScroll', { static: true }) ktAsideScroll: ElementRef;
   private unsubscribe: Subscription[] = [];
 
-  constructor(private layout: LayoutService, private router: Router) {}
+  constructor(private layout: LayoutService, private router: Router,private authState:AuthState) {}
 
   ngOnInit(): void {
     this.asideTheme = this.layout.getProp('aside.theme') as string;
     this.asideMinimize = this.layout.getProp('aside.minimize') as boolean;
     this.asideMenuCSSClasses = this.layout.getStringCSSClasses('asideMenu');
     this.routingChanges();
+    this.currenUser$= this.authState.currentUser$;
   }
 
   routingChanges() {

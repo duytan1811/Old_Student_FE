@@ -1,10 +1,10 @@
 <div class="aside-logo flex-column-auto" id="kt_aside_logo">
   <ng-container *ngIf="asideTheme === 'dark'">
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" *ngIf="currenUser$| async as currentUser">
       <a routerLink="/forum">
         <img alt="Logo" class="h-25px logo" src="./assets/media/logos/logo.jpg" />
       </a>
-      <label class="mx-3 mt-5 h3 text-white"> Alumnus System</label>
+      <label class="mx-3 mt-5 h3 text-white"> {{ currentUser.fullName }}</label>
     </div>
   </ng-container>
 
