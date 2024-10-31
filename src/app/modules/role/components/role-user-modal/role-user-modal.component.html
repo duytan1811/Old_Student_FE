@@ -8,9 +8,9 @@
       <label class="mt-1">Tài khoản</label>
     </div>
     <div class="col-md-7">
-      <select #userSelect multiple="multiple" class="form-control form-control-sm form-control-solid">
-        <option *ngFor="let user of dropdownUsers$ | async " [value]="user.value">{{ user.text }}</option>
-      </select>
+      <mat-select #userSelect multiple="multiple" class="form-control form-control-sm form-control-solid">
+        <mat-option *ngFor="let user of dropdownUsers$ | async " [value]="user.value">{{ user.text }}</mat-option>
+      </mat-select>
     </div>
     <div class="col-md-3">
       <button (click)="onApply()" class="btn btn-sm btn-primary me-2">Áp dụng</button>
