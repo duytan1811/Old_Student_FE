@@ -57,7 +57,6 @@ export class SettingMajorEditModalComponent implements OnInit {
   private initFormGroup() {
     this.formGroup = this.fb.group({
       name: ['', [Validators.required]],
-      type: ['', [Validators.required]],
       status: [null],
     });
   }
