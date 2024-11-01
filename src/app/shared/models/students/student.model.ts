@@ -8,6 +8,7 @@ export class StudentModel extends BaseModel {
   birthday?: Date = new Date();
   gender?: number;
   avatar?: string = '';
+  avatarBase64?: string = '';
   email?: string = '';
   phone?: string = '';
   schoolYear?: number;

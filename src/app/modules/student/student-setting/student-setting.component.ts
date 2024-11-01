@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CommonConstants } from 'src/app/shared/constants/common-constants';
+import { convertFileToBase64 } from 'src/app/shared/helper/common.helper';
 import { SelectListItem } from 'src/app/shared/models/base/select-list-item.model';
 import { StudentModel } from 'src/app/shared/models/students/student.model';
 import * as state from 'src/app/shared/state';
@@ -16,12 +17,16 @@ export class StudentSettingComponent implements OnInit {
   public majorDropdownList$: Observable<Array<SelectListItem>>;
   public formGroup: FormGroup;
 
+  public imagePreview: any;
+  private fileName: string = '';
+  private fileBase64: string = '';
+
   constructor(
     private fb: FormBuilder,
     private dropDownState: state.DropdownState,
     private flashMessageState: state.FlashMessageState,
     private studentState: state.StudentState
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.majorDropdownList$ = this.dropDownState.dropdownMajors$;
@@ -29,8 +34,26 @@ export class StudentSettingComponent implements OnInit {
     this.initFormGroup();
   }
 
+  public async onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.fileName = file.name;
+      this.fileBase64 = await convertFileToBase64(file);
+      this.imagePreview = URL.createObjectURL(file);
+    }
+
+  }
+
+  public onRemoveAvatar() {
+    this.imagePreview = null;
+    this.fileName = '';
+    this.fileBase64 = '';
+  }
+
   public async onSave() {
     const data = this.formGroup.getRawValue();
+    data.fileBase64 = this.fileBase64;
+    data.fileName = this.fileName;
 
     const result = await this.studentState.update(this.student.id, data);
 

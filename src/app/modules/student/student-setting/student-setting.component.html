@@ -5,6 +5,38 @@
 </div>
 <form [formGroup]="formGroup">
     <div class="card-body p-9" [appConnectForm]="student">
+
+        <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-semibold fs-6">Ảnh đại diện</label>
+            <div class="col-lg-8">
+                <div class="image-input image-input-outline" data-kt-image-input="true">
+                    <div *ngIf="imagePreview == null" class="image-input-wrapper w-125px h-125px">
+                        <img class="image-input-wrapper w-125px h-125px" [src]=" student.avatarBase64 ? 'data:image/jpg;base64,'+student.avatarBase64 :'assets/media/avatars/blank.png'" alt="image" />
+                    </div>
+                        <div *ngIf="imagePreview" class="image-input-wrapper w-125px h-125px">
+                        <img class="image-input-wrapper w-125px h-125px" [src]="imagePreview | sanitizerUrl" alt=""></div>
+                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                        data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Thay đổi">
+                       <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/art/art008.svg'"></span>
+                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="onFileSelected($event)"/>
+                        <input type="hidden" name="avatar_remove" />
+                    </label>
+                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="ki-duotone ki-feather">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </span>
+                    <label *ngIf="imagePreview" class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                     data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Xóa" (click)="onRemoveAvatar()">
+                     <span class="svg-icon svg-icon2"  [inlineSVG]="'./assets/media/icons/duotune/arrows/arr088.svg'"></span>
+                    </label>
+                </div>
+                <div class="form-text">Cho phép định dạng: png, jpg, jpeg.</div>
+            </div>
+        </div>
+
         <div class="row mb-6">
             <label class="col-lg-4 col-form-label required fw-bold fs-6">Họ tên</label>
             <div class="col-lg-8">
@@ -38,8 +70,8 @@
                 <span>Ngày sinh</span>
             </label>
             <div class="col-lg-8 fv-row">
-                <input type="date" formControlName="birthdayFormat" class="form-control form-control-lg form-control-solid"
-                    placeholder="Ngày sinh" />
+                <input type="date" formControlName="birthdayFormat"
+                    class="form-control form-control-lg form-control-solid" placeholder="Ngày sinh" />
             </div>
         </div>
 

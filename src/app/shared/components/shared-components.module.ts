@@ -49,7 +49,8 @@ import { PipesModule } from '../pipes/pipes.module';
         DirectiveModule,
         MatExpansionModule,
         MatDialogModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        PipesModule
     ],
     providers: [
         
